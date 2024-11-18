@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Image from "@/node_modules/next/image";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,7 +29,94 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <header className="w-full ">
+          <div className="bg-black px-20 py-2 w-full h-[48px] flex items-center justify-between text-[16px]  ">
+            <div><span className="text-black">1</span></div>
+
+            <div className="flex gap-5">
+              <span className="text-gray-100">Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!</span>
+              <span className=" underline decoration-1 text-white">ShopNow</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-white">English</span>
+              <Image src="/images/DropDown.svg" alt="hello"  width={20} height={30} />
+            </div>
+          </div>
+
+
+          <div className="w-full flex justify-between pt-12 px-20 pb-5">
+              <h1 className="text-black text-[25px] font-bold">Exclusive</h1>
+              <div className="text-[17px] text-black flex gap-10">
+                <span>Home</span>
+                <span>Contact</span>
+                <span>About</span>
+                <span>Sign Up</span>
+              </div>
+              
+              <div className="flex gap-5">
+                <input className="w-[243px] h-[38px] p-5 rounded-lg outline-none  bg-gray-200" placeholder="What are you looking for?" type="text" />
+                <div className="flex gap-5">
+              <Image src="/images/like.svg" alt="hello"  width={32} height={30} />
+              <Image src="/images/corzina.svg" alt="hello"  width={32} height={30} />
+                </div>
+              </div>
+          </div>
+        </header>
         {children}
+        <footer className="h-[440px] w-full bg-black flex justify-between text-white text-[20px] p-20">
+
+          <div className="flex flex-col gap-4">
+            <span>Exclusive</span>
+            <span>Subscribe</span>
+            <span>Get 10% off your first order</span>
+            <input type="text" className="w-[217px] h-[48px] border-solid border-2 border-white rounded-lg p-5 bg-black" placeholder="Enter your email" />
+          </div>
+          
+          <div className="flex flex-col gap-4">
+            <span>Support</span>
+            <span>111 Bijoy sarani, Dhaka, <br />  DH 1515, Bangladesh.</span>
+            <span>exclusive@gmail.com</span>
+            <span>+88015-88888-9999</span>
+            </div>
+
+            <div className="flex flex-col gap-4">
+            <span>Account</span>
+            <span>My Account</span>
+            <span>Login / Register</span>
+            <span>Cart</span>
+            <span>Wishlist</span>
+            <span>Shop</span>
+            </div>
+
+            <div className="flex flex-col gap-4">
+            <span>Quick Link</span>
+            <span>Privacy Policy</span>
+            <span>Terms Of Use</span>
+            <span>FAQ</span>
+            <span>Contact</span>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <span>Download App</span>
+              <p className="text-gray-400">Save $3 with App New User Only</p>
+
+              <div className="flex gap-3">
+              <Image src="/images/code.svg" alt="hello"  width={90} height={30} />
+              <div className="flex flex-col gap-3">
+              <Image src="/images/google.svg" alt="hello"  width={115} height={30} />
+              <Image src="/images/ayfon.svg" alt="hello"  width={115} height={30} />
+              </div>
+              </div>
+
+              <div className="flex gap-8">
+              <Image src="/images/facebook.svg" alt="hello"  width={28} height={30} />
+              <Image src="/images/ttt.svg" alt="hello"  width={28} height={30} />
+              <Image src="/images/instagram.svg" alt="hello"  width={28} height={30} />
+              <Image src="/images/vvv.svg" alt="hello"  width={28} height={30} />
+              </div>
+            </div>
+
+        </footer>
       </body>
     </html>
   );
