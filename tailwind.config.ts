@@ -13,6 +13,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      boxShadow: {
+        'only-bottom': '0 1px 6px -1px rgba(0, 0, 0, 0.1)',
+      },
     },
   },
   plugins: [

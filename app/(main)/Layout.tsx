@@ -21,7 +21,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
                     </div>
                 </div>
-                <div className="w-full items-center flex justify-between pt-[3%] px-[7%] pb-5">
+                <div className="w-full items-center flex justify-between pt-[3%] pl-[7%] pr-[9%] pb-5">
                     <h1 className="text-black text-[26px] font-semibold">Exclusive</h1>
                     <div className="text-[17px] text-black flex gap-10">
                         <Link className='text-[18px] pb-0 active:border-b border-black' href="/">Home</Link>
@@ -30,12 +30,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         <Link className='text-[18px] pb-0 active:border-b border-black' href="/">Sign Up</Link>
                     </div>
 
-                    <div className="flex gap-[5%] pr-[10px]">
+                    <div className="flex gap-[5%]">
 
 
                         <div className="relative">
                             <input
-                                className="w-full px-[15px] text-[17px] py-[7px] pr-10 rounded-[5px] outline-none bg-gray-200 text-black placeholder-gray-500 shadow-md focus:ring-2 focus:ring-gray-300 transition-all duration-200"
+                                className="w-fit px-[15px] text-[17px] py-[7px] pr-10 rounded-[5px] outline-none bg-gray-200 text-black placeholder-gray-500 shadow-md focus:ring-2 focus:ring-gray-300 transition-all duration-200"
                                 placeholder="What are you looking for?"
                                 type="text"
                             />
@@ -47,13 +47,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                             </button>
                         </div>
 
-
-
-
-                        <div className="flex w-fit gap-[10%]">
-                            <Image src="/images/favourite.svg" alt="hello" width={32} height={30} />
-                            <Image src="/images/cart.svg" alt="hello" width={32} height={30} />
-                        </div>
+                        <Image src="/images/favourite.svg" alt="hello" width={32} height={30} />
+                        <Image src="/images/cart.svg" alt="hello" width={32} height={30} />
                     </div>
                 </div>
             </header>
