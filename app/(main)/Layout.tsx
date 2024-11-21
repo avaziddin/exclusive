@@ -9,19 +9,19 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
         <>
-            <header className='text-white relative'>
-                <div className="p-[10px] w-full bg-black flex  justify-center">
+            <header className='text-white relative border-b border-gray-300'>
+                <div className="py-[10px] px-[7%] w-full bg-black flex  justify-center">
                     <div className="flex">
 
                         <p className='text-center'>Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!</p>
-                        <select className='absolute right-10 bg-black bg-none border-none outline-none'>
+                        <select className='absolute right-[6%] bg-black bg-none border-none outline-none'>
                             <option className='p-[5px] border-none' value="">Русский</option>
                             <option className='p-[5px] border-none' value="">English</option>
                         </select>
 
                     </div>
                 </div>
-                <div className="w-full items-center flex justify-between pt-[40px] px-[130px] pb-5">
+                <div className="w-full items-center flex justify-between pt-[3%] px-[7%] pb-5">
                     <h1 className="text-black text-[26px] font-semibold">Exclusive</h1>
                     <div className="text-[17px] text-black flex gap-10">
                         <Link className='text-[18px] pb-0 active:border-b border-black' href="/">Home</Link>
@@ -30,12 +30,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         <Link className='text-[18px] pb-0 active:border-b border-black' href="/">Sign Up</Link>
                     </div>
 
-                    <div className="flex gap-5">
+                    <div className="flex gap-[5%] pr-[10px]">
 
 
-                        <div className="relative w-full">
+                        <div className="relative">
                             <input
-                                className="w-full px-[15px] text-[17px] py-[10px] pr-10 rounded-[5px] outline-none bg-gray-200 text-black placeholder-gray-500 shadow-md focus:ring-2 focus:ring-gray-300 transition-all duration-200"
+                                className="w-full px-[15px] text-[17px] py-[7px] pr-10 rounded-[5px] outline-none bg-gray-200 text-black placeholder-gray-500 shadow-md focus:ring-2 focus:ring-gray-300 transition-all duration-200"
                                 placeholder="What are you looking for?"
                                 type="text"
                             />
@@ -50,7 +50,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
 
 
-                        <div className="flex gap-5">
+                        <div className="flex w-fit gap-[10%]">
                             <Image src="/images/favourite.svg" alt="hello" width={32} height={30} />
                             <Image src="/images/cart.svg" alt="hello" width={32} height={30} />
                         </div>

@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { PluginAPI } from "tailwindcss/types/config";
 
 export default {
   content: [
@@ -14,5 +15,21 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }: PluginAPI) {
+      addUtilities(
+        {
+          '.scrollbar-hidden': {
+            overflow: 'auto', // Оставляем возможность прокрутки
+            scrollbarWidth: 'none', // Отключение скроллбара в Firefox
+            msOverflowStyle: 'none', // Отключение скроллбара в IE и Edge
+          },
+          '.scrollbar-hidden::-webkit-scrollbar': {
+            display: 'none', // Отключение скроллбара в Chrome, Safari и Edge
+          },
+        },
+        ['responsive', 'hover']
+      );
+    },
+  ],
 } satisfies Config;
