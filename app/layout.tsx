@@ -62,8 +62,9 @@ export default function RootLayout({
               </div>
           </div>
         </header>
+        <hr className="bg-gray-400 w-full"/>
         {children}
-        <footer className="h-[440px] w-full bg-black flex justify-between text-white text-[20px] p-20">
+        <footer className="h-[440px] w-full bg-black flex justify-between mt-20  text-white text-[20px] p-20">
 
           <div className="flex flex-col gap-4">
             <span>Exclusive</span>
