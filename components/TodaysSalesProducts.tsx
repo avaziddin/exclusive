@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import React, { useRef } from 'react';
 
-const data = Array(20).fill(1); // Пример данных
+const data = Array(23).fill(1); // Пример данных
 
 const TodaysSalesProducts: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -45,12 +45,12 @@ const TodaysSalesProducts: React.FC = () => {
             {/* Список товаров */}
             <div
                 ref={containerRef}
-                className="flex max-w-full overflow-x-auto scrollbar-hidden gap-[2%] scroll-smooth"
+                className="flex min-w-full overflow-x-auto scrollbar-hidden gap-[2%]"
             >
                 {data.map((_, index) => (
                     <div
                         key={index}
-                        className="whitespace-nowrap min-w-[21%] h-fit mb-[50px]"
+                        className="whitespace-nowrap w-[22%]  flex-shrink-0 h-fit mb-[50px]"
                     >
                         <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
                             <div className="mb-[10px] relative rounded-xl">
@@ -84,51 +84,54 @@ const TodaysSalesProducts: React.FC = () => {
                                     <span>Add To Cart</span>
                                 </div>
                             </div>
-                            <h1 className="text-black font-medium mb-[10px] px-[10px]">
-                                HAVIT HV-G92 Gamepad
-                            </h1>
-                            <div className="flex font-medium gap-[10px] px-[10px] mb-[10px]">
-                                <span className="text-red-500">$120</span>
-                                <span className="text-gray-400 line-through">
-                                    $160
-                                </span>
-                            </div>
-                            <div className="flex items-center px-[10px] gap-[7px]">
-                                <div className="flex items-center gap-[7px]">
-                                    <Image
-                                        src="/images/YellowStar.svg"
-                                        alt="rating"
-                                        width={20}
-                                        height={20}
-                                    />
-                                    <Image
-                                        src="/images/YellowStar.svg"
-                                        alt="rating"
-                                        width={20}
-                                        height={20}
-                                    />
-                                    <Image
-                                        src="/images/YellowStar.svg"
-                                        alt="rating"
-                                        width={20}
-                                        height={20}
-                                    />
-                                    <Image
-                                        src="/images/YellowStar.svg"
-                                        alt="rating"
-                                        width={20}
-                                        height={20}
-                                    />
-                                    <Image
-                                        src="/images/YellowStar.svg"
-                                        alt="rating"
-                                        width={20}
-                                        height={20}
-                                    />
+                            <div className="">
+                                <h1 className="text-black font-medium mb-[10px] px-[10px]">
+                                    HAVIT HV-G92 Gamepad
+                                </h1>
+                                <div className="flex font-medium gap-[10px] px-[10px] mb-[10px]">
+                                    <span className="text-red-500">$120</span>
+                                    <span className="text-gray-400 line-through">
+                                        $160
+                                    </span>
                                 </div>
-                                <span className="flex justify-center items-center text-gray-400">
-                                    (99)
-                                </span>
+                                <div className="flex items-center px-[10px] gap-[7px]">
+                                    <div className="flex items-center gap-[7px]">
+                                        <Image
+                                            src="/images/YellowStar.svg"
+                                            alt="rating"
+                                            width={20}
+                                            height={20}
+                                        />
+                                        <Image
+                                            src="/images/YellowStar.svg"
+                                            alt="rating"
+                                            width={20}
+                                            height={20}
+                                        />
+                                        <Image
+                                            src="/images/YellowStar.svg"
+                                            alt="rating"
+                                            width={20}
+                                            height={20}
+                                        />
+                                        <Image
+                                            src="/images/YellowStar.svg"
+                                            alt="rating"
+                                            width={20}
+                                            height={20}
+                                        />
+                                        <Image
+                                            src="/images/YellowStar.svg"
+                                            alt="rating"
+                                            width={20}
+                                            height={20}
+                                        />
+                                    </div>
+                                    <span className="flex justify-center items-center text-gray-400">
+                                        (99)
+                                    </span>
+                                </div>
+
                             </div>
                         </div>
                     </div>

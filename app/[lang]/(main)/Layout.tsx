@@ -50,7 +50,7 @@ const Layout: React.FC<LayoutProps> = ({ children, translation, lang }) => {
             <main className='mb-[200px]'>
                 {children}
             </main>
-            {/* <footer className="w-full fixed bottom-0  bg-black flex justify-between text-white text-[17px] px-[7%] py-[2%]">
+             <footer className="w-full bg-black flex justify-between text-white text-[17px] px-[7%] py-[2%]">
 
                 <div className="flex flex-col gap-4">
                     <Link href="#">
@@ -140,7 +140,7 @@ const Layout: React.FC<LayoutProps> = ({ children, translation, lang }) => {
                     </div>
                 </div>
 
-            </footer> */}
+            </footer> 
         </>
     );
 };

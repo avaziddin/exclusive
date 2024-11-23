@@ -10,7 +10,7 @@ interface TodaysSalesProps {
 const TodaysSales: React.FC<TodaysSalesProps> = ({translation}) => {
     return (
         <>
-            <div className="w-full h-[50vh] mb-[300px] px-[7%]">
+            <div className="w-full mb-[50px] px-[7%]">
                 <div className="flex gap-[10px] items-center ">
                     <div className="w-[20px] h-[40px] rounded-lg bg-red-500"></div>
                     <h1 className="text-[16px] font-semibold text-red-500">{translation.main.todays}</h1>
@@ -20,7 +20,7 @@ const TodaysSales: React.FC<TodaysSalesProps> = ({translation}) => {
                     <CountdownTimer translation={translation} targetDate={"2024-12-25T00:00:00"} />
                 </div>
                 <TodaysSalesProducts  />
-                <div className="flex justify-center">
+                <div className="flex border-b border-gray-300 pb-[70px] justify-center">
                     <Link href="/">
                         <span className='p-[20px] rounded-lg text-[17px] font-medium px-[50px] bg-red-500'>{translation.main.view}</span>
                     </Link>
