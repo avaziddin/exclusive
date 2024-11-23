@@ -1,0 +1,47 @@
+{
+  "header": {
+    "headerTitle": "Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!",
+    "headerTitleSec": "Exclusive",
+   "nav": {
+      "home": "Home",
+      "contact": "Contact",
+      "about": "About",
+      "sing_up": "Sing up"
+    },
+    "search": "What are you looking for?"
+  },
+  "acide": {
+    "cart": "Cart",
+    "sleng": "It's empty for now:"
+  },
+  "main": {
+    "noProduct" : "Currently, there are no available products in this category",
+    "add_button": "Add",
+    "gramm": "g"
+  },
+  "footer": {
+    "subscribe": "Subscribe",
+    "sale": "Get 10% off your first order",
+    "enter_email": "Enter youur email",
+    "support": "Support",
+    "adress": "Marhabo Wepro",
+    "account": "Account",
+    "my_account": "My Account",
+    "log_in": "Login / Register",
+    "cart": "Cart",
+    "wishlist": "Wishlist",
+    "shop": "Shop",
+    "quick_link": "Quick Link",
+    "privacy_policy": "Privacy Policy",
+    "terms": "Terms Of Use",
+    "FAQ": "FAQ",
+    "contact": "Contact",
+    "download_app": "Download App",
+    "save":"Save $3 with App New User Only"
+  },
+  "modal": {
+    "btn_add": "Add",
+    "composition": "Composition"
+  }
+
+}

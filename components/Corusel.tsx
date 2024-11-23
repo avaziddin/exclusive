@@ -8,6 +8,7 @@ const Slider: React.FC = () => {
     { id: 1, src: '/images/banner.svg', alt: 'Slide 1' },
     { id: 2, src: '/images/banner.svg', alt: 'Slide 2' },
     { id: 3, src: '/images/banner.svg', alt: 'Slide 3' },
+    { id: 4, src: '/images/banner.svg', alt: 'Slide 3' },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
