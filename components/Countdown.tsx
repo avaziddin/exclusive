@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 
 interface CountdownTimerProps {
     targetDate: string;
+    translation: any
 }
 
-const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
+const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate, translation }) => {
     const [timeLeft, setTimeLeft] = useState({
         days: 0,
         hours: 0,
@@ -38,7 +39,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
     return (
         <div className="countdown-timer flex gap-[7%] text-black">
             <div className="flex flex-col justify-center items-center">
-                <span className='text-[12px]'>Days</span>
+                <span className='text-[13px]'>{translation.main.days}</span>
                 <span className='text-[35px] font-semibold'>
                     {timeLeft.days}
                 </span>
@@ -48,7 +49,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
             <span className='text-[40px] font-semibold flex items-end text-red-500'>:</span>
 
             <div className="flex flex-col justify-center items-center">
-                <span className='text-[12px]'>Hours</span>
+                <span className='text-[13px]'>{translation.main.hours}</span>
                 <span className='text-[35px] font-semibold'>
                     {timeLeft.hours}
                 </span>
@@ -58,7 +59,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
 
 
             <div className="flex flex-col justify-center items-center">
-                <span className='text-[12px]'>Minutes</span>
+                <span className='text-[13px]'>{translation.main.minutes}</span>
                 <span className='text-[35px] font-semibold'>
                     {timeLeft.minutes}
                 </span>
@@ -68,7 +69,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
 
 
             <div className="flex flex-col justify-center items-center">
-                <span className='text-[12px]'>Seconds</span>
+                <span className='text-[13px]'>{translation.main.seconds}</span>
                 <span className='text-[35px] font-semibold'>
                     {timeLeft.seconds}
                 </span>

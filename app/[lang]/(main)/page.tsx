@@ -10,7 +10,7 @@ export default async function Home({ params: { lang }, }: { params: { lang: stri
     return (
         <Layout translation={translation} lang={lang}>
             <MainBanner/>
-           <TodaysSales/>
+           <TodaysSales translation={translation} />
         </Layout>
     )
 }

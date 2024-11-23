@@ -15,9 +15,14 @@
     "sleng": "It's empty for now:"
   },
   "main": {
-    "noProduct" : "Currently, there are no available products in this category",
-    "add_button": "Add",
-    "gramm": "g"
+    "todays" : "Today's",
+    "flash_sales": "Flash Sales",
+    "days":"Days",
+    "hours":"Hours",
+    "minutes":"Minutes",
+    "seconds":"Seconds",
+    "view": "View All Products",
+    "add_to_cart": "Add To Cart"
   },
   "footer": {
     "subscribe": "Subscribe",

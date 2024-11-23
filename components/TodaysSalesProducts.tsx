@@ -13,8 +13,8 @@ const TodaysSalesProducts: React.FC = () => {
         if (containerRef.current) {
             const scrollAmount =
                 direction === "left"
-                    ? -containerRef.current.clientWidth / 2
-                    : containerRef.current.clientWidth / 2;
+                    ? -containerRef.current.clientWidth / 1.5
+                    : containerRef.current.clientWidth / 1.5;
 
             containerRef.current.scrollBy({
                 left: scrollAmount,
@@ -29,14 +29,14 @@ const TodaysSalesProducts: React.FC = () => {
             <div className="">
                 <button
                     onClick={() => scroll("left")}
-                    className="absolute top-[-8%] right-10 z-10 mr-[20px] p-[10px] bg-gray-100 text-white w-[50px] h-[50px] rounded-full flex items-center justify-center transform -translate-y-1/2 hover:bg-gray-200"
+                    className="absolute top-[-8%] right-10 z-10 mr-[20px] p-[10px] bg-gray-100 text-white w-[45px] h-[45px] rounded-full flex items-center justify-center transform -translate-y-1/2 hover:bg-gray-200"
                 >
                     <Image src="/images/arrow.svg" alt='arrow' width={35} height={25} />
                 </button>
 
                 <button
                     onClick={() => scroll("right")}
-                    className="absolute top-[-8%] right-0 rotate-180 z-10 p-[10px] bg-gray-100 text-white w-[50px] h-[50px] rounded-full flex items-center justify-center transform -translate-y-1/2 hover:bg-gray-200"
+                    className="absolute top-[-8%] right-0 rotate-180 z-10 p-[10px] bg-gray-100 text-white w-[45px] h-[45px] rounded-full flex items-center justify-center transform -translate-y-1/2 hover:bg-gray-200"
                 >
                     <Image src="/images/arrow.svg" alt='arrow' width={35} height={25} />
                 </button>
@@ -52,8 +52,8 @@ const TodaysSalesProducts: React.FC = () => {
                         key={index}
                         className="whitespace-nowrap min-w-[21%] h-fit mb-[50px]"
                     >
-                        <div className="hover:bg-gray-100 rounded-lg w-fit pb-[20px] transition-[.1s]">
-                            <div className="mb-[10px] relative group rounded-xl">
+                        <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
+                            <div className="mb-[10px] relative rounded-xl">
                                 <div className="absolute cursor-pointer top-[5%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
                                     <Image
                                         src="/images/heart.svg"
@@ -62,7 +62,7 @@ const TodaysSalesProducts: React.FC = () => {
                                         height={20}
                                     />
                                 </div>
-                                <div className="absolute cursor-pointer top-[22%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
+                                <div className="absolute cursor-pointer top-[19%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
                                     <Image
                                         src="/images/eye.svg"
                                         alt="eye"
@@ -70,7 +70,7 @@ const TodaysSalesProducts: React.FC = () => {
                                         height={20}
                                     />
                                 </div>
-                                <div className="px-[10px] py-[3px] bg-red-500 rounded-xl absolute top-[2%] left-[2%]">
+                                <div className="px-[10px] py-[3px] bg-red-500 rounded-lg absolute top-[2%] left-[2%]">
                                     <span>-40%</span>
                                 </div>
                                 <Image
