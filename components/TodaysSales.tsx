@@ -13,7 +13,7 @@ const TodaysSales: React.FC<TodaysSalesProps> = ({translation}) => {
             <div className="w-full mb-[50px] px-[7%]">
                 <div className="flex gap-[10px] items-center ">
                     <div className="w-[20px] h-[40px] rounded-lg bg-red-500"></div>
-                    <h1 className="text-[16px] font-semibold text-red-500">{translation.main.todays}</h1>
+                    <h1 className="text-[17px] font-semibold text-red-500">{translation.main.todays}</h1>
                 </div>
                 <div className="flex gap-[5%] mb-[20px] items-end">
                     <span className="text-[36px] font-semibold text-black">{translation.main.flash_sales}</span>

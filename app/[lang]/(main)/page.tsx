@@ -15,7 +15,7 @@ export default async function Home({ params: { lang }, }: { params: { lang: stri
             <div className="px-[7%]">
                 <div className="flex mb-[20px] gap-[10px] items-center ">
                     <div className="w-[20px] h-[40px] rounded-lg bg-red-500"></div>
-                    <h1 className="text-[16px] font-semibold text-red-500">{translation.main.categoryes}</h1>
+                    <h1 className="text-[17px] font-semibold text-red-500">{translation.main.categoryes}</h1>
                 </div>
                 <h1 className="text-[36px] font-semibold text-black">{translation.main.browse}</h1>
                 <CategoryReload/>
