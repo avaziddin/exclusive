@@ -1,3 +1,4 @@
+import HeaderNav from '@/components/HeaderNav';
 import LanguageSwitcher from '@/components/LanguageSwitch';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -22,12 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ children, translation, lang }) => {
                 </div>
                 <div className="w-full items-center flex justify-between pt-[3%] pl-[7%] pr-[9%] pb-5">
                     <h1 className="text-black text-[26px] font-semibold">{translation.header.headerTitleSec}</h1>
-                    <div className="text-[17px] text-black flex gap-10">
-                        <Link className='text-[18px] pb-0 active:border-b border-black' href="/">{translation.header.nav.home}</Link>
-                        <Link className='text-[18px] pb-0 active:border-b border-black' href="/">{translation.header.nav.contact}</Link>
-                        <Link className='text-[18px] pb-0 active:border-b border-black' href="/">{translation.header.nav.about}</Link>
-                        <Link className='text-[18px] pb-0 active:border-b border-black' href="/">{translation.header.nav.sing_up}</Link>
-                    </div>
+                    <HeaderNav translation={translation} />
 
                     <div className="flex gap-[5%]">
 
@@ -51,8 +47,10 @@ const Layout: React.FC<LayoutProps> = ({ children, translation, lang }) => {
                     </div>
                 </div>
             </header>
-            {children}
-            <footer className=" w-full bg-black flex justify-between text-white text-[17px] px-[7%] py-[2%]">
+            <main className='mb-[200px]'>
+                {children}
+            </main>
+            {/* <footer className="w-full fixed bottom-0  bg-black flex justify-between text-white text-[17px] px-[7%] py-[2%]">
 
                 <div className="flex flex-col gap-4">
                     <Link href="#">
@@ -142,7 +140,7 @@ const Layout: React.FC<LayoutProps> = ({ children, translation, lang }) => {
                     </div>
                 </div>
 
-            </footer>
+            </footer> */}
         </>
     );
 };

@@ -1,6 +1,7 @@
 import MainBanner from "@/components/MainBanner"
 import Layout from "./Layout"
 import { getDictionary } from "../dictionaries";
+import TodaysSales from "@/components/TodaysSales";
 
 export default async function Home({ params: { lang }, }: { params: { lang: string };}) {
     const translation = await getDictionary(lang)
@@ -8,7 +9,8 @@ export default async function Home({ params: { lang }, }: { params: { lang: stri
 
     return (
         <Layout translation={translation} lang={lang}>
-            <MainBanner children={undefined}/>
+            <MainBanner/>
+           <TodaysSales/>
         </Layout>
     )
 }
