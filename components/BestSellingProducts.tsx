@@ -62,7 +62,7 @@ const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation }
                                     height={300}
                                 />
                                 <div className="w-full cursor-pointer flex justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 opacity-0 group-hover:opacity-100 transition">
-                                    <span>Add To Cart</span>
+                                    <span>{translation.main.add_to_cart}</span>
                                 </div>
                             </div>
                             <div className="">

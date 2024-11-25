@@ -8,23 +8,21 @@ const LanguageSwitcher = () => {
     const pathname = usePathname();
     const { locales, defaultLocale } = i18n;
 
+    console.log(locales);
+
+
     const changeLanguage = (newLocale: Locale) => {
-        // Получаем текущий путь без локали
         const segments = pathname.split('/').filter(Boolean);
 
-        // Удаляем текущую локаль, если она есть
         if (locales.includes(segments[0] as Locale)) {
             segments.shift();
         }
 
-        // Создаём новый путь с выбранной локалью
         const newPath = `/${newLocale}/${segments.join('/')}`;
 
-        // Перенаправляем на новый путь
         router.push(newPath || `/${newLocale}`);
     };
 
-    // Определяем текущую локаль
     const currentLocale = locales.includes(pathname.split('/')[1] as Locale)
         ? (pathname.split('/')[1] as Locale)
         : defaultLocale;
@@ -34,13 +32,26 @@ const LanguageSwitcher = () => {
         <select
             value={currentLocale}
             onChange={(e) => changeLanguage(e.target.value as Locale)}
-            className='absolute right-[6%] bg-black bg-none border-none outline-none'    >
-            {locales.map((locale) => (
-                <option className='absolute right-[6%] bg-black bg-none border-none outline-none' key={locale} value={locale}>
-                    {locale.toUpperCase()}
-                </option>
-            ))}
+            className="absolute right-[7%] w-[auto] bg-black bg-none border-none outline-none text-white "
+        >
+            <option
+                className="bg-black text-white border-none outline-none"
+                key={locales[0]}
+                value={locales[0]}
+            >
+                {locales[0] === "ru" ? "Русский" : ""} 
+            </option>
+
+            <option
+                className="bg-black text-white border-none outline-none"
+                key={locales[1]}
+                value={locales[1]}
+            >
+                {locales[1] === "en" ? "English" : ""} 
+            </option>
         </select>
+
+
     );
 };
 
