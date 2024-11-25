@@ -1,12 +1,15 @@
+import Slider from "@/components/Corusel";
 import Image from "next/image";
-import Signup from "./pages/Signup";
+import Layout from "./Layout";
 
 export default function Home() {
   return (
+    <>
+    <Layout>
      <div className="px-20">
       <div className="flex gap-20">
         <div className="text-[18px] flex flex-col gap-3.5 font-normal mt-9">
-          <div className="flex gap-14"><span>Woman’s Fashion</span><Image src="/images/yonba.svg" alt="hello" height={14} width={8} /> </div>
+          <div className="flex gap-14"><span>Woman’s Fashion</span><Imagec src="/images/yonba.svg" alt="hello" height={14} width={8} /> </div>
           <div className="flex gap-20"><span>Men’s Fashion</span> <Image src="/images/yonba.svg" alt="hello" height={14} width={8} /></div>
           <span>Electronics</span>
           <span>Home & Lifestyle</span>
@@ -18,10 +21,12 @@ export default function Home() {
         </div>
         <div className="h-[420px] w-[1.6px] bg-gray-200"></div>
         <div className="mt-9">
-        <Image  src="/images/plakat.svg" alt="hello" height={650} width={1000}  />
+          <Slider></Slider>
         </div>
       </div>
      </div>
+     </Layout>
+     </>
   );
 }
 
