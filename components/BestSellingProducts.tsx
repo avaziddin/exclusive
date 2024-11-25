@@ -1,56 +1,40 @@
-"use client"
+"use client";
 
-import Image from 'next/image';
-import React, { useRef } from 'react';
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+
+interface BestSellingProductsProps {
+    translation: any;
+}
 
 const data = Array(23).fill(1); // Пример данных
 
-const TodaysSalesProducts: React.FC = () => {
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    // Функция для прокрутки на 50% ширины контейнера
-    const scroll = (direction: "left" | "right") => {
-        if (containerRef.current) {
-            const scrollAmount =
-                direction === "left"
-                    ? -containerRef.current.clientWidth / 1.5
-                    : containerRef.current.clientWidth / 1.5;
-
-            containerRef.current.scrollBy({
-                left: scrollAmount,
-                behavior: "smooth",
-            });
-        }
-    };
+const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation }) => {
+    // Ограничиваем количество отображаемых товаров
+    const visibleProducts = data.slice(0, 4);
 
     return (
-        <div className="relative z-0">
-            {/* Кнопка "Влево" */}
-            <div className="">
-                <button
-                    onClick={() => scroll("left")}
-                    className="absolute top-[-15%] right-10 z-10 mr-[20px] p-[10px] bg-gray-100 text-white w-[45px] h-[45px] rounded-full flex items-center justify-center transform -translate-y-1/2 hover:bg-gray-200"
-                >
-                    <Image src="/images/arrow.svg" alt='arrow' width={35} height={25} />
-                </button>
-
-                <button
-                    onClick={() => scroll("right")}
-                    className="absolute top-[-15%] right-0 rotate-180 z-10 p-[10px] bg-gray-100 text-white w-[45px] h-[45px] rounded-full flex items-center justify-center transform -translate-y-1/2 hover:bg-gray-200"
-                >
-                    <Image src="/images/arrow.svg" alt='arrow' width={35} height={25} />
-                </button>
+        <div className="relative border-b mb-[50px] z-0">
+            <div className="mb-[50px]">
+                <div className="flex mb-[20px] gap-[10px] items-center">
+                    <div className="w-[20px] h-[40px] rounded-lg bg-red-500"></div>
+                    <h1 className="text-[17px] font-semibold text-red-500">{translation.main.this_month}</h1>
+                </div>
+                <div className="flex justify-between items-center gap-[5%] mb-[20px]">
+                    <span className="text-[36px] font-semibold text-black">{translation.main.best_selling}</span>
+                    <Link href="/">
+                        <span className="p-[20px] rounded-lg text-[17px] font-medium px-[50px] bg-red-500">
+                            {translation.main.view_all}
+                        </span>
+                    </Link>
+                </div>
             </div>
-
-            {/* Список товаров */}
-            <div
-                ref={containerRef}
-                className="flex min-w-full overflow-x-auto scrollbar-hidden gap-[2%]"
-            >
-                {data.map((_, index) => (
+            <div className="flex min-w-full overflow-x-auto scrollbar-hidden gap-[2%]">
+                {visibleProducts.map((_, index) => (
                     <div
                         key={index}
-                        className="whitespace-nowrap w-[23.5%]  flex-shrink-0 h-fit mb-[50px]"
+                        className="whitespace-nowrap w-[23.5%] flex-shrink-0 h-fit mb-[50px]"
                     >
                         <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
                             <div className="mb-[10px] relative rounded-xl">
@@ -70,9 +54,6 @@ const TodaysSalesProducts: React.FC = () => {
                                         height={20}
                                     />
                                 </div>
-                                <div className="px-[10px] py-[3px] bg-red-500 rounded-lg absolute top-[2%] left-[2%]">
-                                    <span>-40%</span>
-                                </div>
                                 <Image
                                     className="w-content h-[35vh] rounded-lg object-cover"
                                     src="/images/prod.svg"
@@ -90,9 +71,7 @@ const TodaysSalesProducts: React.FC = () => {
                                 </h1>
                                 <div className="flex font-medium gap-[10px] px-[10px] mb-[10px]">
                                     <span className="text-red-500">$120</span>
-                                    <span className="text-gray-400 line-through">
-                                        $160
-                                    </span>
+                                    <span className="text-gray-400 line-through">$160</span>
                                 </div>
                                 <div className="flex items-center px-[10px] gap-[7px]">
                                     <div className="flex items-center gap-[7px]">
@@ -131,17 +110,13 @@ const TodaysSalesProducts: React.FC = () => {
                                         (99)
                                     </span>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
-
-            {/* Кнопка "Вправо" */}
-
         </div>
     );
 };
 
-export default TodaysSalesProducts;
+export default BestSellingProducts;

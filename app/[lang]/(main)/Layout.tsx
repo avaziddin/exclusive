@@ -14,14 +14,14 @@ const Layout: React.FC<LayoutProps> = ({ children, translation, lang }) => {
     return (
         <>
             <header className='text-white relative border-b border-gray-300'>
-                <div className="py-[10px] px-[7%] w-full bg-black flex  justify-center">
+                <div className=" py-[10px] px-[7%] w-full bg-black flex  justify-center">
                     <div className="flex">
 
                         <p className='text-center'>{translation.header.headerTitle}</p>
                         <LanguageSwitcher />
                     </div>
                 </div>
-                <div className="w-full items-center flex justify-between pt-[3%] pl-[7%] pr-[9%] pb-5">
+                <div className=" bg-white w-full items-center flex justify-between pt-[3%] pl-[7%] pr-[9%] pb-5">
                     <h1 className="text-black text-[26px] font-semibold">{translation.header.headerTitleSec}</h1>
                     <HeaderNav translation={translation} />
 
@@ -47,7 +47,7 @@ const Layout: React.FC<LayoutProps> = ({ children, translation, lang }) => {
                     </div>
                 </div>
             </header>
-            <main className='mb-[200px]'>
+            <main className='px-[7%]'>
                 {children}
             </main>
              <footer className="w-full bg-black flex justify-between text-white text-[17px] px-[7%] py-[2%]">

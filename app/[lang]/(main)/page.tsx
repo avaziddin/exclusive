@@ -3,6 +3,7 @@ import Layout from "./Layout"
 import { getDictionary } from "../dictionaries";
 import TodaysSales from "@/components/TodaysSales";
 import CategoryReload from "@/components/CategoryReload";
+import BestSellingProducts from "@/components/BestSellingProducts";
 
 export default async function Home({ params: { lang }, }: { params: { lang: string }; }) {
     const translation = await getDictionary(lang)
@@ -12,14 +13,8 @@ export default async function Home({ params: { lang }, }: { params: { lang: stri
         <Layout translation={translation} lang={lang}>
             <MainBanner />
             <TodaysSales translation={translation} />
-            <div className="px-[7%]">
-                <div className="flex mb-[20px] gap-[10px] items-center ">
-                    <div className="w-[20px] h-[40px] rounded-lg bg-red-500"></div>
-                    <h1 className="text-[17px] font-semibold text-red-500">{translation.main.categoryes}</h1>
-                </div>
-                <h1 className="text-[36px] font-semibold text-black">{translation.main.browse}</h1>
-                <CategoryReload/>
-            </div>
+            <CategoryReload translation={translation} />
+            <BestSellingProducts translation={translation}/>
         </Layout>
     )
 }

@@ -22,9 +22,12 @@
     "minutes":"Minutes",
     "seconds":"Seconds",
     "view": "View All Products",
+    "view_all": "View All",
     "add_to_cart": "Add To Cart",
     "categoryes": "Categoryes",
-    "browse": "Browse By Category"
+    "browse": "Browse By Category",
+    "this_month": "This month",
+    "best_selling": "Best Selling Products"
   },
   "footer": {
     "subscribe": "Subscribe",
