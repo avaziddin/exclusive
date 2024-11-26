@@ -4,6 +4,7 @@ import { getDictionary } from "../dictionaries";
 import TodaysSales from "@/components/TodaysSales";
 import CategoryReload from "@/components/CategoryReload";
 import BestSellingProducts from "@/components/BestSellingProducts";
+import MainBannerStatick from "@/components/MainBannerStatick";
 
 export default async function Home({ params: { lang }, }: { params: { lang: string }; }) {
     const translation = await getDictionary(lang)
@@ -15,6 +16,7 @@ export default async function Home({ params: { lang }, }: { params: { lang: stri
             <TodaysSales translation={translation} />
             <CategoryReload translation={translation} />
             <BestSellingProducts translation={translation}/>
+            <MainBannerStatick translation={translation}/>
         </Layout>
     )
 }

@@ -15,7 +15,7 @@ const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation }
     const visibleProducts = data.slice(0, 4);
 
     return (
-        <div className="relative border-b mb-[50px] z-0">
+        <div className="relative mb-[100px] z-0">
             <div className="mb-[50px]">
                 <div className="flex mb-[20px] gap-[10px] items-center">
                     <div className="w-[20px] h-[40px] rounded-lg bg-red-500"></div>
