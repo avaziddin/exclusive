@@ -12,7 +12,7 @@ const data = Array(23).fill(1); // Пример данных
 
 const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation }) => {
     // Ограничиваем количество отображаемых товаров
-    const visibleProducts = data.slice(0, 4);
+    const visibleProducts = data.slice(0, 5);
 
     return (
         <div className="relative mb-[100px] z-0">
@@ -34,7 +34,7 @@ const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation }
                 {visibleProducts.map((_, index) => (
                     <div
                         key={index}
-                        className="whitespace-nowrap w-[23.5%] flex-shrink-0 h-fit mb-[50px]"
+                        className="whitespace-nowrap w-[18.4%] flex-shrink-0 h-fit mb-[50px]"
                     >
                         <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
                             <div className="mb-[10px] relative rounded-xl">
@@ -55,7 +55,7 @@ const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation }
                                     />
                                 </div>
                                 <Image
-                                    className="w-content h-[35vh] rounded-lg object-cover"
+                                    className="w-content h-[30vh] rounded-lg object-cover"
                                     src="/images/prod.svg"
                                     alt="product"
                                     width={500}

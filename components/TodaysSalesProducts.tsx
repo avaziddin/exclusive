@@ -51,7 +51,7 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation }
         {data.map((_, index) => (
           <div
             key={index}
-            className="whitespace-nowrap w-[23.5%] flex-shrink-0 h-fit mb-[50px]"
+            className="whitespace-nowrap w-[18.4%] flex-shrink-0 h-fit mb-[50px]"
           >
             <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
               <div className="mb-[10px] relative rounded-xl">
@@ -75,7 +75,7 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation }
                   <span>-40%</span>
                 </div>
                 <Image
-                  className="w-content h-[35vh] rounded-lg object-cover"
+                  className="w-content h-[30vh] rounded-lg object-cover"
                   src="/images/prod.svg"
                   alt="product"
                   width={500}

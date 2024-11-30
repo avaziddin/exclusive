@@ -29,8 +29,18 @@
     "this_month": "В этом месяце",
     "best_selling": "Самые продаваемые продукты",
     "our_products": "Наши продукты",
-    "explore_our_products": "Изучите наши продукты"
-
+    "explore_our_products": "Изучите наши продукты",
+    "featured": "Рекомендуемое",
+    "new_arrival": "Новинка",
+    "playStation": "PlayStation 5",
+    "BlackandWhite": "Черно-белая версия PS5 поступает в продажу.",
+    "shop_now": "Купить сейчас",
+    "womens": "Женские коллекции",
+    "womens_p": "Рекомендуемые женские коллекции которые создают особую атмосферу.",
+    "speakers": "Колонки",
+    "speakers_p": "Беспроводные колонки Amazon",
+    "gucci": "Парфюм",
+    "gucci_p": "GUCCI INTENSE OUD EDP"
   },
   "footer": {
     "subscribe": "Подписаться",

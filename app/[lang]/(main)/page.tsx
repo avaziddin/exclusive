@@ -6,6 +6,7 @@ import CategoryReload from "@/components/CategoryReload";
 import BestSellingProducts from "@/components/BestSellingProducts";
 import MainBannerStatick from "@/components/MainBannerStatick";
 import ExploreProduct from "@/components/ExploreProducts";
+import NewArial from "@/components/NewArial";
 
 export default async function Home({ params: { lang }, }: { params: { lang: string }; }) {
     const translation = await getDictionary(lang)
@@ -19,6 +20,7 @@ export default async function Home({ params: { lang }, }: { params: { lang: stri
             <BestSellingProducts translation={translation}/>
             <MainBannerStatick translation={translation}/>
             <ExploreProduct translation={translation}/>
+            <NewArial translation={translation}/>
         </Layout>
     )
 }

@@ -2,7 +2,7 @@
   "header": {
     "headerTitle": "Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!",
     "headerTitleSec": "Exclusive",
-   "nav": {
+    "nav": {
       "home": "Home",
       "contact": "Contact",
       "about": "About",
@@ -15,12 +15,12 @@
     "sleng": "It's empty for now:"
   },
   "main": {
-    "todays" : "Today's",
+    "todays": "Today's",
     "flash_sales": "Flash Sales",
-    "days":"Days",
-    "hours":"Hours",
-    "minutes":"Minutes",
-    "seconds":"Seconds",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds",
     "view": "View All Products",
     "view_all": "View All",
     "add_to_cart": "Add To Cart",
@@ -29,7 +29,18 @@
     "this_month": "This month",
     "best_selling": "Best Selling Products",
     "our_products": "Our Products",
-    "explore_our_products": "Explore Our Products"
+    "explore_our_products": "Explore Our Products",
+    "featured": "Featured",
+    "new_arrival": "New Arrival",
+    "playStation": "PlayStation 5",
+    "BlackandWhite": "Black and White version of the PS5 coming out on sale.",
+    "shop_now": "Shop Now",
+    "womens": "Women’s Collections",
+    "womens_p": "Featured woman collections that give you another vibe.",
+    "speakers": "Speakers",
+    "speakers_p": "Amazon wireless speakers",
+    "gucci": "Perfume",
+    "gucci_p": "GUCCI INTENSE OUD EDP"
   },
   "footer": {
     "subscribe": "Subscribe",
@@ -49,11 +60,10 @@
     "FAQ": "FAQ",
     "contact": "Contact",
     "download_app": "Download App",
-    "save":"Save $3 with App New User Only"
+    "save": "Save $3 with App New User Only"
   },
   "modal": {
     "btn_add": "Add",
     "composition": "Composition"
   }
-
 }

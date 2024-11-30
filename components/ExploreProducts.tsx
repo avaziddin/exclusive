@@ -27,7 +27,7 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
   };
 
   return (
-    <div className="relative mb-[100px] pb-[40px] z-0">
+    <div className="relative mb-[50px] pb-[40px] z-0">
       {/* Кнопки прокрутки */}
       <div className="mb-[30px]">
         <div className="flex mb-[20px] gap-[10px] items-center">
@@ -57,12 +57,12 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
       <div
         ref={containerRef}
         className="grid grid-rows-2 mb-[50px] grid-flow-col gap-[2%] overflow-x-auto scrollbar-hidden"
-        style={{ gridAutoColumns: "minmax(365px, 1fr)" }}
+        style={{ gridAutoColumns: "calc((100% - (2% * 4)) / 5)" }} // 6 элементов + 5 gap
       >
         {data.map((_, index) => (
           <div
             key={index}
-            className="whitespace-nowrap w-[365px] flex-shrink-0 h-fit mb-[20px]"
+            className="hover:bg-gray-100 group rounded-lg w-fit pb-[10px] transition-[.1s]"
           >
             <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[10px] transition-[.1s]">
               <div className="mb-[10px] relative rounded-xl">
@@ -84,7 +84,7 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
                 </div>
 
                 <Image
-                  className="w-content h-[35vh] rounded-lg object-cover"
+                  className="w-conent h-[30vh] rounded-lg object-cover"
                   src="/images/prod.svg"
                   alt="product"
                   width={500}
