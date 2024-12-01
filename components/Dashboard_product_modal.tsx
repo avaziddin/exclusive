@@ -1,16 +1,14 @@
 "use client"
 
+import Image from 'next/image';
 import React, { ReactNode, useEffect, useState } from 'react';
 
 interface ModalProps {
-    Button: ReactNode;
     id: string;
     type: string;
 }
 
-const DashboardProductModal: React.FC<ModalProps> = ({ Button, id, type }) => {
-
-    const [isOpen, setIsOpen] = useState(false);
+const DashboardProductModal: React.FC<ModalProps> = ({ id, type }) => {
 
     const deleteItem = async () => {
         try {
@@ -33,42 +31,13 @@ const DashboardProductModal: React.FC<ModalProps> = ({ Button, id, type }) => {
         }
     };
 
-    const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        if (e.target === e.currentTarget) {
-            setIsOpen(false);  // Закрытие модалки при клике на фон
-        }
-    };
-
-
-
     return (
-        <div className="flex">
-            {isOpen && (
-                <div>
-                    {/* Фон, покрывающий весь экран */}
-                    <div
-                        onClick={handleOutsideClick}
-                        className="fixed inset-0 z-40">
-                    </div>
+        <div
+            className="flex items-center gap-[20px] mr-[5%]"
+        >
+            <button onClick={deleteItem} className="rounded active:scale-[.9] transition-[.2s] hover:bg-gray-200 "><Image src="/images/delete.svg" alt="delete" width={23} height={10} /></button>
+            <button className="rounded hover:bg-gray-200 "><Image src="/images/change.svg" alt="change" width={23} height={10} /></button>
 
-                    {/* Модалка */}
-                    <div
-                        className="flex gap-1 relative rounded p-2 mt-5 flex-col justify-start items-start bg-gray-100 z-50"
-                    >
-                        <button onClick={deleteItem} className="rounded hover:bg-gray-200 p-1">Delete</button>
-
-                        <button className="rounded hover:bg-gray-200 p-1">Change</button>
-
-
-                    </div>
-                </div>
-            )}
-
-            <div
-                onClick={() => setIsOpen(!isOpen)}  // Открытие/закрытие модалки
-            >
-                {Button}
-            </div>
         </div>
     );
 };

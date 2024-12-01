@@ -19,16 +19,16 @@ export default async function Page({ params: { lang } }: PageProps) {
 
   return (
     <>
-      <div className="w-full bg-background">
+      <div className="w-full pl-[1%] bg-background">
 
 
           <ModalCategory button={
-            <button className='p-[5px] pr-[10px] pl-[10px] absolute top-[1%] right-[1%] active:scale-[.9] transition-[.2s] active:bg-orange-400  bg-orange-500 rounded-[15px]'>
+            <button className='p-[10px] pr-[15px] pl-[15px] font-medium text-[18px] absolute top-[1%] right-[1%] active:scale-[.9] transition-[.2s] active:bg-gray-300 text-black  bg-gray-200 rounded-[15px]'>
               Add product
             </button>
           } />
 
-        <div className="z-[1] flex flex-wrap gap-[1%] pt-[5%] p-[1%]">
+        <div className="z-[1] flex flex-wrap gap-[1%] pt-[5%] pr-[1%]">
           {data.map((item: Category) => {
             return <Category_Dashboard item={item} />
           })}

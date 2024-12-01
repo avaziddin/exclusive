@@ -14,15 +14,6 @@ const data = [
     { id: 1, name: 'Phones', darkImage: '/images/phone_black.svg', lightImage: '/images/phone_white.svg' },
     { id: 2, name: 'Phones', darkImage: '/images/phone_black.svg', lightImage: '/images/phone_white.svg' },
     { id: 3, name: 'Phones', darkImage: '/images/phone_black.svg', lightImage: '/images/phone_white.svg' },
-    { id: 3, name: 'Phones', darkImage: '/images/phone_black.svg', lightImage: '/images/phone_white.svg' },
-    { id: 3, name: 'Phones', darkImage: '/images/phone_black.svg', lightImage: '/images/phone_white.svg' },
-    { id: 3, name: 'Phones', darkImage: '/images/phone_black.svg', lightImage: '/images/phone_white.svg' },
-    { id: 3, name: 'Phones', darkImage: '/images/phone_black.svg', lightImage: '/images/phone_white.svg' },
-    { id: 3, name: 'Phones', darkImage: '/images/phone_black.svg', lightImage: '/images/phone_white.svg' },
-    { id: 3, name: 'Phones', darkImage: '/images/phone_black.svg', lightImage: '/images/phone_white.svg' },
-    { id: 3, name: 'Phones', darkImage: '/images/phone_black.svg', lightImage: '/images/phone_white.svg' },
-    { id: 3, name: 'Phones', darkImage: '/images/phone_black.svg', lightImage: '/images/phone_white.svg' },
-    { id: 3, name: 'Phones', darkImage: '/images/phone_black.svg', lightImage: '/images/phone_white.svg' },
 ]
 
 // Функция для переключения фона
@@ -81,7 +72,7 @@ const CategoryReload: React.FC<CategoryesProps> = ({ translation }) => {
             >
                 {data.map((item, index) => (
                     <div
-                        key={index}
+                        key={item.id}
                         className="whitespace-nowrap group flex gap-[5%] active:bg-red-500 flex-shrink-0 transition-[.2s] justify-center flex-col items-center w-[15%] h-[20vh] bg-white border rounded-lg border-gray-300 mb-[50px]"
                     >
                         <Image className='w-[35%] object-cover h-fit' src='/images/phone_black.svg' alt="phone" width={70} height={100} />

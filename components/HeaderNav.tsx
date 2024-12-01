@@ -13,7 +13,7 @@ const HeaderNav = ({ translation }: { translation: any }) => {
   
 
   return (
-    <div className="text-[17px] text-black flex gap-10">
+    <div className="text-[17px] text-black flex whitespace-nowrap gap-10">
       <Link
         className={`text-[18px] pb-0 border-black ${pathWithoutLanguage === '' ? 'border-b' : ''}`}
         href="/"

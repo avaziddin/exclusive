@@ -9,16 +9,16 @@ const Category_Dashboard: React.FC<Props> = ({ item }) => {
 
     return (
 
-        <> <div className="relative mb-[1%] flex overflow-hidden bg-gray-200 gap-[10px] text-black w-[32%] h-[15vh] rounded-md"> 
-            <div className="w-full flex justify-between p-[1%]">
+        <> <div className="relative mb-[1%] flex overflow-hidden bg-gray-200 gap-[10px] text-black w-full rounded-md"> 
+            <div className="w-full flex justify-between relative">
                 
-                <div className="flex flex-col gap-[2px]">
-                    <p className='text-[18px]'><span className='font-bold'>ru:</span> {item.titles.ru}</p>
-                    <p className='text-[18px]'><span className='font-bold'>en:</span> {item.titles.en}</p>
+                <div key={item._id} className="flex gap-[30px] p-[1%]">
+                    <p className='text-[18px]'><span className='font-bold'>Russian:</span> {item.titles.ru}</p>
+                    <p className='text-[18px]'><span className='font-bold'>English:</span> {item.titles.en}</p>
                 </div>
 
-                <div className="flex-col justify-end relative">
-                    <DashboardProductModal type={"category"} id={item._id} Button={<button >•••</button>} />
+                <div className="right-[1%] top-[30%] absolute">
+                    <DashboardProductModal type={"category"} id={item._id}/>
                 </div>
 
             </div>        </div>

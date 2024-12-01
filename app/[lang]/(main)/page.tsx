@@ -11,6 +11,7 @@ import Advantages from "@/components/Advantages";
 import ScrollToTop from "@/components/ScrollToTop";
 
 export default async function Home({ params: { lang }, }: { params: { lang: string }; }) {
+    
     const translation = await getDictionary(lang)
     const res = await fetch("http://localhost:3000/api/category", { cache: "no-cache" });
     const { data } = await res.json();
