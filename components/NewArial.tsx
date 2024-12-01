@@ -9,7 +9,7 @@ interface NewArialProps {
 const NewArial: React.FC<NewArialProps> = ({ translation }) => {
     return (
         <>
-            <div className="mb-[50px]">
+            <div className="mb-[150px]">
                 <div className="flex gap-[10px] mb-[20px] items-center ">
                     <div className="w-[20px] h-[40px] rounded-lg bg-red-500"></div>
                     <h1 className="text-[17px] font-semibold text-red-500">{translation.main.featured}</h1>

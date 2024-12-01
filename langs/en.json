@@ -40,7 +40,19 @@
     "speakers": "Speakers",
     "speakers_p": "Amazon wireless speakers",
     "gucci": "Perfume",
-    "gucci_p": "GUCCI INTENSE OUD EDP"
+    "gucci_p": "GUCCI INTENSE OUD EDP",
+    "delivery": {
+      "main": "FREE AND FAST DELIVERY",
+      "p": "Free delivery for all orders over $140"
+    },
+    "headphones": {
+      "main": "24/7 CUSTOMER SERVICE",
+      "p": "Friendly 24/7 customer support"
+    },
+    "security": {
+      "main": "MONEY BACK GUARANTEE",
+      "p": "We reurn money within 30 days"
+    }
   },
   "footer": {
     "subscribe": "Subscribe",

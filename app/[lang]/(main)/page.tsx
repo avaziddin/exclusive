@@ -7,6 +7,7 @@ import BestSellingProducts from "@/components/BestSellingProducts";
 import MainBannerStatick from "@/components/MainBannerStatick";
 import ExploreProduct from "@/components/ExploreProducts";
 import NewArial from "@/components/NewArial";
+import Advantages from "@/components/Advantages";
 
 export default async function Home({ params: { lang }, }: { params: { lang: string }; }) {
     const translation = await getDictionary(lang)
@@ -21,6 +22,7 @@ export default async function Home({ params: { lang }, }: { params: { lang: stri
             <MainBannerStatick translation={translation}/>
             <ExploreProduct translation={translation}/>
             <NewArial translation={translation}/>
+            <Advantages translation={translation}/>
         </Layout>
     )
 }
