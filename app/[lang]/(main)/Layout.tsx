@@ -10,6 +10,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children, translation }) => {
   return (
     <>
+  
       <header className="w-full">
         <div className="bg-black px-20 py-2 w-full h-[48px] flex items-center justify-center text-[16px]">
           <div>
@@ -29,16 +30,16 @@ const Layout: React.FC<LayoutProps> = ({ children, translation }) => {
           <h1 className="text-black text-[25px] font-bold">Exclusive</h1>
 
           <div className="text-[17px] text-black flex gap-10">
-            <span>Home</span>
-            <span>Contact</span>
-            <span>About</span>
-            <span>Sign Up</span>
+            <span>{translation.header.nav.home}</span>
+            <span>{translation.header.nav.contact}</span>
+            <span>{translation.header.nav.about}</span>
+            <span>{translation.header.nav.sing_up}</span>
           </div>
 
           <div className="flex gap-5">
             <input
               className="w-[243px] h-[38px] p-5 rounded-lg outline-none bg-gray-200"
-              placeholder="What are you looking for?"
+              placeholder={translation.header.search}
               type="text"
             />
             <div className="flex gap-5">
@@ -51,49 +52,50 @@ const Layout: React.FC<LayoutProps> = ({ children, translation }) => {
 
       <hr className="bg-gray-400 w-full" />
 
-      {/* Main Content */}
+      <main className='px-20'>
       {children}
+      </main>
 
       {/* Footer Section */}
       <footer className="h-[440px] w-full bg-black flex justify-between mt-20 text-white text-[20px] p-20">
         <div className="flex flex-col gap-4">
           <span>Exclusive</span>
-          <span>Subscribe</span>
-          <span>Get 10% off your first order</span>
+          <span>{translation.footer.subscribe}</span>
+          <span>{translation.footer.sale}</span>
           <input
             type="text"
             className="w-[217px] h-[48px] border-solid border-2 border-white rounded-lg p-5 bg-black"
-            placeholder="Enter your email"
+            placeholder={translation.footer.enter_email}
           />
         </div>
 
         <div className="flex flex-col gap-4">
-          <span>Support</span>
-          <span>111 Bijoy Sarani, Dhaka, <br /> DH 1515, Bangladesh.</span>
+          <span>{translation.footer.support}</span>
+          <span>{translation.footer.adress}</span>
           <span>exclusive@gmail.com</span>
           <span>+88015-88888-9999</span>
         </div>
 
         <div className="flex flex-col gap-4">
-          <span>Account</span>
-          <span>My Account</span>
-          <span>Login / Register</span>
-          <span>Cart</span>
-          <span>Wishlist</span>
-          <span>Shop</span>
+          <span>{translation.footer.account}</span>
+          <span>{translation.footer.my_account}</span>
+          <span>{translation.footer.log_in}</span>
+          <span>{translation.footer.cart}</span>
+          <span>{translation.footer.wishlist}</span>
+          <span>{translation.footer.shop}</span>
         </div>
 
         <div className="flex flex-col gap-4">
-          <span>Quick Links</span>
-          <span>Privacy Policy</span>
-          <span>Terms of Use</span>
-          <span>FAQ</span>
-          <span>Contact</span>
+          <span>{translation.footer.quick_link}</span>
+          <span>{translation.footer.privacy_policy}</span>
+          <span>{translation.footer.terms}</span>
+          <span>{translation.footer.faq}</span>
+          <span>{translation.footer.contact}</span>
         </div>
 
         <div className="flex flex-col gap-4">
-          <span>Download App</span>
-          <p className="text-gray-400">Save $3 with App - New User Only</p>
+          <span>{translation.footer.download_app}</span>
+          <p className="text-gray-400">{translation.footer.save}</p>
           <div className="flex gap-3">
             <Image src="/images/code.svg" alt="QR Code" width={90} height={30} />
             <div className="flex flex-col gap-3">
@@ -109,6 +111,7 @@ const Layout: React.FC<LayoutProps> = ({ children, translation }) => {
           </div>
         </div>
       </footer>
+    
     </>
   );
 };

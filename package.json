@@ -11,9 +11,10 @@
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.8",
     "negotiator": "^1.0.0",
-    "next": "15.0.3",
+    "next": "^15.0.3",
     "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106"
+    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "server": "^1.0.41"
   },
   "devDependencies": {
     "@types/negotiator": "^0.6.3",
