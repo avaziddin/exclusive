@@ -44,7 +44,7 @@ const Slider: React.FC = () => {
             }}
           >
             {data.map((item: any) => (
-              <div key={item._id} className="w-full flex-shrink-0">
+              <div key={item._id} className="w-full flex-shrink-0 ">
                 <Image
                   width={800}
                   height={400}

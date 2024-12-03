@@ -34,7 +34,7 @@ const Dashboard: React.FC<DashboardProps> = ({ children }: { children: ReactNode
                                 <button
                                     className={`w-full mb-[2%] flex items-center  justify-start py-[3%] px-[5%] gap-[5%] rounded-md  transition-[.3s] ${pathName === "/ru/admin/dashboard" ? "bg-gray-200 text-black" : ""}`}
                                 >
-                                    <Image src="/images/dashboard.svg" alt="dashboard" width={25} height={25} />
+                                    <Image src="/images/dashboard.svg" alt="dashboard" width={30} height={25} />
                                     Dashboard
                                 </button>
                             </Link>
@@ -42,16 +42,32 @@ const Dashboard: React.FC<DashboardProps> = ({ children }: { children: ReactNode
                                 <button
                                     className={`w-full mb-[2%] flex items-center  justify-start py-[3%] px-[5%] gap-[5%] rounded-md  transition-[.3s] ${pathName === "/ru/admin/dashboard/category" ? "bg-gray-200 text-black" : ""}`}
                                 >
-                                    <Image src="/images/category.svg" alt="category" width={25} height={25} />
-                                    Category
+                                    <Image src="/images/category.svg" alt="category" width={30} height={25} />
+                                    Categoryes
                                 </button>
                             </Link>
                             <Link href="/admin/dashboard/slider">
                                 <button
                                     className={`w-full flex items-center  justify-start py-[3%] px-[5%] gap-[5%] rounded-md  transition-[.3s] ${pathName === "/ru/admin/dashboard/slider" ? "bg-gray-200 text-black" : ""}`}
                                 >
-                                    <Image src="/images/slider.svg" alt="category" width={25} height={25} />
+                                    <Image src="/images/slider.svg" alt="category" width={30} height={25} />
                                     Slider
+                                </button>
+                            </Link>
+                            <Link href="/admin/dashboard/countdown">
+                                <button
+                                    className={`w-full flex items-center  justify-start py-[3%] px-[5%] gap-[5%] rounded-md  transition-[.3s] ${pathName === "/ru/admin/dashboard/countdown" ? "bg-gray-200 text-black" : ""}`}
+                                >
+                                    <Image src="/images/countdown.svg" alt="countdown" width={30} height={25} />
+                                    Countdown
+                                </button>
+                            </Link>
+                            <Link href="/admin/dashboard/product">
+                                <button
+                                    className={`w-full flex items-center  justify-start py-[3%] px-[5%] gap-[5%] rounded-md  transition-[.3s] ${pathName === "/ru/admin/dashboard/sales" ? "bg-gray-200 text-black" : ""}`}
+                                >
+                                    <Image src="/images/product.svg" alt="sales" width={30} height={30} />
+                                    Products
                                 </button>
                             </Link>
                         </div>

@@ -28,7 +28,7 @@ export default async function Page({ params: { lang } }: PageProps) {
             </button>
           } />
 
-        <div className="z-[1] flex flex-wrap gap-[1%] pt-[5%] pr-[1%]">
+        <div className="z-[1] flex flex-wrap gap-[1%] pt-[7%] pr-[1%]">
           {data.map((item: Category) => {
             return <Category_Dashboard item={item} />
           })}

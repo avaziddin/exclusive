@@ -14,7 +14,7 @@ const CategoryMainbennerReload: React.FC<CategoryMainbennerReloadProps> = async 
     return (
         <>
             {data.map((item : any) => {
-              return  <Link key={item._id} className='py-[5px] text-[18px] px-[5px] rounded-b-none rounded-[5px] active:bg-gray-100 transition-[.2s]' href={"/"}>{item.titles[lang]}</Link>
+              return  <Link key={item._id} className='py-[5px] text-[20px] px-[5px] rounded-b-none rounded-[5px] active:bg-gray-100 transition-[.2s]' href={"/"}>{item.titles[lang]}</Link>
 
             })}
 

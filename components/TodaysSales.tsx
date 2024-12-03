@@ -17,7 +17,7 @@ const TodaysSales: React.FC<TodaysSalesProps> = ({translation}) => {
                 </div>
                 <div className="flex gap-[5%] mb-[40px] items-end">
                     <span className="text-[36px] font-semibold text-black">{translation.main.flash_sales}</span>
-                    <CountdownTimer translation={translation} targetDate={"2024-12-25T00:00:00"} />
+                    <CountdownTimer translation={translation} targetDate={"2024-12-30T00:00:00"} />
                 </div>
                 <TodaysSalesProducts  translation={translation}/>
                 <div className="flex border-b border-gray-300 pb-[70px] justify-center">
