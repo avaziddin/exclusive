@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import React, { ReactNode, useEffect, useState } from 'react';
+import Modal_product_patch from './Modal_product_patch';
 
 interface ModalProps {
     id: string;
@@ -36,7 +37,10 @@ const DashboardProductModal: React.FC<ModalProps> = ({ id, type }) => {
             className="flex items-center gap-[20px] mr-[5%]"
         >
             <button onClick={deleteItem} className="rounded active:scale-[.9] transition-[.2s] hover:bg-gray-200 "><Image src="/images/delete.svg" alt="delete" width={23} height={10} /></button>
-            <button className="rounded hover:bg-gray-200 "><Image src="/images/change.svg" alt="change" width={23} height={10} /></button>
+            
+
+            <Modal_product_patch type={type} id={id} Button={<button className="rounded hover:bg-gray-200 "><Image src="/images/change.svg" alt="change" width={23} height={10} /></button>} />
+
 
         </div>
     );

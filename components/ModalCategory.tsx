@@ -73,18 +73,18 @@ const ModalCategory: React.FC<Props> = ({ button }) => {
                         background: "rgba(0,0,0,0.5)",
                         backdropFilter: "blur(10px)"
                     }}>
-                    <form className="w-[50%] relative flex-col p-[1%] pt-[2%] space-y-6 text-black bg-background rounded-[20px] shadow-md" onSubmit={onSubmit}>
+                    <form className="w-[35%] relative flex-col p-[1%] pt-[2%] space-y-6 text-black bg-background rounded-[20px] shadow-md" onSubmit={onSubmit}>
 
-                        <button className='absolute top-[2%] right-[1%] ' onClick={() => setIsOpend(false)}>
-                            <Image src="/images/close_white.svg" alt="closebtn" width={25} height={25} />
+                        <button className='absolute top-[5%] right-[2%] ' onClick={() => setIsOpend(false)}>
+                            <Image src="/images/close.svg" alt="closebtn" width={30} height={30} />
                         </button>
 
-                        <div className="flex flex-col gap-[1vh]">
+                        <div className="flex flex-col gap-[20px]">
 
                             <div>
-                                <label className="block mb-2 text-white text-[18px] font-medium" htmlFor="image">Category</label>
+                                <label className="block mb-2 text-black text-[18px] font-medium" htmlFor="image">Category</label>
                                 <input
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                     type="text"
                                     name="title"
                                     id="title"
@@ -94,9 +94,9 @@ const ModalCategory: React.FC<Props> = ({ button }) => {
                             </div>
 
                             <div>
-                                <label className="block mb-2 text-white text-[18px] font-medium" htmlFor="image">Category ru</label>
+                                <label className="block mb-2 text-black  text-[18px] font-medium" htmlFor="image">Category ru</label>
                                 <input
-                                    className="w-full px-4 py-2 border  border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    className="w-full px-4 py-2 border  border-gray-300 rounded-md outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                     type="text"
                                     name="title_ru"
                                     id="title_ru"
@@ -109,7 +109,7 @@ const ModalCategory: React.FC<Props> = ({ button }) => {
 
 
                         <button
-                            className="w-full text-[18px] px-4 py-2 text-white bg-orange-500 rounded-md hover:bg-orange-600 active:scale-[.9] transition-[.2s] "
+                            className="w-full text-[18px] px-4 py-2 text-black bg-gray-200 rounded-md hover:bg-gray-300 active:scale-[.9] transition-[.2s] "
                             type="submit"
                         >
                             Add Product

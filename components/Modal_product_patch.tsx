@@ -1,0 +1,351 @@
+"use client";
+
+import { useAppContext } from '@/context';
+import Image from 'next/image';
+import React, { ReactNode, useEffect, useState } from 'react';
+
+interface Item {
+    alt: string;
+    titles: {
+        en: string;
+        ru: string;
+    };
+    description: {
+        en: string;
+        ru: string;
+    };
+    composition: {
+        en: string;
+        ru: string;
+    };
+    weight?: string; // Укажите тип по необходимости
+    price?: number; // Укажите тип по необходимости
+    category?: string;
+    image?: any
+}
+
+interface ModalProps {
+    Button: ReactNode;
+    id: string;
+    type: any
+}
+
+const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
+    const [item, setItem] = useState<Item | null>(null);
+    const [isOpend, setIsOpend] = useState(false);
+    const [file, setFile] = useState<File | null>(null);
+    const [image, setImage] = useState<string | null>(null);
+    const [message, setMessage] = useState("");
+    const { dataCat } = useAppContext();
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files) {
+            setFile(event.target.files[0]);
+            setImage(URL.createObjectURL(event.target.files[0]));
+        }
+    };
+
+
+    async function onSubmit(e: any) {
+        e.preventDefault();
+    
+        try {
+            const product: any = {};
+            const fm = new FormData(e.target);
+    
+            fm.forEach((val: any, key: any) => (product[key] = val));
+    
+            // Если файл для загрузки присутствует
+            if (file) {
+                const formData = new FormData();
+                formData.append("image", file);
+    
+                const response = await fetch("/api/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+    
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    setMessage(errorData.message || "Image upload failed");
+                    return;
+                }
+    
+                const data = await response.json();
+                product.image = data.data; // Устанавливаем URL загруженного изображения
+            } else {
+                // Если файла нет, используем текущее изображение
+                product.image = item?.image || null;
+            }
+    
+            // Формируем другие данные
+            product.titles = product.title_ru && product.title
+                ? {
+                    ru: product.title_ru,
+                    en: product.title,
+                }
+                : item?.titles;
+    
+            product.composition = product.composition_ru && product.composition
+                ? {
+                    ru: product.composition_ru,
+                    en: product.composition,
+                }
+                : item?.composition;
+    
+            product.description = product.description_ru && product.description
+                ? {
+                    ru: product.description_ru,
+                    en: product.description,
+                }
+                : item?.description;
+    
+            // Выполняем запрос PATCH
+            const res = await fetch(`http://localhost:3000/api/${type}/${id}`, {
+                method: "PATCH",
+                body: JSON.stringify(product),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+    
+            if (res.status === 200 || res.status === 201) {
+                alert("Success");
+            } else {
+                const errorData = await res.json();
+                setMessage(errorData.message || "Update failed");
+            }
+        } catch (error) {
+            setMessage("Something went wrong: " + message);
+        }
+    }
+    
+
+
+    useEffect(() => {
+        const fetchItem = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/${type}/${id}`, {
+                    method: "GET",
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch item");
+                }
+
+                const { data } = await response.json();
+                setItem(data);
+                console.log("Item fetched:", data);
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred while fetching data");
+            }
+        };
+
+        if (id) {
+            fetchItem();
+        }
+    }, [id]);
+
+    useEffect(() => {
+        if (isOpend) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpend]);
+
+    return (
+        <>
+            <div onClick={() => setIsOpend(true)}>
+                {Button}
+            </div>
+
+            {isOpend && (
+                <div
+                    className="fixed top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center"
+                    style={{
+                        background: "rgba(0,0,0,0.5)",
+                        backdropFilter: "blur(10px)"
+                    }}>
+                    <form onSubmit={onSubmit} className="w-[50%] p-[1%] text-black relative h-fit bg-background rounded-[20px]">
+                        <button onClick={() => setIsOpend(false)} type="button">
+                            <Image className='absolute top-[2%] right-[1%]' src="/images/close.svg" alt="closebtn" width={25} height={25} />
+                        </button>
+
+                        <div className="flex w-full gap-[5%]">
+                            <div className="w-full flex flex-col gap-[2%]">
+                                {item?.image &&
+                                    <div className="w-full">
+                                        <label
+                                            className="block mb-2 text-sm font-medium text-white"
+                                            htmlFor="image"
+                                        >
+                                            Upload Image
+                                        </label>
+                                        <input
+                                            className="w-full  text-black  bg-gray-50 border border-gray-300 rounded-lg cursor-pointer file:w-[40%] file:p-3 file:mr-4 file:h-full file:rounded-lg file:border-0 file:font-medium file:bg-gray-300 file:text-black hover:file:bg-blue-100"
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleFileChange}
+                                            name="image"
+                                            id="image"
+                                        />
+                                    </div>
+
+                                }
+
+                                {
+                                    item?.titles &&
+                                    <div className="">
+
+                                        <div className='w-full'>
+                                            <label className="block mb-2 text-sm font-medium text-white" htmlFor="title">Title</label>
+                                            <input
+                                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                type="text"
+                                                name="title"
+                                                id="title"
+                                                placeholder="Enter product title"
+                                                defaultValue={item?.titles?.en || ''}
+                                            />
+                                        </div>
+
+                                        <div className='w-full'>
+                                            <label className="block mb-2 text-sm font-medium text-white" htmlFor="title_ru">Title RU</label>
+                                            <input
+                                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                type="text"
+                                                name="title_ru"
+                                                id="title_ru"
+                                                placeholder="Напишите название продукта"
+                                                defaultValue={item?.titles?.ru || ''}
+                                            />
+                                        </div>
+
+                                    </div>
+                                }
+
+                                {
+                                    item?.alt &&
+                                    <div className='w-full'>
+                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="title">Title</label>
+                                        <input
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                            type="text"
+                                            name="alt"
+                                            id="alt"
+                                            placeholder="Enter product title"
+                                            defaultValue={item?.alt || ''}
+                                        />
+                                    </div>
+
+                                }
+
+                                {item?.weight &&
+                                    <div className='w-full'>
+                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="weight">Weight (g)</label>
+                                        <input
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                            type="text"
+                                            name="weight"
+                                            id="weight"
+                                            placeholder="Enter product weight"
+                                            defaultValue={item?.weight || ''}
+                                        />
+                                    </div>
+                                }
+
+                                {item?.price &&
+                                    <div className='w-full'>
+                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="price">Price ($)</label>
+                                        <input
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                            type="text"
+                                            name="price"
+                                            id="price"
+                                            placeholder="Enter product price"
+                                            defaultValue={item?.price || ''}
+                                        />
+                                    </div>
+                                }
+                            </div>
+
+                            {item?.composition &&
+                                <div className="w-full">
+
+                                    <div className='w-full'>
+                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="composition">Composition</label>
+                                        <textarea
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                            name="composition"
+                                            id="composition"
+                                            placeholder="Enter product composition"
+                                            defaultValue={item?.composition?.en || ''}
+                                        />
+                                    </div>
+
+                                    <div className='w-full'>
+                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="composition_ru">Composition RU</label>
+                                        <textarea
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                            name="composition_ru"
+                                            id="composition_ru"
+                                            placeholder="Напишите состав продукта"
+                                            defaultValue={item?.composition?.ru || ''}
+                                        />
+                                    </div>
+
+                                    <div className='w-full'>
+                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Description</label>
+                                        <textarea
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                            name="description"
+                                            id="description"
+                                            placeholder="Enter product description"
+                                            defaultValue={item?.description?.en || ''}
+                                        />
+                                    </div>
+
+                                    <div className='w-full'>
+                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="description_ru">Description RU</label>
+                                        <textarea
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                            name="description_ru"
+                                            id="description_ru"
+                                            placeholder="Напишите описание продукта"
+                                            defaultValue={item?.description?.ru || ''}
+                                        />
+                                    </div>
+
+                                    <div className='w-full'>
+                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Category</label>
+                                        <select className='w-full px-4 outline-none py-2 border border-gray-300 rounded-md' name="category" id="category">
+                                            {dataCat.map((item: any) => (
+                                                <option key={item._id} value={item.title}>{item.title}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+
+                        <button
+                            className="w-full mt-[20px] px-4 py-2 bg-gray-200 text-black font-medium rounded-md active:scale-[.9] transition-[.2s] hover:bg-gray-300 border-none focus:no-underline outline-none"
+                            type="submit"
+                        >
+                            Add Product
+                        </button>
+                    </form>
+                </div>
+            )}
+        </>
+    );
+};
+
+export default Modal_product_patch;
