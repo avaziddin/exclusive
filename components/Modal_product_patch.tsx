@@ -30,6 +30,19 @@ interface ModalProps {
     type: any
 }
 
+const colorObjects = [
+    { _id: "1", color: "rgba(255, 0, 0, 1)", name: { en: "Red", ru: "Красный" } },
+    { _id: "2", color: "rgba(0, 255, 0, 1)", name: { en: "Green", ru: "Зеленый" } },
+    { _id: "3", color: "rgba(0, 0, 255, 1)", name: { en: "Blue", ru: "Синий" } },
+    { _id: "4", color: "rgba(255, 255, 0, 1)", name: { en: "Yellow", ru: "Желтый" } },
+    { _id: "5", color: "rgba(255, 165, 0, 1)", name: { en: "Orange", ru: "Оранжевый" } },
+    { _id: "6", color: "rgba(255, 255, 255, 1)", name: { en: "White", ru: "Белый" } },
+    { _id: "7", color: "rgba(255, 192, 203, 1)", name: { en: "Pink", ru: "Розовый" } },
+    { _id: "8", color: "rgba(139, 69, 19, 1)", name: { en: "Brown", ru: "Коричневый" } },
+    { _id: "9", color: "rgba(128, 128, 128, 1)", name: { en: "Gray", ru: "Серый" } },
+    { _id: "10", color: "rgba(0, 0, 0, 1)", name: { en: "Black", ru: "Черный" } },
+];
+
 const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
     const [item, setItem] = useState<Item | null>(null);
     const [isOpend, setIsOpend] = useState(false);
@@ -48,36 +61,36 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
 
     async function onSubmit(e: any) {
         e.preventDefault();
-    
+
         try {
             const product: any = {};
             const fm = new FormData(e.target);
-    
+
             fm.forEach((val: any, key: any) => (product[key] = val));
-    
+
             // Если файл для загрузки присутствует
             if (file) {
                 const formData = new FormData();
                 formData.append("image", file);
-    
+
                 const response = await fetch("/api/upload", {
                     method: "POST",
                     body: formData,
                 });
-    
+
                 if (!response.ok) {
                     const errorData = await response.json();
                     setMessage(errorData.message || "Image upload failed");
                     return;
                 }
-    
+
                 const data = await response.json();
                 product.image = data.data; // Устанавливаем URL загруженного изображения
             } else {
                 // Если файла нет, используем текущее изображение
                 product.image = item?.image || null;
             }
-    
+
             // Формируем другие данные
             product.titles = product.title_ru && product.title
                 ? {
@@ -85,21 +98,21 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                     en: product.title,
                 }
                 : item?.titles;
-    
+
             product.composition = product.composition_ru && product.composition
                 ? {
                     ru: product.composition_ru,
                     en: product.composition,
                 }
                 : item?.composition;
-    
+
             product.description = product.description_ru && product.description
                 ? {
                     ru: product.description_ru,
                     en: product.description,
                 }
                 : item?.description;
-    
+
             // Выполняем запрос PATCH
             const res = await fetch(`http://localhost:3000/api/${type}/${id}`, {
                 method: "PATCH",
@@ -108,7 +121,7 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                     "Content-Type": "application/json",
                 },
             });
-    
+
             if (res.status === 200 || res.status === 201) {
                 alert("Success");
             } else {
@@ -119,7 +132,7 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
             setMessage("Something went wrong: " + message);
         }
     }
-    
+
 
 
     useEffect(() => {
@@ -273,6 +286,20 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                                         />
                                     </div>
                                 }
+
+                                {/* {item?.&&
+                                    <div className='w-full'>
+                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="price">Price ($)</label>
+                                        <input
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                            type="text"
+                                            name="price"
+                                            id="price"
+                                            placeholder="Enter product price"
+                                            defaultValue={item?.price || ''}
+                                        />
+                                    </div>
+                                } */}
                             </div>
 
                             {item?.composition &&

@@ -10,70 +10,75 @@ type Props = {
 
 const Modal_dashboard: React.FC<Props> = ({ button }) => {
 
-    const options = [
-        { value: "option1", label: "Option 1" },
-        { value: "option2", label: "Option 2" },
-        { value: "option3", label: "Option 3" },
-        { value: "option4", label: "Option 4" },
-        { value: "option5", label: "Option 5" },
-        { value: "option6", label: "Option 6" },
-        { value: "option7", label: "Option 7" },
-        { value: "option8", label: "Option 8" },
-        { value: "option9", label: "Option 9" },
-        { value: "option10", label: "Option 10" },
+    const colorObjects = [
+        { _id: "1", color: "rgba(255, 0, 0, 1)", name: { en: "Red", ru: "Красный" } },
+        { _id: "2", color: "rgba(0, 255, 0, 1)", name: { en: "Green", ru: "Зеленый" } },
+        { _id: "3", color: "rgba(0, 0, 255, 1)", name: { en: "Blue", ru: "Синий" } },
+        { _id: "4", color: "rgba(255, 255, 0, 1)", name: { en: "Yellow", ru: "Желтый" } },
+        { _id: "5", color: "rgba(255, 165, 0, 1)", name: { en: "Orange", ru: "Оранжевый" } },
+        { _id: "6", color: "rgba(255, 255, 255, 1)", name: { en: "White", ru: "Белый" } },
+        { _id: "7", color: "rgba(255, 192, 203, 1)", name: { en: "Pink", ru: "Розовый" } },
+        { _id: "8", color: "rgba(139, 69, 19, 1)", name: { en: "Brown", ru: "Коричневый" } },
+        { _id: "9", color: "rgba(128, 128, 128, 1)", name: { en: "Gray", ru: "Серый" } },
+        { _id: "10", color: "rgba(0, 0, 0, 1)", name: { en: "Black", ru: "Черный" } },
     ];
-    const [file, setFile] = useState<File | null>(null);
-    const [image, setImage] = useState<string | null>(null);
+
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+    const [file, setFile] = useState<File[]>([]);  // Обновленный тип состояния
+    const [image, setImage] = useState<string[]>([]);  // Массив строк для URL
     const [message, setMessage] = useState("");
     const { dataCat } = useAppContext();
+    const [selectedItems, setSelectedItems] = useState<any[]>([]);
 
-    console.log(dataCat);
 
+    const toggleItem = (item: any) => {
+        setSelectedItems((prev) => {
+            // Проверяем, есть ли элемент уже в массиве
+            if (prev.find((i) => i._id === item._id)) {
+                // Если есть, удаляем его
+                return prev.filter((i) => i._id !== item._id);
+            } else {
+                // Если нет, добавляем
+                return [...prev, item];
+            }
+        });
+
+
+    };
+    console.log(selectedItems);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
-            setFile(event.target.files[0]);
-            setImage(URL.createObjectURL(event.target.files[0]));
+            // Преобразуем FileList в массив
+            const filesArray = Array.from(event.target.files);
+    
+            // Проверяем, чтобы не было выбрано больше 5 файлов
+            if (filesArray.length + selectedFiles.length === 5) {
+                setFile(filesArray);  // Сохраняем массив файлов в состоянии
+                setImage(filesArray.map(file => URL.createObjectURL(file)));  // Генерируем превью
+            } else {
+                alert("You must upload 5 photos");
+            }
         }
     };
-
-    /* const [select1Value, setSelect1Value] = useState<string | null>(null);
-    const [select2Value, setSelect2Value] = useState<string | null>(null);
-    const [select3Value, setSelect3Value] = useState<string | null>(null);
-    const [select4Value, setSelect4Value] = useState<string | null>(null);
-    const [select5Value, setSelect5Value] = useState<string | null>(null);
-
-    const handleSelect1Change = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelect1Value(event.target.value);
-    };
-
-    const handleSelect2Change = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelect2Value(event.target.value);
-    };
-
-    const handleSelect3Change = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelect1Value(event.target.value);
-    };
-
-    const handleSelect4Change = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelect1Value(event.target.value);
-    };
-
-    const handleSelect5Change = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelect2Value(event.target.value);
-    }; */
-
+    
+    console.log(file);
+    
     async function onSubmit(e: any) {
         e.preventDefault()
 
 
-        if (!file) {
+        if (file.length === 0) {
             setMessage("Please select a file.");
+            alert("Please select 5 files.");
             return;
         }
-
+    
         const formData = new FormData();
-        formData.append("image", file);
+        // Добавляем каждый файл из массива в FormData
+        file.forEach((fileItem) => {
+            formData.append("image", fileItem);  // Пример добавления
+        });
 
         try {
             const response = await fetch("/api/upload", {
@@ -85,11 +90,15 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
             if (!response.ok) {
                 const errorData = await response.json();
                 setMessage(errorData.message || "Image upload failed");
+                alert("Image upload failed")
                 return;
             }
 
             const data = await response.json();
             setMessage(data.message);
+
+            console.log(data.data);
+            
 
 
 
@@ -105,6 +114,8 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                 ru: product.title_ru,
                 en: product.title,
             }
+
+            product.colors = selectedItems
 
             product.description = {
                 ru: product.description_ru,
@@ -164,9 +175,9 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                         background: "rgba(0,0,0,0.5)",
                         backdropFilter: "blur(10px)"
                     }}>
-                    <form className=" w-[50%] p-[1%] text-black relative  h-fit bg-background rounded-[20px]" onSubmit={onSubmit}>
+                    <form className=" w-[70%] p-[1%] text-black relative  h-fit  bg-background rounded-[20px]" onSubmit={onSubmit}>
 
-                        <button onClick={() => setIsOpend(false)}>
+                        <button onClick={() => { setIsOpend(false); setSelectedItems([]) }}>
                             <Image className='absolute top-[2%] right-[1%] ' src="/images/close.svg" alt="closebtn" width={25} height={25} />
                         </button>
 
@@ -188,9 +199,19 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                                         onChange={handleFileChange}
                                         name="image"
                                         id="image"
+                                        multiple
                                         required
                                     />
                                 </div>
+
+
+
+
+                            </div>
+
+                            <div className="w-full">
+
+
 
                                 <div className='w-full'>
                                     <label className="block mb-2 text-sm font-medium text-white" htmlFor="title">Title</label>
@@ -216,11 +237,11 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                                     />
                                 </div>
 
-                                <div className='w-full'>
+                                <div className='w-full mb-[20px]'>
                                     <label className="block mb-2 text-sm font-medium text-white" htmlFor="price">Price</label>
                                     <input
                                         className="w-full px-4 outline-none py-2 border border-gray-300 rounded-md"
-                                        type="text"
+                                        type="number"
                                         name="price"
                                         id="price"
                                         placeholder="Enter product price"
@@ -228,7 +249,18 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                                     />
                                 </div>
 
-
+                                <div className="flex flex-col flex-wrap h-[20vh] bg-gray-100 p-[10px] rounded-lg pt-[15px] w-full pl-[10px] gap-[15px]">
+                                    {colorObjects.map((item) => (
+                                        <div
+                                            key={item._id}
+                                            onClick={() => toggleItem(item)}
+                                            className={`w-[25px] border ${selectedItems.some(selectedItem => selectedItem._id === item._id) ? 'outline-[2px] outline outline-offset-4 outline-blue-500' : ''} h-[25px] rounded-[50%]`}
+                                            style={{ background: item.color }}
+                                        >
+                                            <p className='pl-[30px]'>{item.name.en}</p>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
 
                             <div className="w-full">
@@ -237,7 +269,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                                     <label className="block mb-2 text-sm font-medium text-white" htmlFor="price">discound</label>
                                     <input
                                         className="w-full px-4 outline-none py-2 border border-gray-300 rounded-md"
-                                        type="text"
+                                        type="number"
                                         name="discound"
                                         id="discound"
                                         placeholder="Enter product discound"
@@ -290,7 +322,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                         </div>
 
                         <button
-                            className="w-full mt-[20px] px-4 py-2 bg-orange-600 text-white rounded-md active:scale-[.9] transition-[.2s] hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-600"
+                            className="w-full mt-[20px] px-4 py-2 bg-gray-200 text-black rounded-md active:scale-[.9] transition-[.2s] hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-600"
                             type="submit"
                         >
                             Add Product

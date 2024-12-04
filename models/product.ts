@@ -15,7 +15,7 @@ type Translation = {
     price: number;
     discound: number;
     images: string[];
-    colors: string;
+    colors: [];
     category: string;
     type: string;
   };

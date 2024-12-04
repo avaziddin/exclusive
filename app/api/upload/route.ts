@@ -7,48 +7,52 @@ const uploadDir = path.join(process.cwd(), "public/images");
 
 // Убедись, что директория для загрузки существует
 async function ensureUploadDirExists() {
-	try {
-		await fs.access(uploadDir);
-	} catch {
-		await fs.mkdir(uploadDir, { recursive: true });
-	}
+  try {
+    await fs.access(uploadDir);
+  } catch {
+    await fs.mkdir(uploadDir, { recursive: true });
+  }
 }
 
 export async function POST(req: Request) {
-	try {
-		await ensureUploadDirExists();
+  try {
+    await ensureUploadDirExists();
 
-		// Получаем данные из запроса
-		const formData = await req.formData();
-		const file = formData.get("image") as File;
+    // Получаем данные из запроса
+    const formData = await req.formData();
+    const files = formData.getAll("image") as File[];
 
-		if (!file) {
-			return NextResponse.json(
-				{ success: false, message: "No file uploaded" },
-				{ status: 400 }
-			);
-		}
+    if (files.length === 0) {
+      return NextResponse.json(
+        { success: false, message: "No files uploaded" },
+        { status: 400 }
+      );
+    }
 
-		// Формируем путь для сохранения файла
-		const fileName = file.name.split(" ").join("");
-		const filePath = path.join(uploadDir, fileName);
+    const filePaths: string[] = [];
 
-		// Сохраняем файл на диск
-		const buffer = await file.arrayBuffer();
-		await fs.writeFile(filePath, Buffer.from(buffer));
+    // Проходим по всем файлам и сохраняем их на диск
+    for (const file of files) {
+      const fileName = file.name.split(" ").join(""); // Убираем пробелы из имени файла
+      const filePath = path.join(uploadDir, fileName);
 
-		// Возвращаем относительный путь для доступа к файлу через браузер
-		const pathName = `/images/${fileName}`;
+      // Сохраняем файл на диск
+      const buffer = await file.arrayBuffer();
+      await fs.writeFile(filePath, Buffer.from(buffer));
 
-		return NextResponse.json({
-			success: true,
-			message: "Image uploaded successfully",
-			data: pathName,
-		});
-	} catch (error: any) {
-		return NextResponse.json(
-			{ success: false, message: error.message },
-			{ status: 500 }
-		);
-	}
+      // Добавляем путь для доступа к файлу
+      filePaths.push(`/images/${fileName}`);
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: "Images uploaded successfully",
+      data: filePaths,
+    });
+  } catch (error: any) {
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
+  }
 }
