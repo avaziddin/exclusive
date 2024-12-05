@@ -18,4 +18,5 @@ type Translation = {
     colors: [];
     category: string;
     type: string;
+    rating: number;
   };

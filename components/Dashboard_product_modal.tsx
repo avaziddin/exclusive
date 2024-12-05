@@ -39,7 +39,7 @@ const DashboardProductModal: React.FC<ModalProps> = ({ id, type }) => {
             <button onClick={deleteItem} className="rounded active:scale-[.9] transition-[.2s]"><Image src="/images/delete.svg" alt="delete" width={23} height={10} /></button>
             
 
-            <Modal_product_patch type={type} id={id} Button={<button className="rounded pt-[10px]"><Image src="/images/change.svg" alt="change" width={23} height={10} /></button>} />
+            <Modal_product_patch type={type} id={id} Button={<button className="rounded flex items-center"><Image src="/images/change.svg" alt="change" width={23} height={10} /></button>} />
 
 
         </div>

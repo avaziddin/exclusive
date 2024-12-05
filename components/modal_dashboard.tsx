@@ -51,7 +51,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
         if (event.target.files) {
             // Преобразуем FileList в массив
             const filesArray = Array.from(event.target.files);
-    
+
             // Проверяем, чтобы не было выбрано больше 5 файлов
             if (filesArray.length + selectedFiles.length === 5) {
                 setFile(filesArray);  // Сохраняем массив файлов в состоянии
@@ -61,9 +61,9 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
             }
         }
     };
-    
+
     console.log(file);
-    
+
     async function onSubmit(e: any) {
         e.preventDefault()
 
@@ -73,7 +73,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
             alert("Please select 5 files.");
             return;
         }
-    
+
         const formData = new FormData();
         // Добавляем каждый файл из массива в FormData
         file.forEach((fileItem) => {
@@ -98,7 +98,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
             setMessage(data.message);
 
             console.log(data.data);
-            
+
 
 
 
@@ -207,9 +207,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
 
 
 
-                            </div>
 
-                            <div className="w-full">
 
 
 
@@ -226,7 +224,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                                 </div>
 
                                 <div className='w-full'>
-                                    <label className="block mb-2 text-sm font-medium text-white" htmlFor="title">Title_ru</label>
+                                    <label className="block text-sm font-medium text-white" htmlFor="title">Title_ru</label>
                                     <input
                                         className="w-full px-4 outline-none py-2 border border-gray-300 rounded-md"
                                         type="text"
@@ -237,7 +235,26 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                                     />
                                 </div>
 
-                                <div className='w-full mb-[20px]'>
+
+
+                                <div className="flex flex-col flex-wrap h-[20vh] mt-[20px] bg-gray-100 p-[10px] rounded-lg pt-[15px] w-full pl-[10px] gap-[25px]">
+                                    {colorObjects.map((item) => (
+                                        <div
+                                            key={item._id}
+                                            onClick={() => toggleItem(item)}
+                                            className={`w-[25px] border ${selectedItems.some(selectedItem => selectedItem._id === item._id) ? 'outline-[2px] outline outline-offset-4 outline-green-500' : ''} h-[25px] rounded-[50%]`}
+                                            style={{ background: item.color }}
+                                        >
+                                            <p className='pl-[40px]'>{item.name.en}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="w-full">
+
+
+                                <div className='w-full'>
                                     <label className="block mb-2 text-sm font-medium text-white" htmlFor="price">Price</label>
                                     <input
                                         className="w-full px-4 outline-none py-2 border border-gray-300 rounded-md"
@@ -248,22 +265,6 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                                         required
                                     />
                                 </div>
-
-                                <div className="flex flex-col flex-wrap h-[20vh] bg-gray-100 p-[10px] rounded-lg pt-[15px] w-full pl-[10px] gap-[15px]">
-                                    {colorObjects.map((item) => (
-                                        <div
-                                            key={item._id}
-                                            onClick={() => toggleItem(item)}
-                                            className={`w-[25px] border ${selectedItems.some(selectedItem => selectedItem._id === item._id) ? 'outline-[2px] outline outline-offset-4 outline-blue-500' : ''} h-[25px] rounded-[50%]`}
-                                            style={{ background: item.color }}
-                                        >
-                                            <p className='pl-[30px]'>{item.name.en}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="w-full">
 
                                 <div className='w-full'>
                                     <label className="block mb-2 text-sm font-medium text-white" htmlFor="price">discound</label>
@@ -303,9 +304,8 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                                 <div className='w-full'>
                                     <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Category</label>
                                     <select className='w-full px-4 outline-none py-2 border border-gray-300 rounded-md' name="type" id="type">
-                                        <option value="" >None</option>
+                                        <option value="None" >None</option>
                                         <option value="Flash Sales" >Flash Sales</option>
-                                        <option value="Best Selling Products" >Best Selling Products</option>
                                     </select>
                                 </div>
 
@@ -322,7 +322,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                         </div>
 
                         <button
-                            className="w-full mt-[20px] px-4 py-2 bg-gray-200 text-black rounded-md active:scale-[.9] transition-[.2s] hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-600"
+                            className="w-full mt-[20px] px-4 py-2 bg-gray-200 text-black rounded-md active:scale-[.9] transition-[.2s] hover:bg-gray-300 "
                             type="submit"
                         >
                             Add Product

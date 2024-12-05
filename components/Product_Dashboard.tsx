@@ -60,11 +60,9 @@ const Products_Dashboard: React.FC<Props> = ({ item }) => {
                                 <span className="font-bold">Discound:</span> {item.discound}%
                             </p>
                         )}
-                        {item.type && (
                             <p className="text-[16px]  border-b">
                                 <span className="font-bold">Type:</span> {item.type}
                             </p>
-                        )}
 
                         {item.colors.length > 1 && (
                             <div className="flex border-b gap-[5px]">

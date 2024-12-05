@@ -2,10 +2,13 @@
 
 import { useAppContext } from '@/context';
 import Image from 'next/image';
+import { describe } from 'node:test';
 import React, { ReactNode, useEffect, useState } from 'react';
 
 interface Item {
     alt: string;
+    colors: any;
+    type: any
     titles: {
         en: string;
         ru: string;
@@ -18,8 +21,9 @@ interface Item {
         en: string;
         ru: string;
     };
-    weight?: string; // Укажите тип по необходимости
+    // Укажите тип по необходимости
     price?: number; // Укажите тип по необходимости
+    discound?: number; // Укажите тип по необходимости
     category?: string;
     image?: any
 }
@@ -30,26 +34,38 @@ interface ModalProps {
     type: any
 }
 
-const colorObjects = [
-    { _id: "1", color: "rgba(255, 0, 0, 1)", name: { en: "Red", ru: "Красный" } },
-    { _id: "2", color: "rgba(0, 255, 0, 1)", name: { en: "Green", ru: "Зеленый" } },
-    { _id: "3", color: "rgba(0, 0, 255, 1)", name: { en: "Blue", ru: "Синий" } },
-    { _id: "4", color: "rgba(255, 255, 0, 1)", name: { en: "Yellow", ru: "Желтый" } },
-    { _id: "5", color: "rgba(255, 165, 0, 1)", name: { en: "Orange", ru: "Оранжевый" } },
-    { _id: "6", color: "rgba(255, 255, 255, 1)", name: { en: "White", ru: "Белый" } },
-    { _id: "7", color: "rgba(255, 192, 203, 1)", name: { en: "Pink", ru: "Розовый" } },
-    { _id: "8", color: "rgba(139, 69, 19, 1)", name: { en: "Brown", ru: "Коричневый" } },
-    { _id: "9", color: "rgba(128, 128, 128, 1)", name: { en: "Gray", ru: "Серый" } },
-    { _id: "10", color: "rgba(0, 0, 0, 1)", name: { en: "Black", ru: "Черный" } },
-];
+
+
+
 
 const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
     const [item, setItem] = useState<Item | null>(null);
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [isOpend, setIsOpend] = useState(false);
     const [file, setFile] = useState<File | null>(null);
     const [image, setImage] = useState<string | null>(null);
     const [message, setMessage] = useState("");
     const { dataCat } = useAppContext();
+    const [selectedColors, setSelectedColors] = useState<any[]>([]);
+
+    const colorObjects = [
+        { _id: "1", color: "rgba(255, 0, 0, 1)", name: { en: "Red", ru: "Красный" } },
+        { _id: "2", color: "rgba(0, 255, 0, 1)", name: { en: "Green", ru: "Зеленый" } },
+        { _id: "3", color: "rgba(0, 0, 255, 1)", name: { en: "Blue", ru: "Синий" } },
+        { _id: "4", color: "rgba(255, 255, 0, 1)", name: { en: "Yellow", ru: "Желтый" } },
+        { _id: "5", color: "rgba(255, 165, 0, 1)", name: { en: "Orange", ru: "Оранжевый" } },
+        { _id: "6", color: "rgba(255, 255, 255, 1)", name: { en: "White", ru: "Белый" } },
+        { _id: "7", color: "rgba(255, 192, 203, 1)", name: { en: "Pink", ru: "Розовый" } },
+        { _id: "8", color: "rgba(139, 69, 19, 1)", name: { en: "Brown", ru: "Коричневый" } },
+        { _id: "9", color: "rgba(128, 128, 128, 1)", name: { en: "Gray", ru: "Серый" } },
+        { _id: "10", color: "rgba(0, 0, 0, 1)", name: { en: "Black", ru: "Черный" } },
+    ];
+
+    const types = [
+        { _id: "2", title: "Flash Sales" },
+        { _id: "3", title: "None" }
+    ]
+
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
@@ -57,6 +73,22 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
             setImage(URL.createObjectURL(event.target.files[0]));
         }
     };
+
+
+    const toggleItem = (el: any) => {
+        setSelectedColors((prev) => {
+            // Проверяем, есть ли элемент уже в массиве
+            if (prev.find((i) => i._id === el._id)) {
+                // Если есть, удаляем его
+                return prev.filter((i) => i._id !== el._id);
+            } else {
+                // Если нет, добавляем
+                return [...prev, el];
+            }
+        });
+    };
+
+
 
 
     async function onSubmit(e: any) {
@@ -106,6 +138,8 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                 }
                 : item?.composition;
 
+            product.colors = selectedColors
+
             product.description = product.description_ru && product.description
                 ? {
                     ru: product.description_ru,
@@ -148,7 +182,10 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
 
                 const { data } = await response.json();
                 setItem(data);
-                console.log("Item fetched:", data);
+
+                if (data?.colors) {
+                    setSelectedColors(data.colors); // обновляем selectedColors здесь
+                }
             } catch (error) {
                 console.error("Error:", error);
                 alert("An error occurred while fetching data");
@@ -158,7 +195,10 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
         if (id) {
             fetchItem();
         }
-    }, [id]);
+    }, [id, type]);
+
+
+    console.log(selectedColors);
 
     useEffect(() => {
         if (isOpend) {
@@ -195,10 +235,10 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                                 {item?.image &&
                                     <div className="w-full">
                                         <label
-                                            className="block mb-2 text-sm font-medium text-white"
+                                            className="block mb-2 text-sm font-medium text-black"
                                             htmlFor="image"
                                         >
-                                            Upload Image
+                                            Upload Images
                                         </label>
                                         <input
                                             className="w-full  text-black  bg-gray-50 border border-gray-300 rounded-lg cursor-pointer file:w-[40%] file:p-3 file:mr-4 file:h-full file:rounded-lg file:border-0 file:font-medium file:bg-gray-300 file:text-black hover:file:bg-blue-100"
@@ -209,39 +249,60 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                                             id="image"
                                         />
                                     </div>
-
                                 }
 
-                                {
-                                    item?.titles &&
+                                {item?.description &&
                                     <div className="">
 
-                                        <div className='w-full'>
-                                            <label className="block mb-2 text-sm font-medium text-white" htmlFor="title">Title</label>
-                                            <input
-                                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                type="text"
-                                                name="title"
-                                                id="title"
-                                                placeholder="Enter product title"
-                                                defaultValue={item?.titles?.en || ''}
-                                            />
+                                        <div className="flex mb-[10px] justify-center w-fit flex-wrap h-fit mt-[20px] bg-gray-100 p-[10px] rounded-lg pt-[15px] pr-[15%] pl-[10px] gap-[50%]">
+                                            {colorObjects.map((colorItem: any) => (
+                                                <div
+                                                    key={colorItem._id}
+                                                    onClick={() => toggleItem(colorItem)}
+                                                    className={`w-[25px] h-[25px] mb-[15px] rounded-full border ${selectedColors.some((color) => color.color === colorItem.color)
+                                                        ? 'outline-[3px] outline outline-offset-4 outline-green-500'
+                                                        : ''
+                                                        }`}
+                                                    style={{ backgroundColor: colorItem.color }}
+                                                >
+                                                    {colorItem.name?.en && (
+                                                        <p className="text-[16px] ml-[40px] text-black">{colorItem.name.en}</p>
+                                                    )}
+                                                </div>
+                                            ))}
                                         </div>
 
                                         <div className='w-full'>
-                                            <label className="block mb-2 text-sm font-medium text-white" htmlFor="title_ru">Title RU</label>
-                                            <input
-                                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                type="text"
-                                                name="title_ru"
-                                                id="title_ru"
-                                                placeholder="Напишите название продукта"
-                                                defaultValue={item?.titles?.ru || ''}
-                                            />
+                                            <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Type</label>
+                                            <select className='w-full px-4 outline-none py-2 border border-gray-300 rounded-md' name="type" id="type">
+                                                <option value={item?.type}>{item?.type}</option>
+                                                {types
+                                                    .filter((el: any) => el.title !== item?.type) // Исключаем текущую категорию
+                                                    .map((el: any) => (
+                                                        <option key={el._id} value={el.title}>{el.title}</option>
+                                                    ))}
+                                            </select>
                                         </div>
+
+                                        <div className='w-full'>
+                                            <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Category</label>
+                                            <select className='w-full px-4 outline-none py-2 border border-gray-300 rounded-md' name="category" id="category">
+                                                <option value={item?.category}>{item?.category}</option>
+
+                                                {dataCat
+                                                    .filter((el: any) => el.title !== item?.category) // Исключаем текущую категорию
+                                                    .map((el: any) => (
+                                                        <option key={el._id} value={el.title}>{el.title}</option>
+                                                    ))}
+                                            </select>
+                                        </div>
+
+
 
                                     </div>
                                 }
+
+
 
                                 {
                                     item?.alt &&
@@ -256,26 +317,49 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                                             defaultValue={item?.alt || ''}
                                         />
                                     </div>
-
                                 }
 
-                                {item?.weight &&
-                                    <div className='w-full'>
-                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="weight">Weight (g)</label>
-                                        <input
-                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                            type="text"
-                                            name="weight"
-                                            id="weight"
-                                            placeholder="Enter product weight"
-                                            defaultValue={item?.weight || ''}
-                                        />
+                            </div>
+
+
+                            <div className="w-full">
+
+
+
+                                {
+                                    item?.titles &&
+                                    <div className="">
+
+                                        <div className='w-full mb-[10px]'>
+                                            <label className="block mb-2 text-sm font-medium text-black" htmlFor="title">Title</label>
+                                            <input
+                                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                type="text"
+                                                name="title"
+                                                id="title"
+                                                placeholder="Enter product title"
+                                                defaultValue={item?.titles?.en || ''}
+                                            />
+                                        </div>
+
+                                        <div className='w-full mb-[10px]'>
+                                            <label className="block mb-2 text-sm font-medium text-black" htmlFor="title_ru">Title RU</label>
+                                            <input
+                                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                type="text"
+                                                name="title_ru"
+                                                id="title_ru"
+                                                placeholder="Напишите название продукта"
+                                                defaultValue={item?.titles?.ru || ''}
+                                            />
+                                        </div>
+
                                     </div>
                                 }
 
                                 {item?.price &&
-                                    <div className='w-full'>
-                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="price">Price ($)</label>
+                                    <div className='w-full mb-[10px]'>
+                                        <label className="block mb-2 text-sm font-medium text-black" htmlFor="price">Price ($)</label>
                                         <input
                                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                             type="text"
@@ -287,78 +371,54 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                                     </div>
                                 }
 
-                                {/* {item?.&&
-                                    <div className='w-full'>
-                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="price">Price ($)</label>
+                                {item?.discound &&
+                                    <div className='w-full mb-[10px]'>
+                                        <label className="block mb-2 text-sm font-medium text-black" htmlFor="price">Price ($)</label>
                                         <input
                                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                             type="text"
-                                            name="price"
-                                            id="price"
+                                            name="discound"
+                                            id="discound"
                                             placeholder="Enter product price"
-                                            defaultValue={item?.price || ''}
+                                            defaultValue={item?.discound || ''}
                                         />
                                     </div>
-                                } */}
+                                }
+
+                                {item?.description &&
+                                    <div className="">
+
+
+
+
+
+                                        <div className='w-full'>
+                                            <label className="block mb-2 text-sm font-medium text-black" htmlFor="description">Description</label>
+                                            <textarea
+                                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                name="description"
+                                                id="description"
+                                                placeholder="Enter product description"
+                                                defaultValue={item?.description?.en || ''}
+                                            />
+                                        </div>
+
+                                        <div className='w-full'>
+                                            <label className="block mb-2 text-sm font-medium text-black" htmlFor="description">Description</label>
+                                            <textarea
+                                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                name="description_ru"
+                                                id="description_ru"
+                                                placeholder="Enter product description"
+                                                defaultValue={item?.description?.ru || ''}
+                                            />
+                                        </div>
+                                    </div>
+                                }
+
+
                             </div>
 
-                            {item?.composition &&
-                                <div className="w-full">
-
-                                    <div className='w-full'>
-                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="composition">Composition</label>
-                                        <textarea
-                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                            name="composition"
-                                            id="composition"
-                                            placeholder="Enter product composition"
-                                            defaultValue={item?.composition?.en || ''}
-                                        />
-                                    </div>
-
-                                    <div className='w-full'>
-                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="composition_ru">Composition RU</label>
-                                        <textarea
-                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                            name="composition_ru"
-                                            id="composition_ru"
-                                            placeholder="Напишите состав продукта"
-                                            defaultValue={item?.composition?.ru || ''}
-                                        />
-                                    </div>
-
-                                    <div className='w-full'>
-                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Description</label>
-                                        <textarea
-                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                            name="description"
-                                            id="description"
-                                            placeholder="Enter product description"
-                                            defaultValue={item?.description?.en || ''}
-                                        />
-                                    </div>
-
-                                    <div className='w-full'>
-                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="description_ru">Description RU</label>
-                                        <textarea
-                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                            name="description_ru"
-                                            id="description_ru"
-                                            placeholder="Напишите описание продукта"
-                                            defaultValue={item?.description?.ru || ''}
-                                        />
-                                    </div>
-
-                                    <div className='w-full'>
-                                        <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Category</label>
-                                        <select className='w-full px-4 outline-none py-2 border border-gray-300 rounded-md' name="category" id="category">
-                                            {dataCat.map((item: any) => (
-                                                <option key={item._id} value={item.title}>{item.title}</option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </div>
-                            }
 
                         </div>
 

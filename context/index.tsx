@@ -32,7 +32,7 @@ export function AppWrapper({ children }: { children: ReactNode }) {
     }, [setDataC]);
 
     return (
-        <AppContext.Provider value={{ dataC, setDataC,dataCat, setDataCat, languageData, setLanguageData, loading, setLoading}}>
+        <AppContext.Provider value={{ dataC, setDataC, dataCat, setDataCat, languageData, setLanguageData, loading, setLoading}}>
             {children}
         </AppContext.Provider>
     );
