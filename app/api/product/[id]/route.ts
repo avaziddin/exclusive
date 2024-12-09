@@ -2,15 +2,20 @@ import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (req: NextRequest, { params }: any) => {
-    const { id } = params; // Извлечение id из параметров
-
+export async function GET(req: Request, context: { params: { id: string } }) {
     try {
+        const { id } = context.params; // Доступ к параметрам запроса
+        
+        // Убедимся, что id корректен
+        if (!ObjectId.isValid(id)) {
+            return NextResponse.json({ success: false, message: 'Invalid ID format' }, { status: 400 });
+        }
+        
         const client = await clientPromise;
         const db = client.db('mydatabase');
-
+        
         // Поиск элемента по id
-        const menuItem = await db.collection("product").findOne({ _id: new ObjectId(id) });
+        const menuItem = await db.collection('product').findOne({ _id: new ObjectId(id) });
 
         if (!menuItem) {
             return NextResponse.json({ success: false, message: 'Item not found' }, { status: 404 });
@@ -19,6 +24,7 @@ export const GET = async (req: NextRequest, { params }: any) => {
         return NextResponse.json({ success: true, data: menuItem });
 
     } catch (e: any) {
+        // Обработка ошибок
         return NextResponse.json({ success: false, message: e.message }, { status: 500 });
     }
 }
