@@ -1,32 +1,71 @@
-import Image from 'next/image';
-import React, { ReactNode } from 'react';
-import CountdownTimerSec from './CountdownSec';
+"use client";
+
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import CountdownTimerSec from "./CountdownSec";
+import { useAppContext } from "@/context";
 
 interface MainBannerStatickProps {
-    translation: any
+    translation: any;
 }
 
 const MainBannerStatick: React.FC<MainBannerStatickProps> = ({ translation }) => {
+    const { count } = useAppContext();
+    const [timer, setTimer] = useState<string | null>(null);
+    const [timeOver, setTimeOver] = useState(false)
+
+
+    useEffect(() => {
+        if (count.length > 0) {
+            const latestCountdown = count[0]?.countdown;
+            setTimer(latestCountdown || null);
+        }
+    }, [count]);
+
+    useEffect(() => {
+        if (timer && !isNaN(new Date(timer).getTime())) {
+            const now = new Date();
+            const timeDifference = new Date(timer).getTime() - now.getTime();
+            console.log("Time difference:", timeDifference);
+
+            timeDifference <= 0 ? setTimeOver(true) : setTimeOver(false)
+        }
+    }, [timer]);
+
     return (
         <>
-            <div className="w-full flex justify-between pt-[2%] pb-[2%] px-[4%] bg-black text-white mb-[150px]">
-                <div className="pt-[1%]">
-                    <span className="text-[18px] font-bold text-green-500 ">Categories</span>
-                    <h1 className="text-[48px] mb-[10%] leading-tight pt-[30px]">
-                        Enhance Your <br /> Music Experience
-                    </h1>
-                    <CountdownTimerSec translation={translation} targetDate="2024-12-25T00:00:00" />
-                    <button className="mt-[10%] px-[40px] py-[15px] bg-green-500 text-white font-bold rounded hover:bg-green-600 transition">
-                        Buy now
-                    </button>
-                </div>
+            {!timeOver &&
 
-                <div className="relative w-[40%]  mr-[5%]">
-                    <div className="absolute inset-0 bg-gradient-to-r from-white rounded-[50%] to-transparent opacity-70 blur-xl z-0"></div>
+                <div className="w-full flex justify-between pt-[2%] pb-[2%] px-[4%] bg-black text-white mb-[150px]">
+                    <div className="pt-[1%]">
+                        <span className="text-[18px] font-bold text-green-500 ">Categories</span>
+                        <h1 className="text-[48px] mb-[10%] leading-tight pt-[30px]">
+                            Enhance Your <br /> Music Experience
+                        </h1>
 
-                    <Image className="relative z-10 w-full object-cover" src="/images/jblimg.svg" alt="jbl" width={1000} height={1000}/>
+                        {timer && !isNaN(new Date(timer).getTime()) ? (
+                            <CountdownTimerSec translation={translation} targetDate={timer} />
+                        ) : (
+                            <p>Invalid timer date</p>
+                        )}
+                        <button className="mt-[10%] px-[40px] py-[15px] bg-green-500 text-white font-bold rounded hover:bg-green-600 transition">
+                            Buy now
+                        </button>
+                    </div>
+
+                    <div className="relative w-[40%]  mr-[5%]">
+                        <div className="absolute inset-0 bg-gradient-to-r from-white rounded-[50%] to-transparent opacity-70 blur-xl z-0"></div>
+
+                        <Image
+                            className="relative z-10 w-full object-cover"
+                            src="/images/jblimg.svg"
+                            alt="jbl"
+                            width={1000}
+                            height={1000}
+                        />
+                    </div>
                 </div>
-            </div>
+            }
 
         </>
     );

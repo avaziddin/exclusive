@@ -1,32 +1,40 @@
+"use client"
+
 import React from 'react';
-import { getDictionary } from '@/app/[lang]/dictionaries';
-import Modal_dashboard from '@/components/modal_dashboard';
+import Modal_Countdown from '@/components/modal_countdown';
+import { useAppContext } from '@/context';
+import { Span } from 'next/dist/trace';
+import DashboardProductModal from '@/components/Dashboard_product_modal';
 
-interface PageProps {
-  params: { lang: string };
-}
+export default function Page() {
+  const { count, loading } = useAppContext();
 
-export default async function Page({ params: { lang } }: PageProps) {
-  const translation = await getDictionary(lang);
-
-  const res = await fetch("http://localhost:3000/api/menu", { cache: "no-cache" })
-
-  const { data } = await res.json()
   return (
     <>
-      <div className="w-full bg-background">
+      <div className="w-full pt-[2%] pl-[2%] bg-background">
 
+        <div className="w-fit flex gap-[50px] bg-gray-100 p-[1%] rounded-lg  justify-center items-center">
+          {loading ? (
+            <div className="flex justify-center gap-[5px] pt-[20px]">
+              <span className='sr-only'>Loading...</span>
+              <div className='h-4 w-4 bg-black rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+              <div className='h-4 w-4 bg-black rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+              <div className='h-4 w-4 bg-black rounded-full animate-bounce'></div>
+            </div>
+          ) : (
+            count.map((item: any) => (
+              <div key={item._id} className='flex items-center gap-[50px]'>
+                <div className="flex gap-[5px]">
+                  <span className='text-[30px] text-black'>Date:</span>
+                  <h1 className='text-[30px] whitespace-normal font-semibold text-black'>{item.countdown || "No timer"}</h1>
+                </div>
 
-          <Modal_dashboard button={
-            <button className='p-[5px] pr-[10px] pl-[10px] absolute top-[1%] right-[1%] active:scale-[.9] transition-[.2s] active:bg-orange-400  bg-orange-500 rounded-[15px]'>
-            Add product
-         </button>
-          } />
-        
-        <div className=" pt-[5%] p-[1%]">
-         {/*  {data.map((item: Product) => {
-            return <Products_Dashboard item={item} />
-          })} */}
+                <div className="flex-col top-[2%] justify-end relative">
+                  <DashboardProductModal type={"countdown"} id={item._id} />
+                </div>
+              </div>
+            ))
+          )}
         </div>
 
       </div>

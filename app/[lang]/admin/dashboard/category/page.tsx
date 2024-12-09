@@ -16,7 +16,6 @@ export default async function Page({ params: { lang } }: PageProps) {
 
   console.log(data);
 
-
   return (
     <>
       <div className="w-full pl-[1%] bg-background">

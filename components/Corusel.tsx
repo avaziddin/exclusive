@@ -18,7 +18,6 @@ const Slider: React.FC = () => {
         console.error("Error fetching slider data:", error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -48,7 +47,7 @@ const Slider: React.FC = () => {
                 <Image
                   width={800}
                   height={400}
-                  src={item.image}
+                  src={item.image[0]}
                   alt={item.alt || "Slider image"}
                   className="w-full object-cover"
 />

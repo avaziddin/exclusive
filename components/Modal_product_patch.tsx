@@ -25,6 +25,7 @@ interface Item {
     discound?: number; // Укажите тип по необходимости
     category?: string;
     image?: any
+    countdown?: any
 }
 
 interface ModalProps {
@@ -80,12 +81,12 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
         });
     };
 
-    async function convertPathsToFiles(paths: string | any[]) {
+    async function convertPathsToFiles(paths: string[]) {
         const files = [];
 
         for (let i = 0; i < paths.length; i++) {
             const path = paths[i];
-            const fileName = `image${i+1}`;// Создаем имя файла (можно сделать более специфичным)
+            const fileName = path.split('/').pop() || `file${i + 1}`; // Берем имя из пути или даем fallback имя
             try {
                 const file = await pathToFile(path, fileName);
                 files.push(file);
@@ -97,7 +98,7 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
         return files;
     }
 
-    async function pathToFile(path: string | URL | Request, fileName: string) {
+    async function pathToFile(path: string, fileName: string) {
         // Загружаем файл по пути
         const response = await fetch(path);
 
@@ -111,6 +112,7 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
         // Создаем объект File из Blob
         return new File([blob], fileName, { type: blob.type });
     }
+
 
     const handleFileChange = async (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
@@ -129,8 +131,8 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
 
     console.log(productImages);
     console.log(item);
-    
-    
+
+
 
     async function onSubmit(e: any) {
         e.preventDefault()
@@ -273,7 +275,7 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                         background: "rgba(0,0,0,0.5)",
                         backdropFilter: "blur(10px)"
                     }}>
-                    <form onSubmit={onSubmit} className="w-[70%] p-[1%] text-black relative h-fit bg-background rounded-[20px]">
+                    <form onSubmit={onSubmit} className={`${type === "category" ? "w-[40%]" : ""} ${type === "product" ? "w-[70%]" : ""} w-[40%] p-[1%] text-black relative h-fit bg-background rounded-[20px]`}>
                         <button onClick={() => setIsOpend(false)} type="button">
                             <Image className='absolute top-[2%] right-[1%]' src="/images/close.svg" alt="closebtn" width={25} height={25} />
                         </button>
@@ -297,7 +299,7 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                                                 className="w-full text-[12px] mt-[5px] text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer file:w-[50%] file:p-2 file:mr-4 file:h-full file:rounded-lg file:border-0 file:font-medium file:bg-gray-300 file:text-black hover:file:bg-blue-100"
                                                 type="file"
                                                 accept="image/*"
-                                                onChange={(event) => handleFileChange(0, event)}  // Обработчик изменения
+                                                onChange={(event) => handleFileChange(index, event)}  // Обработчик изменения
                                                 name={`image`}  // Уникальное имя для каждого input
                                                 id={`image`}  // Уникальный id для каждого input
                                             />
@@ -308,183 +310,206 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
 
                             <div className="w-full flex gap-[5%] ">
 
+                                {type !== "category" && (
+                                    <div className="w-full flex-col justify-center items-center">
 
-                                <div className="w-full flex-col justify-center items-center">
+                                        {item?.countdown &&
+                                            <div className="flex w-full py-[5%] gap-[5%]">
 
+                                                <div className="w-full">
+                                                    <label className="block text-sm font-medium text-white" htmlFor="title">Countdown</label>
+                                                    <input
+                                                        className="w-full px-4 outline-none text-[18px] py-4 border border-gray-300 rounded-md"
+                                                        type="date"
+                                                        name="countdown"
+                                                        id="countdown"
+                                                        placeholder="Enter countdown"
+                                                        required
+                                                    />
 
-                                    {item?.description &&
-                                        <div className="">
-
-                                            <div className="flex mb-[10px] justify-center w-full flex-wrap h-fit mt-[20px] bg-gray-100 p-[10px] rounded-lg pt-[15px] pr-[25%]   gap-[50%]">
-                                                {colorObjects.map((colorItem: any) => (
-                                                    <div
-                                                        key={colorItem._id}
-                                                        onClick={() => toggleItem(colorItem)}
-                                                        className={`w-[25px] h-[25px] mb-[15px] rounded-full border ${selectedColors.some((color) => color.color === colorItem.color)
-                                                            ? 'outline-[3px] outline outline-offset-4 outline-green-500'
-                                                            : ''
-                                                            }`}
-                                                        style={{ backgroundColor: colorItem.color }}
-                                                    >
-                                                        {colorItem.name?.en && (
-                                                            <p className="text-[16px] ml-[40px] text-black">{colorItem.name.en}</p>
-                                                        )}
-                                                    </div>
-                                                ))}
+                                                </div>
                                             </div>
+                                        }
+
+                                        {item?.description &&
+                                            <div className="">
+
+                                                <div className="flex mb-[10px] justify-center w-full flex-wrap h-fit mt-[20px] bg-gray-100 p-[10px] rounded-lg pt-[15px] pr-[25%]   gap-[50%]">
+                                                    {colorObjects.map((colorItem: any) => (
+                                                        <div
+                                                            key={colorItem._id}
+                                                            onClick={() => toggleItem(colorItem)}
+                                                            className={`w-[25px] h-[25px] mb-[15px] rounded-full border ${selectedColors.some((color) => color.color === colorItem.color)
+                                                                ? 'outline-[3px] outline outline-offset-4 outline-green-500'
+                                                                : ''
+                                                                }`}
+                                                            style={{ backgroundColor: colorItem.color }}
+                                                        >
+                                                            {colorItem.name?.en && (
+                                                                <p className="text-[16px] ml-[40px] text-black">{colorItem.name.en}</p>
+                                                            )}
+                                                        </div>
+                                                    ))}
+                                                </div>
 
 
 
 
-
-                                        </div>
-                                    }
-
+                                            </div>
+                                        }
 
 
-                                    {
-                                        item?.alt &&
-                                        <div className='w-full'>
-                                            <label className="block mb-2 text-sm font-medium text-white" htmlFor="title">Title</label>
-                                            <input
-                                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                type="text"
-                                                name="alt"
-                                                id="alt"
-                                                placeholder="Enter product title"
-                                                defaultValue={item?.alt || ''}
-                                            />
-                                        </div>
-                                    }
 
-                                </div>
-
-                                <div className="w-full">
-
-                                    {
-                                        item?.titles &&
-                                        <div className="">
-
-                                            <div className='w-full mb-[10px]'>
-                                                <label className="block mb-2 text-sm font-medium text-black" htmlFor="title">Title</label>
+                                        {
+                                            item?.alt &&
+                                            <div className='w-full'>
+                                                <label className="block mb-2 text-sm font-medium text-white" htmlFor="title">Title</label>
                                                 <input
                                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                                     type="text"
-                                                    name="title"
-                                                    id="title"
+                                                    name="alt"
+                                                    id="alt"
                                                     placeholder="Enter product title"
-                                                    defaultValue={item?.titles?.en || ''}
+                                                    defaultValue={item?.alt || ''}
                                                 />
                                             </div>
+                                        }
 
+                                    </div>
+                                )}
+
+                                {type !== "countdown" && (
+                                    <div className="w-full">
+
+                                        {
+                                            item?.titles &&
+                                            <div className="">
+
+                                                <div className='w-full mb-[10px]'>
+                                                    <label className="block mb-2 text-sm font-medium text-black" htmlFor="title">Title</label>
+                                                    <input
+                                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                        type="text"
+                                                        name="title"
+                                                        id="title"
+                                                        placeholder="Enter product title"
+                                                        defaultValue={item?.titles?.en || ''}
+                                                    />
+                                                </div>
+
+                                                <div className='w-full mb-[10px]'>
+                                                    <label className="block mb-2 text-sm font-medium text-black" htmlFor="title_ru">Title RU</label>
+                                                    <input
+                                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                        type="text"
+                                                        name="title_ru"
+                                                        id="title_ru"
+                                                        placeholder="Напишите название продукта"
+                                                        defaultValue={item?.titles?.ru || ''}
+                                                    />
+                                                </div>
+
+                                            </div>
+                                        }
+
+
+
+                                        {
+                                            item?.description &&
+                                            <div className='w-full'>
+                                                <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Type</label>
+                                                <select className='w-full px-4 outline-none py-2 border border-gray-300 rounded-md' name="type" id="type">
+                                                    <option value={item?.type}>{item?.type}</option>
+                                                    {types
+                                                        .filter((el: any) => el.title !== item?.type) // Исключаем текущую категорию
+                                                        .map((el: any) => (
+                                                            <option key={el._id} value={el.title}>{el.title}</option>
+                                                        ))}
+                                                </select>
+                                            </div>
+                                        }
+
+                                        {item?.category &&
+                                            <div className='w-full'>
+                                                <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Category</label>
+                                                <select className='w-full px-4 outline-none py-2 border border-gray-300 rounded-md' name="category" id="category">
+                                                    <option value={item?.category}>{item?.category}</option>
+
+                                                    {dataCat
+                                                        .filter((el: any) => el.title !== item?.category) // Исключаем текущую категорию
+                                                        .map((el: any) => (
+                                                            <option key={el._id} value={el.title}>{el.title}</option>
+                                                        ))}
+                                                </select>
+                                            </div>
+                                        }
+
+                                    </div>
+
+                                )}
+
+                                {type == "product" && (
+                                    <div className="w-full">
+
+                                        {item?.price &&
                                             <div className='w-full mb-[10px]'>
-                                                <label className="block mb-2 text-sm font-medium text-black" htmlFor="title_ru">Title RU</label>
+                                                <label className="block mb-2 text-sm font-medium text-black" htmlFor="price">Price ($)</label>
                                                 <input
                                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                                     type="text"
-                                                    name="title_ru"
-                                                    id="title_ru"
-                                                    placeholder="Напишите название продукта"
-                                                    defaultValue={item?.titles?.ru || ''}
+                                                    name="price"
+                                                    id="price"
+                                                    placeholder="Enter product price"
+                                                    defaultValue={item?.price || ''}
                                                 />
                                             </div>
+                                        }
 
-                                        </div>
-                                    }
-
-
-
-                                    {
-                                        item?.description &&
-                                        <div className='w-full'>
-                                            <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Type</label>
-                                            <select className='w-full px-4 outline-none py-2 border border-gray-300 rounded-md' name="type" id="type">
-                                                <option value={item?.type}>{item?.type}</option>
-                                                {types
-                                                    .filter((el: any) => el.title !== item?.type) // Исключаем текущую категорию
-                                                    .map((el: any) => (
-                                                        <option key={el._id} value={el.title}>{el.title}</option>
-                                                    ))}
-                                            </select>
-                                        </div>
-                                    }
-
-                                    {item?.category &&
-                                        <div className='w-full'>
-                                            <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Category</label>
-                                            <select className='w-full px-4 outline-none py-2 border border-gray-300 rounded-md' name="category" id="category">
-                                                <option value={item?.category}>{item?.category}</option>
-
-                                                {dataCat
-                                                    .filter((el: any) => el.title !== item?.category) // Исключаем текущую категорию
-                                                    .map((el: any) => (
-                                                        <option key={el._id} value={el.title}>{el.title}</option>
-                                                    ))}
-                                            </select>
-                                        </div>
-                                    }
-
-                                </div>
-
-
-                                <div className="w-full">
-
-                                    {item?.price &&
-                                        <div className='w-full mb-[10px]'>
-                                            <label className="block mb-2 text-sm font-medium text-black" htmlFor="price">Price ($)</label>
-                                            <input
-                                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                type="text"
-                                                name="price"
-                                                id="price"
-                                                placeholder="Enter product price"
-                                                defaultValue={item?.price || ''}
-                                            />
-                                        </div>
-                                    }
-
-                                    {item?.discound &&
-                                        <div className='w-full mb-[10px]'>
-                                            <label className="block mb-2 text-sm font-medium text-black" htmlFor="price">Price ($)</label>
-                                            <input
-                                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                type="text"
-                                                name="discound"
-                                                id="discound"
-                                                placeholder="Enter product price"
-                                                defaultValue={item?.discound || ''}
-                                            />
-                                        </div>
-                                    }
-
-                                    {item?.description &&
-                                        <div className="">
-                                            <div className='w-full'>
-                                                <label className="block mb-2 text-sm font-medium text-black" htmlFor="description">Description</label>
-                                                <textarea
+                                        {item?.discound &&
+                                            <div className='w-full mb-[10px]'>
+                                                <label className="block mb-2 text-sm font-medium text-black" htmlFor="price">Price ($)</label>
+                                                <input
                                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                    name="description"
-                                                    id="description"
-                                                    placeholder="Enter product description"
-                                                    defaultValue={item?.description?.en || ''}
+                                                    type="text"
+                                                    name="discound"
+                                                    id="discound"
+                                                    placeholder="Enter product price"
+                                                    defaultValue={item?.discound || ''}
                                                 />
                                             </div>
+                                        }
 
-                                            <div className='w-full'>
-                                                <label className="block mb-2 text-sm font-medium text-black" htmlFor="description">Description</label>
-                                                <textarea
-                                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                    name="description_ru"
-                                                    id="description_ru"
-                                                    placeholder="Enter product description"
-                                                    defaultValue={item?.description?.ru || ''}
-                                                />
+                                        {item?.description &&
+                                            <div className="">
+                                                <div className='w-full'>
+                                                    <label className="block mb-2 text-sm font-medium text-black" htmlFor="description">Description</label>
+                                                    <textarea
+                                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                        name="description"
+                                                        id="description"
+                                                        placeholder="Enter product description"
+                                                        defaultValue={item?.description?.en || ''}
+                                                    />
+                                                </div>
+
+                                                <div className='w-full'>
+                                                    <label className="block mb-2 text-sm font-medium text-black" htmlFor="description">Description</label>
+                                                    <textarea
+                                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                        name="description_ru"
+                                                        id="description_ru"
+                                                        placeholder="Enter product description"
+                                                        defaultValue={item?.description?.ru || ''}
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
-                                    }
+                                        }
 
 
-                                </div>
+                                    </div>
+                                )}
+
+
 
                             </div>
 

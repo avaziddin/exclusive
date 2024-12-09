@@ -12,7 +12,7 @@ const SliderDashboard: React.FC<SliderDashboardProps> = ({ item }) => {
             <div className="relative mb-[1%] w-[49%] flex overflow-hidden bg-gray-200 gap-[10px] text-black rounded-md">
                 <div className="w-full flex relative">
 
-                    <Image className='h-[40vh] cover' src={item.image} alt={item.alt} width={500} height={500} />
+                    <Image className='h-[40vh] cover' src={item.image[0]} alt={item.alt} width={500} height={500} />
 
                     <div className="right-[1%] top-[3%] absolute">
                         <DashboardProductModal type={"slider"} id={item._id} />
