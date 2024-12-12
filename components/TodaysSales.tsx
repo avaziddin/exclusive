@@ -16,7 +16,7 @@ interface TodaysSalesProps {
 const TodaysSales: React.FC<TodaysSalesProps> = ({ translation, lang }) => {
     const { count } = useAppContext()
     const [timer, setTimer] = useState<string | null>(null);
-    const [timeOver, setTimeOver] = useState(false)
+    const [timeOver, setTimeOver] = useState(true)
 
     useEffect(() => {
         if (count.length > 0) {

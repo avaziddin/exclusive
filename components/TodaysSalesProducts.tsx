@@ -25,6 +25,10 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
     }
   };
 
+const flash_sales =  dataProd.filter((product: { type: any; }) => product.type === "Flash Sales");  
+                      
+  
+
   return (
     <div className="relative z-0">
       {/* Кнопки прокрутки */}
@@ -65,7 +69,7 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
           </div>
         ) : (
 
-          dataProd.map((item: any) => (
+          flash_sales.map((item: any) => (
             <div
               key={item._id}
               className="whitespace-nowrap w-[18.4%] flex-shrink-0 h-fit mb-[50px]"

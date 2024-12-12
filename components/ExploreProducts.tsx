@@ -1,5 +1,6 @@
 "use client";
 
+import { useAppContext } from "@/context";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef } from "react";
@@ -8,15 +9,15 @@ interface TodaysSalesProductsProps {
   translation: any;
 }
 
-const data = Array(23).fill(1);
 
 const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const {dataProd} = useAppContext()
 
   // Функция для прокрутки на 2 блока
   const scroll = (direction: "left" | "right") => {
     if (containerRef.current) {
-      const blockWidth = containerRef.current.scrollWidth / data.length; // Ширина одного блока
+      const blockWidth = containerRef.current.scrollWidth / dataProd.length; // Ширина одного блока
       const scrollAmount = blockWidth * 2; // Прокрутка на 2 блока
 
       containerRef.current.scrollBy({
@@ -56,12 +57,12 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
       {/* Список товаров */}
       <div
         ref={containerRef}
-        className="grid grid-rows-2 mb-[50px] grid-flow-col gap-[2%] overflow-x-auto scrollbar-hidden"
+        className="grid grid-rows-2 mb-[50px] grid-flow-col  gap-[2%] overflow-x-auto scrollbar-hidden"
         style={{ gridAutoColumns: "calc((100% - (2% * 4)) / 5)" }} // 6 элементов + 5 gap
       >
-        {data.map((_, index) => (
+        {dataProd.map((item: any) => (
           <div
-            key={index}
+            key={item._id}
             className="hover:bg-gray-100 group rounded-lg w-fit pb-[10px] transition-[.1s]"
           >
             <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[10px] transition-[.1s]">
@@ -85,7 +86,7 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
 
                 <Image
                   className="w-conent h-[30vh] rounded-lg object-cover"
-                  src="/images/prod.svg"
+                  src={item.image[0]}
                   alt="product"
                   width={500}
                   height={300}
@@ -96,10 +97,10 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
               </div>
               <div className="">
                 <h1 className="text-black font-medium mb-[10px] px-[10px]">
-                  HAVIT HV-G92 Gamepad
+                  {item.title}
                 </h1>
                 <div className="flex font-medium gap-[10px] px-[10px] mb-[10px]">
-                  <span className="text-red-500">$120</span>
+                  <span className="text-red-500">{item.discound > 0 ?  (item.price - (item.price * item.discound) / 100).toFixed(2) : item.price}</span>
                   <div className="flex items-center px-[10px] gap-[7px]">
                     <div className="flex items-center gap-[7px]">
                       <Image

@@ -142,10 +142,6 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
             setMessage("Something went wrong: " + error);
         }
     }
-
-
-
-
     const [isOpend, setIsOpend] = useState(false)
 
     useEffect(() => {
@@ -274,6 +270,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                                         name="discound"
                                         id="discound"
                                         placeholder="Enter product discound"
+                                        defaultValue={0}
                                         required
                                     />
                                 </div>

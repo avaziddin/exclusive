@@ -12,7 +12,7 @@ interface MainBannerStatickProps {
 const MainBannerStatick: React.FC<MainBannerStatickProps> = ({ translation }) => {
     const { count } = useAppContext();
     const [timer, setTimer] = useState<string | null>(null);
-    const [timeOver, setTimeOver] = useState(false)
+    const [timeOver, setTimeOver] = useState(true)
 
 
     useEffect(() => {
