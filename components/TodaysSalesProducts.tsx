@@ -2,6 +2,7 @@
 
 import { useAppContext } from "@/context";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useRef } from "react";
 
 interface TodaysSalesProductsProps {
@@ -25,9 +26,9 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
     }
   };
 
-const flash_sales =  dataProd.filter((product: { type: any; }) => product.type === "Flash Sales");  
-                      
-  
+  const flash_sales = dataProd.filter((product: { type: any; }) => product.type === "Flash Sales");
+
+
 
   return (
     <div className="relative z-0">
@@ -69,73 +70,77 @@ const flash_sales =  dataProd.filter((product: { type: any; }) => product.type =
           </div>
         ) : (
 
+
           flash_sales.map((item: any) => (
             <div
               key={item._id}
               className="whitespace-nowrap w-[18.4%] flex-shrink-0 h-fit mb-[50px]"
             >
-              <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
-                <div className="mb-[10px] relative rounded-xl">
-                  <div className="absolute cursor-pointer top-[5%] p-[7px] flex items-center justify-center rounded-full right-[3%] bg-white">
-                    <Image
-                      src="/images/heart.svg"
-                      alt="Add to wishlist"
-                      width={20}
-                      height={20}
-                    />
-                  </div>
-                  <div className="absolute cursor-pointer top-[19%] p-[7px] flex items-center justify-center rounded-full right-[3%] bg-white">
-                    <Image
-                      src="/images/eye.svg"
-                      alt="View details"
-                      width={20}
-                      height={20}
-                    />
-                  </div>
-                  {item.discound > 0 && (
-                    <div className="px-[10px] py-[3px] bg-red-500 rounded-lg absolute top-[2%] left-[2%]">
-                      <span>-{item.discound}%</span>
+              <Link href={`/${item._id}`}>
+
+                <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
+                  <div className="mb-[10px] relative rounded-xl">
+                    <div className="absolute cursor-pointer top-[5%] p-[7px] flex items-center justify-center rounded-full right-[3%] bg-white">
+                      <Image
+                        src="/images/heart.svg"
+                        alt="Add to wishlist"
+                        width={20}
+                        height={20}
+                      />
                     </div>
-                  )}
-                  <Image
-                    className="w-content h-[30vh] rounded-lg object-cover"
-                    src={item.image?.[0] || "/images/default.png"}
-                    alt={item.titles[lang] || "Product"}
-                    width={500}
-                    height={300}
-                  />
-                  <div className="w-full cursor-pointer flex justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 opacity-0 group-hover:opacity-100 transition">
-                    <span>{translation.main.add_to_cart}</span>
+                    <div className="absolute cursor-pointer top-[19%] p-[7px] flex items-center justify-center rounded-full right-[3%] bg-white">
+                      <Image
+                        src="/images/eye.svg"
+                        alt="View details"
+                        width={20}
+                        height={20}
+                      />
+                    </div>
+                    {item.discound > 0 && (
+                      <div className="px-[10px] py-[3px] bg-red-500 rounded-lg absolute top-[2%] left-[2%]">
+                        <span>-{item.discound}%</span>
+                      </div>
+                    )}
+                    <Image
+                      className="w-content h-[30vh] rounded-lg object-cover"
+                      src={item.image?.[0] || "/images/default.png"}
+                      alt={item.titles[lang] || "Product"}
+                      width={500}
+                      height={300}
+                    />
+                    <div className="w-full cursor-pointer flex justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 opacity-0 group-hover:opacity-100 transition">
+                      <span>{translation.main.add_to_cart}</span>
+                    </div>
+                  </div>
+                  <div>
+                    <h1 className="text-black font-medium mb-[10px] px-[10px]">
+                      {item.titles?.[lang] || "No title"}
+                    </h1>
+                    <div className="flex font-medium gap-[10px] px-[10px] mb-[10px]">
+                      <span className="text-red-500">
+                        ${(item.price - (item.price * item.discound) / 100).toFixed(2)}
+                      </span>
+                      <span className="text-gray-400 line-through">{item.price} $</span>
+                    </div>
+                    <div className="flex items-center px-[10px] gap-[7px]">
+                      {Array(5)
+                        .fill(0)
+                        .map((_, index) => (
+                          <Image
+                            key={index}
+                            src="/images/YellowStar.svg"
+                            alt="rating"
+                            width={20}
+                            height={20}
+                          />
+                        ))}
+                      <span className="flex justify-center items-center text-gray-400">
+                        (99)
+                      </span>
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <h1 className="text-black font-medium mb-[10px] px-[10px]">
-                    {item.titles?.[lang] || "No title"}
-                  </h1>
-                  <div className="flex font-medium gap-[10px] px-[10px] mb-[10px]">
-                    <span className="text-red-500">
-                      ${(item.price - (item.price * item.discound) / 100).toFixed(2)}
-                    </span>
-                    <span className="text-gray-400 line-through">{item.price} $</span>
-                  </div>
-                  <div className="flex items-center px-[10px] gap-[7px]">
-                    {Array(5)
-                      .fill(0)
-                      .map((_, index) => (
-                        <Image
-                          key={index}
-                          src="/images/YellowStar.svg"
-                          alt="rating"
-                          width={20}
-                          height={20}
-                        />
-                      ))}
-                    <span className="flex justify-center items-center text-gray-400">
-                      (99)
-                    </span>
-                  </div>
-                </div>
-              </div>
+              </Link>
             </div>
           )))}
       </div>
