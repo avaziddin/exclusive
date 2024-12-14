@@ -1,4 +1,5 @@
 import LanguageSwitcher from '@/components/LanguageSwitch';
+import Link from '@/node_modules/next/link';
 import Image from 'next/image';
 import React, { ReactNode } from 'react';
 
@@ -30,10 +31,18 @@ const Layout: React.FC<LayoutProps> = ({ children, translation }) => {
           <h1 className="text-black text-[25px] font-bold">Exclusive</h1>
 
           <div className="text-[17px] text-black flex gap-10">
+            <Link href='/'>
             <span>{translation.header.nav.home}</span>
+            </Link>
+            <Link href='/contact'>
             <span>{translation.header.nav.contact}</span>
+            </Link>
+            <Link href='/about'>
             <span>{translation.header.nav.about}</span>
+            </Link>
+            <Link href='/sign_up'>
             <span>{translation.header.nav.sing_up}</span>
+            </Link>
           </div>
 
           <div className="flex gap-5">
@@ -43,8 +52,12 @@ const Layout: React.FC<LayoutProps> = ({ children, translation }) => {
               type="text"
             />
             <div className="flex gap-5">
+              <Link href='/wishlist'>
               <Image src="/images/like.svg" alt="Like Icon" width={32} height={30} />
+              </Link>
+              <Link href='/cart'>
               <Image src="/images/corzina.svg" alt="Cart Icon" width={32} height={30} />
+              </Link>
             </div>
           </div>
         </div>

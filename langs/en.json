@@ -29,7 +29,78 @@
     "this_month": "This month",
     "best_selling": "Best Selling Products",
     "our_products": "Our Products",
-    "explore_our_products": "Explore Our Products"
+    "explore_our_products": "Explore Our Products",
+    "featured" : "Featured",
+    "new" : "New Arrival",
+    "blandwh" : "Black and White version of the PS5 coming out on sale.",
+    "shopnow" : "Shop Now",
+    "wmcol" : "Women’s Collections",
+    "featuredw" : "Featured woman collections that give you another vibe.",
+    "speakers": "Speakers",
+    "amazon" : "Amazon wireless speakers",
+    "perfume": "Perfume",
+    "gucci" : "GUCCI INTENSE OUD EDP",
+    "free": "FREE AND FAST DELIVERY",
+    "free2": "Free delivery for all orders over $140",
+    "naush": "24/7 CUSTOMER SERVICE",
+    "naush2": "Friendly 24/7 customer support",
+    "money": "MONEY BACK GUARANTEE",
+    "money2": "We reurn money within 30 days",
+    "sign_up" : {
+      "title" : "Create an account",
+      "span": "Enter your details below",
+      "create": "Create Account",
+      "google" : "Sign up with Google",
+      "account" : "Already have account?",
+      "login" : "Log in"
+    },
+    "login" : {
+      "title" : "Log in to Exclusive",
+      "span" : "Enter your details below",
+      "login" : "Log in",
+      "password" : "Forget Password?"
+    },
+    "wishlist": {
+      "title" : "Wishlist",
+      "move": "Move All To Bag",
+      "just" : "Just For You",
+      "see" : "See All"
+
+    },
+    "about" : {
+      "home" : "Home",
+      "about" : "About",
+      "ourstory" : "Our Story",
+      "span1" : "Launced in 2015, Exclusive is South Asia’s premier online shopping  makterplace with an active presense in Bangladesh. Supported by wide range of tailored marketing, data and service solutions,  Exclusive has 10,500 sallers and 300 brands and serves 3  millioons customers across the region. ",
+      "span2" : "Exclusive has more than 1 Million products to offer, growing at a  very fast. Exclusive offers a diverse assotment in categories   ranging  from consumer.",
+      "first" : "Sallers active our site",
+      "second" : "Mopnthly Produduct Sale",
+      "third" : "Customer active in our site",
+      "fourth" : "Anual gross sale in our site",
+      "yag" : "Founder & Chairman",
+      "du": "Managing Director ",
+      "se" : "Product Designer "
+      
+    },
+    "cart" : {
+      "home" : "Home",
+      "cart" : "Cart",
+      "yag": "Product",
+      "du" : "Price",
+      "se" : "Quantity",
+      "chor" : "Subtotal",
+      "firstbutton" : "Return To Shop",
+      "secondbutton" : "Update Cart",
+      "thirdbutton" : "Apply Coupon",
+      "carttotal" : "Cart Total",
+      "subtotal" : "Subtotal:",
+      "shipping" : "Shipping:",
+      "Total" : "Total",
+      "free" : "Free",
+      "proses" : "Procees to checkout"
+
+    }
+    
   },
   "footer": {
     "subscribe": "Subscribe",

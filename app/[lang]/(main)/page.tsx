@@ -9,6 +9,7 @@ import Categories from "@/components/Categories";
 import BestsellingItems from "@/components/BestsellingItems";
 import Statick from "@/components/Statick";
 import Explore from "@/components/Explore";
+import NewArrival from "@/components/NewArrival";
 
 export default async function Home({ params: { lang }, }: { params: { lang: string }; }) {
   const translation = await getDictionary(lang)
@@ -21,6 +22,7 @@ export default async function Home({ params: { lang }, }: { params: { lang: stri
           <BestsellingItems translation={translation}/>
           <Statick translation={translation}/>
           <Explore translation={translation}/>
+          <NewArrival translation={translation}></NewArrival>
       </Layout>
     </>
   );
