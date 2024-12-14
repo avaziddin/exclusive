@@ -99,6 +99,16 @@
       "free" : "Free",
       "proses" : "Procees to checkout"
 
+    },
+    "contact" : {
+      "home" : "Home",
+      "contact" : "Contact",
+      "call" : "Call To Us",
+      "week" : "We are available 24/7, 7 days a week.",
+      "phone" : "Phone: +8801611112222",
+      "write" : "Write To US",
+      "fill" : "Fill out our form and we will contact you within 24 hours.",
+      "send" : "Send Massage"
     }
     
   },
