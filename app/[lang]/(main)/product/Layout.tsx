@@ -20,9 +20,7 @@ const Layout: React.FC<LayoutProps> = ({ children, translation }) => {
 
           <div className="flex gap-5">
             <span className="text-gray-100">{translation.header.headerTitle}</span>
-            <Link href='/product'>
             <span className="underline decoration-1 text-white">ShopNow</span>
-            </Link>
           </div>
 
          <LanguageSwitcher/>
@@ -57,9 +55,7 @@ const Layout: React.FC<LayoutProps> = ({ children, translation }) => {
               <Link href='/wishlist'>
               <Image src="/images/like.svg" alt="Like Icon" width={32} height={30} />
               </Link>
-              <Link href='/cart'>
               <Image src="/images/corzina.svg" alt="Cart Icon" width={32} height={30} />
-              </Link>
             </div>
           </div>
         </div>
@@ -67,9 +63,8 @@ const Layout: React.FC<LayoutProps> = ({ children, translation }) => {
 
       <hr className="bg-gray-400 w-full" />
 
-      <main className='px-20'>
+      
       {children}
-      </main>
 
       {/* Footer Section */}
       <footer className="h-[440px] w-full bg-black flex justify-between mt-20 text-white text-[20px] p-20">
