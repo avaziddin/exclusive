@@ -46,10 +46,10 @@ const Products_Dashboard: React.FC<Props> = ({ item }) => {
                         <p className="text-[16px] border-b">
                             <span className="font-bold">Title en:</span> {item.titles.en}
                         </p>
-                        <p className="text-[16px] border-b">
+                        <p className="text-[16px]  border-b w-full break-words">
                             <span className="font-bold">Description ru:</span> {item.description.ru}
                         </p>
-                        <p className="text-[16px] border-b">
+                        <p className="text-[16px] border-b w-full break-words">
                             <span className="font-bold">Description en:</span> {item.description.en}
                         </p>
                         <p className="text-[16px] border-b">

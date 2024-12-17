@@ -489,6 +489,8 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                                                         id="description"
                                                         placeholder="Enter product description"
                                                         defaultValue={item?.description?.en || ''}
+                                                        maxLength={150}  // Ограничение в 50 символов
+
                                                     />
                                                 </div>
 
@@ -500,6 +502,8 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                                                         id="description_ru"
                                                         placeholder="Enter product description"
                                                         defaultValue={item?.description?.ru || ''}
+                                                        maxLength={150}  // Ограничение в 50 символов
+
                                                     />
                                                 </div>
                                             </div>

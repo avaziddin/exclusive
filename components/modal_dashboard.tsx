@@ -183,7 +183,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
 
                                 <div className="w-full">
                                     <label
-                                        className="block mb-2 text-sm font-medium text-white"
+                                        className="block mb-2 text-sm font-medium text-black"
                                         htmlFor="image"
                                     >
                                         Upload Image
@@ -208,7 +208,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
 
 
                                 <div className='w-full'>
-                                    <label className="block mb-2 text-sm font-medium text-white" htmlFor="title">Title</label>
+                                    <label className="block mb-2 text-sm font-medium text-black" htmlFor="title">Title</label>
                                     <input
                                         className="w-full px-4 outline-none py-2 border border-gray-300 rounded-md"
                                         type="text"
@@ -220,7 +220,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                                 </div>
 
                                 <div className='w-full'>
-                                    <label className="block text-sm font-medium text-white" htmlFor="title">Title_ru</label>
+                                    <label className="block text-sm font-medium text-black" htmlFor="title">Title_ru</label>
                                     <input
                                         className="w-full px-4 outline-none py-2 border border-gray-300 rounded-md"
                                         type="text"
@@ -251,7 +251,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
 
 
                                 <div className='w-full'>
-                                    <label className="block mb-2 text-sm font-medium text-white" htmlFor="price">Price</label>
+                                    <label className="block mb-2 text-sm font-medium text-black" htmlFor="price">Price</label>
                                     <input
                                         className="w-full px-4 outline-none py-2 border border-gray-300 rounded-md"
                                         type="number"
@@ -263,7 +263,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                                 </div>
 
                                 <div className='w-full'>
-                                    <label className="block mb-2 text-sm font-medium text-white" htmlFor="price">discound</label>
+                                    <label className="block mb-2 text-sm font-medium text-black" htmlFor="price">discound</label>
                                     <input
                                         className="w-full px-4 outline-none py-2 border border-gray-300 rounded-md"
                                         type="number"
@@ -277,29 +277,32 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
 
 
                                 <div className='w-full'>
-                                    <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Description</label>
+                                    <label className="block mb-2 text-sm font-medium text-black" htmlFor="description">Description</label>
                                     <textarea
                                         className="w-full px-4 outline-none py-2 border border-gray-300 rounded-md"
                                         name="description"
                                         id="description"
                                         placeholder="Enter product description"
                                         required
+                                        maxLength={150}  // Ограничение в 50 символов
                                     />
                                 </div>
 
                                 <div className='w-full'>
-                                    <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Description ru</label>
+                                    <label className="block mb-2 text-sm font-medium text-black" htmlFor="description_ru">Description ru</label>
                                     <textarea
                                         className="w-full px-4 outline-none py-2 border border-gray-300 rounded-md"
                                         name="description_ru"
                                         id="description_ru"
                                         placeholder="Напишите описание продукта"
                                         required
+                                        maxLength={150}  // Ограничение в 50 символов
                                     />
                                 </div>
 
+
                                 <div className='w-full'>
-                                    <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Category</label>
+                                    <label className="block mb-2 text-sm font-medium text-black" htmlFor="description">Category</label>
                                     <select className='w-full px-4 outline-none py-2 border border-gray-300 rounded-md' name="type" id="type">
                                         <option value="None" >None</option>
                                         <option value="Flash Sales" >Flash Sales</option>
@@ -308,7 +311,7 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
 
 
                                 <div className='w-full'>
-                                    <label className="block mb-2 text-sm font-medium text-white" htmlFor="description">Category</label>
+                                    <label className="block mb-2 text-sm font-medium text-black" htmlFor="description">Category</label>
                                     <select className='w-full px-4 outline-none py-2 border border-gray-300 rounded-md' name="category" id="category">
                                         {dataCat.map((item: any) => (
                                             <option key={item._id} value={item.title}>{item.title}</option>
