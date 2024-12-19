@@ -76,18 +76,20 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
               key={item._id}
               className="whitespace-nowrap w-[18.4%] flex-shrink-0 h-fit mb-[50px]"
             >
-              <Link href={`/${item._id}`}>
 
-                <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
-                  <div className="mb-[10px] relative rounded-xl">
-                    <div className="absolute cursor-pointer top-[5%] p-[7px] flex items-center justify-center rounded-full right-[3%] bg-white">
-                      <Image
-                        src="/images/heart.svg"
-                        alt="Add to wishlist"
-                        width={20}
-                        height={20}
-                      />
-                    </div>
+
+              <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
+                <div className="mb-[10px] relative rounded-xl">
+                  <div className="absolute cursor-pointer top-[5%] p-[7px] flex items-center justify-center rounded-full right-[3%] bg-white">
+                    <Image
+                      src="/images/heart.svg"
+                      alt="Add to wishlist"
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+
+                  <Link href={`/${item._id}`}>
                     <div className="absolute cursor-pointer top-[19%] p-[7px] flex items-center justify-center rounded-full right-[3%] bg-white">
                       <Image
                         src="/images/eye.svg"
@@ -96,11 +98,14 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
                         height={20}
                       />
                     </div>
-                    {item.discound > 0 && (
-                      <div className="px-[10px] py-[3px] bg-red-500 rounded-lg absolute top-[2%] left-[2%]">
-                        <span>-{item.discound}%</span>
-                      </div>
-                    )}
+                  </Link>
+                  {item.discound > 0 && (
+                    <div className="px-[10px] py-[3px] bg-red-500 rounded-lg absolute top-[2%] left-[2%]">
+                      <span>-{item.discound}%</span>
+                    </div>
+                  )}
+
+                  <Link href={`/${item._id}`}>
                     <Image
                       className="w-content h-[30vh] rounded-lg object-cover"
                       src={item.image?.[0] || "/images/default.png"}
@@ -108,10 +113,13 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
                       width={500}
                       height={300}
                     />
-                    <div className="w-full cursor-pointer flex justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 opacity-0 group-hover:opacity-100 transition">
-                      <span>{translation.main.add_to_cart}</span>
-                    </div>
+                  </Link>
+                  <div className="w-full cursor-pointer flex justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 opacity-0 group-hover:opacity-100 transition">
+                    <span>{translation.main.add_to_cart}</span>
                   </div>
+                </div>
+
+                <Link href={`/${item._id}`}>
                   <div>
                     <h1 className="text-black font-medium mb-[10px] px-[10px]">
                       {item.titles?.[lang] || "No title"}
@@ -139,8 +147,9 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
                       </span>
                     </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </div>
+
             </div>
           )))}
       </div>

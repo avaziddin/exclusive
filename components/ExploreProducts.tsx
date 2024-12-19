@@ -12,7 +12,7 @@ interface TodaysSalesProductsProps {
 
 const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const {dataProd} = useAppContext()
+  const { dataProd } = useAppContext()
 
   // Функция для прокрутки на 2 блока
   const scroll = (direction: "left" | "right") => {
@@ -75,72 +75,82 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
                     height={20}
                   />
                 </div>
-                <div className="absolute cursor-pointer top-[19%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
-                  <Image
-                    src="/images/eye.svg"
-                    alt="eye"
-                    width={20}
-                    height={20}
-                  />
-                </div>
 
-                <Image
-                  className="w-conent h-[30vh] rounded-lg object-cover"
-                  src={item.image[0]}
-                  alt="product"
-                  width={500}
-                  height={300}
-                />
+
+                <Link href={`/${item._id}`}>
+                  <div className="absolute cursor-pointer top-[19%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
+                    <Image
+                      src="/images/eye.svg"
+                      alt="eye"
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                </Link>
+
+
+                <Link href={`/${item._id}`}>
+                  <Image
+                    className="w-conent h-[30vh] rounded-lg object-cover"
+                    src={item.image[0]}
+                    alt="product"
+                    width={500}
+                    height={300}
+                  />
+                </Link>
                 <div className="w-full cursor-pointer flex justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 opacity-0 group-hover:opacity-100 transition">
                   <span>{translation.main.add_to_cart}</span>
                 </div>
               </div>
-              <div className="">
-                <h1 className="text-black font-medium mb-[10px] px-[10px]">
-                  {item.title}
-                </h1>
-                <div className="flex font-medium gap-[10px] px-[10px] mb-[10px]">
-                  <span className="text-red-500">{item.discound > 0 ?  (item.price - (item.price * item.discound) / 100).toFixed(2) : item.price}</span>
-                  <div className="flex items-center px-[10px] gap-[7px]">
-                    <div className="flex items-center gap-[7px]">
-                      <Image
-                        src="/images/YellowStar.svg"
-                        alt="rating"
-                        width={20}
-                        height={20}
-                      />
-                      <Image
-                        src="/images/YellowStar.svg"
-                        alt="rating"
-                        width={20}
-                        height={20}
-                      />
-                      <Image
-                        src="/images/YellowStar.svg"
-                        alt="rating"
-                        width={20}
-                        height={20}
-                      />
-                      <Image
-                        src="/images/YellowStar.svg"
-                        alt="rating"
-                        width={20}
-                        height={20}
-                      />
-                      <Image
-                        src="/images/YellowStar.svg"
-                        alt="rating"
-                        width={20}
-                        height={20}
-                      />
-                    </div>
-                    <span className="flex justify-center items-center text-gray-400">
-                      (99)
-                    </span>
-                  </div>
+              <Link href={`/${item._id}`}>
 
+                <div className="">
+                  <h1 className="text-black font-medium mb-[10px] px-[10px]">
+                    {item.title}
+                  </h1>
+                  <div className="flex font-medium gap-[10px] px-[10px] mb-[10px]">
+                    <span className="text-red-500">{item.discound > 0 ? (item.price - (item.price * item.discound) / 100).toFixed(2) : item.price}</span>
+                    <div className="flex items-center px-[10px] gap-[7px]">
+                      <div className="flex items-center gap-[7px]">
+                        <Image
+                          src="/images/YellowStar.svg"
+                          alt="rating"
+                          width={20}
+                          height={20}
+                        />
+                        <Image
+                          src="/images/YellowStar.svg"
+                          alt="rating"
+                          width={20}
+                          height={20}
+                        />
+                        <Image
+                          src="/images/YellowStar.svg"
+                          alt="rating"
+                          width={20}
+                          height={20}
+                        />
+                        <Image
+                          src="/images/YellowStar.svg"
+                          alt="rating"
+                          width={20}
+                          height={20}
+                        />
+                        <Image
+                          src="/images/YellowStar.svg"
+                          alt="rating"
+                          width={20}
+                          height={20}
+                        />
+                      </div>
+                      <span className="flex justify-center items-center text-gray-400">
+                        (99)
+                      </span>
+                    </div>
+
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         ))}
