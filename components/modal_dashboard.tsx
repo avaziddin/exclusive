@@ -23,16 +23,41 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
         { _id: "10", color: "rgba(0, 0, 0, 1)", name: { en: "Black", ru: "Черный" } },
     ];
 
+
+    const sizes = [
+        { _id: 1, size: "xs" },
+        { _id: 2, size: "s" },
+        { _id: 3, size: "m" },
+        { _id: 4, size: "l" },
+        { _id: 5, size: "xl" }
+    ]
+
+
+
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [file, setFile] = useState<File[]>([]);  // Обновленный тип состояния
     const [image, setImage] = useState<string[]>([]);  // Массив строк для URL
     const [message, setMessage] = useState("");
     const { dataCat } = useAppContext();
     const [selectedItems, setSelectedItems] = useState<any[]>([]);
+    const [selectedSize, setSelectedSize] = useState<any[]>([]);
 
 
     const toggleItem = (item: any) => {
         setSelectedItems((prev) => {
+            // Проверяем, есть ли элемент уже в массиве
+            if (prev.find((i) => i._id === item._id)) {
+                // Если есть, удаляем его
+                return prev.filter((i) => i._id !== item._id);
+            } else {
+                // Если нет, добавляем
+                return [...prev, item];
+            }
+        });
+    };
+
+    const toggleSize = (item: any) => {
+        setSelectedSize((prev) => {
             // Проверяем, есть ли элемент уже в массиве
             if (prev.find((i) => i._id === item._id)) {
                 // Если есть, удаляем его
@@ -116,6 +141,9 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
             }
 
             product.colors = selectedItems
+
+            product.size = selectedSize
+
 
             product.description = {
                 ru: product.description_ru,
@@ -242,6 +270,18 @@ const Modal_dashboard: React.FC<Props> = ({ button }) => {
                                             style={{ background: item.color }}
                                         >
                                             <p className='pl-[40px]'>{item.name.en}</p>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className=" w-full flex gap-[3%] py-[20px]">
+                                {sizes.map((item) => (
+                                        <div
+                                            key={item._id}
+                                            onClick={() => toggleSize(item)}
+                                            className={`flex justify-center w-[50px] h-[50px] p-[10px] items-center  border ${selectedSize.some(selectedSize => selectedSize._id === item._id) ? 'outline-[2px] outline outline-offset-4 outline-green-500' : ''} h-[25px] rounded-[50%]`}
+                                        >
+                                            <p >{item.size}</p>
                                         </div>
                                     ))}
                                 </div>

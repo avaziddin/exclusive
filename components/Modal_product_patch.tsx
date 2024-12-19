@@ -47,6 +47,7 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
     const [selectedColors, setSelectedColors] = useState<any[]>([]);
     const [productImages, setProductImages] = useState<any[]>([]);
     const [productPrev, setProductPrev] = useState<any[]>([]);
+    const [selectedSize, setSelectedSize] = useState<any[]>([]);
 
 
 
@@ -62,6 +63,14 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
         { _id: "9", color: "rgba(128, 128, 128, 1)", name: { en: "Gray", ru: "Серый" } },
         { _id: "10", color: "rgba(0, 0, 0, 1)", name: { en: "Black", ru: "Черный" } },
     ];
+
+    const sizes = [
+        { _id: 1, size: "xs" },
+        { _id: 2, size: "s" },
+        { _id: 3, size: "m" },
+        { _id: 4, size: "l" },
+        { _id: 5, size: "xl" }
+    ]
 
     const types = [
         { _id: "2", title: "Flash Sales" },
@@ -79,6 +88,21 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                 return [...prev, el];
             }
         });
+    };
+
+    const toggleSize = (item: any) => {
+        setSelectedSize((prev) => {
+            // Проверяем, есть ли элемент уже в массиве
+            if (prev.find((i) => i._id === item._id)) {
+                // Если есть, удаляем его
+                return prev.filter((i) => i._id !== item._id);
+            } else {
+                // Если нет, добавляем
+                return [...prev, item];
+            }
+        });
+
+
     };
 
     async function convertPathsToFiles(paths: string[]) {
@@ -182,6 +206,9 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
             }
 
             product.colors = selectedColors
+            
+            product.size = selectedSize
+
 
             product.description = {
                 ru: product.description_ru,
@@ -232,6 +259,10 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
 
                 if (data?.colors) {
                     setSelectedColors(data.colors); // обновляем selectedColors здесь
+                }
+
+                if (data?.size) {
+                    setSelectedSize(data.size); // обновляем selectedColors здесь
                 }
 
                 if (data?.image) {
@@ -351,6 +382,21 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                                                         </div>
                                                     ))}
                                                 </div>
+
+                                                <div className=" w-full flex gap-[3%] py-[20px]">
+                                                    
+                                                    {sizes.map((item) => (
+                                                        <div
+                                                            key={item._id}
+                                                            onClick={() => toggleSize(item)}
+                                                            className={`flex justify-center w-[50px] h-[50px] p-[10px] items-center  border ${selectedSize.some(selectedSize => selectedSize.size === item.size) ? 'outline-[2px] outline outline-offset-4 outline-green-500' : ''} h-[25px] rounded-[50%]`}
+                                                        >
+                                                            <p >{item.size}</p>
+                                                        </div>
+                                                    ))}
+                                                </div>
+
+
 
 
 

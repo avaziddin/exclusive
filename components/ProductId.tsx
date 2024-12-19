@@ -16,6 +16,36 @@ interface ProductIdProps {
 const ProductId: React.FC<ProductIdProps> = ({ id, lang, translation }) => {
     const { dataProd, dataCat } = useAppContext();
     const [count, setCount] = useState(1)
+    const [selectedSize, setSelectedSize] = useState<any[]>([]);
+    const [selectedItems, setSelectedItems] = useState<any[]>([]);
+
+
+    const toggleSize = (item: any) => {
+        setSelectedSize((prev) => {
+            // Проверяем, есть ли элемент уже в массиве
+            if (prev.find((i) => i._id === item._id)) {
+                // Если есть, удаляем его
+                return prev.filter((i) => i._id !== item._id);
+            } else {
+                // Если нет, добавляем
+                return [...prev, item];
+            }
+        });
+    };
+
+    const toggleItem = (item: any) => {
+        setSelectedItems((prev) => {
+            // Проверяем, есть ли элемент уже в массиве
+            if (prev.find((i) => i._id === item._id)) {
+                // Если есть, удаляем его
+                return prev.filter((i) => i._id !== item._id);
+            } else {
+                // Если нет, добавляем
+                return [...prev, item];
+            }
+        });
+    };
+
 
     if (count > 20) {
         setCount(9)
@@ -31,7 +61,7 @@ const ProductId: React.FC<ProductIdProps> = ({ id, lang, translation }) => {
                     Array.isArray(dataCat) &&
                     dataCat.map((el: any) =>
                         item._id === id && item.category === el.titles.en ? ( // Исправлено на &&
-                            <div key={item._id}  className="">
+                            <div key={item._id} className="">
 
 
                                 <div className="mb-[15vh]">
@@ -119,7 +149,8 @@ const ProductId: React.FC<ProductIdProps> = ({ id, lang, translation }) => {
                                                         {item.colors.map((el: any) => (
                                                             <div
                                                                 key={el._id}
-                                                                className="w-[22px] h-[22px] border border-gray-300 rounded-full cursor-pointer"
+                                                                onClick={() => toggleItem(el)}
+                                                                className={`w-[25px] h-[25px] border border-gray-300 rounded-full cursor-pointer ${selectedItems.some(selectedItems => selectedItems.color === el.color) ? 'border-[2px] border-green-500' : ''}`}
                                                                 style={{ backgroundColor: el.color }}
                                                             />
                                                         ))}
@@ -127,14 +158,25 @@ const ProductId: React.FC<ProductIdProps> = ({ id, lang, translation }) => {
                                                 </div>
                                             )}
 
-                                            <div className="w-full flex items-center gap-5">
-                                                <span className='text-[18px]'>{translation.main.product.size}</span>
-                                                <div className="w-[10%] h-[34px] border border-gray-400 flex justify-center items-center font-semibold text-[15px] rounded-md">XS</div>
-                                                <div className="w-[10%] h-[34px] border border-gray-400 flex justify-center items-center font-semibold text-[15px] rounded-md">S</div>
-                                                <div className="w-[10%] h-[34px] border  flex justify-center items-center font-semibold text-[15px] bg-red-500 rounded-md">M</div>
-                                                <div className="w-[10%] h-[34px] border border-gray-400 flex justify-center items-center font-semibold text-[15px] rounded-md">L</div>
-                                                <div className="w-[10%] h-[34px] border border-gray-400 flex justify-center items-center font-semibold text-[15px] rounded-md">XL</div>
-                                            </div>
+                                            {Array.isArray(item.size) && item.size.length > 0 && (
+                                                <div className="flex gap-3 items-center">
+                                                    <span className="text-[18px] font-medium">
+                                                        {translation.main.product.size}
+                                                    </span>
+                                                    <div className="flex gap-2">
+                                                        {item.size.map((el: any) => (
+                                                            <div
+                                                                key={el._id}
+                                                                onClick={() => toggleSize(el)}
+                                                                className={`w-[45px] h-[34px] border border-gray-400 flex justify-center items-center font-medium text-[16px] rounded-md ${selectedSize.some(selectedSize => selectedSize.size === el.size) ? 'bg-red-500 text-white' : ''}`}
+                                                            >
+                                                                <p>{el.size.toUpperCase()}</p>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+
                                             <div className="flex w-full justify-between">
                                                 <div className="flex w-[85%] gap-[5%]">
                                                     <div className="bg-white border flex w-[47.5%] justify-center items-center">

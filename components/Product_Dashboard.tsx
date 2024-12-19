@@ -60,9 +60,9 @@ const Products_Dashboard: React.FC<Props> = ({ item }) => {
                                 <span className="font-bold">Discound:</span> {item.discound}%
                             </p>
                         )}
-                            <p className="text-[16px]  border-b">
-                                <span className="font-bold">Type:</span> {item.type}
-                            </p>
+                        <p className="text-[16px]  border-b">
+                            <span className="font-bold">Type:</span> {item.type}
+                        </p>
 
                         {item.colors.length > 1 && (
                             <div className="flex border-b gap-[5px]">
@@ -71,6 +71,19 @@ const Products_Dashboard: React.FC<Props> = ({ item }) => {
                                     item.colors.map((el: any) => (
                                         <p key={el._id} className="text-[16px]">
                                             {el.name.en}
+                                        </p>
+                                    ))
+                                }
+                            </div>
+                        )}
+
+                        {item.size && (
+                            <div className="flex border-b gap-[5px]">
+                                <span className="font-bold">Size:</span>
+                                {Array.isArray(item.size) &&
+                                    item.size.map((el: any) => (
+                                        <p key={el._id} className="text-[16px]">
+                                            {el.size}
                                         </p>
                                     ))
                                 }

@@ -16,6 +16,7 @@ type Translation = {
     discound: number;
     image: string[];
     colors: [];
+    size: [];
     category: string;
     type: string;
     rating: number;
