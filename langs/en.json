@@ -78,7 +78,8 @@
       "create": "Create Account",
       "google" : "Sign up with Google",
       "account" : "Already have account?",
-      "login" : "Log in"
+      "login" : "Log in",
+      "image" : "Add an image (optional)"
     }
   },
   "footer": {
