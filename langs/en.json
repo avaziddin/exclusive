@@ -65,6 +65,20 @@
       "enter" : "Enter your postal code for Delivery Availability",
       "details" : "Free 30 Days Delivery Returns. Details",
       "item" : "Related Item"
+    },
+    "login" : {
+      "title" : "Log in to Exclusive",
+      "span" : "Enter your details below",
+      "login" : "Log in",
+      "password" : "Forget Password?"
+    },
+    "sign_up" : {
+      "title" : "Create an account",
+      "span": "Enter your details below",
+      "create": "Create Account",
+      "google" : "Sign up with Google",
+      "account" : "Already have account?",
+      "login" : "Log in"
     }
   },
   "footer": {

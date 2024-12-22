@@ -7,6 +7,7 @@ const AppContext = createContext<any>(null);
 export function AppWrapper({ children }: { children: ReactNode }) {
     const [dataC, setDataC] = useState<any[]>([]);
     const [dataCat, setDataCat] = useState<any[]>([]);
+    const [dataUsers, setDataUsers] = useState<any[]>([]);
     const [count, setCount] = useState<any[]>([]);
     const [languageData, setLanguageData] = useState<any>({
         ru: "Меню",
@@ -21,23 +22,26 @@ export function AppWrapper({ children }: { children: ReactNode }) {
             setLoading(true);
             try {
                 // Выполнение запросов параллельно
-                const [resCategory, resProd, resCount] = await Promise.all([
+                const [resCategory, resProd, resCount, resUsers] = await Promise.all([
                     fetch("http://localhost:3000/api/category", { cache: "no-cache" }),
                     fetch("http://localhost:3000/api/product", { cache: "no-cache" }),
                     fetch("http://localhost:3000/api/countdown", { cache: "no-cache" }),
+                    fetch("http://localhost:3000/api/users", { cache: "no-cache" }),
                 ]);
     
                 // Преобразование данных
-                const [categoryData, prodData, countData] = await Promise.all([
+                const [categoryData, prodData, countData, usersData] = await Promise.all([
                     resCategory.json(),
                     resProd.json(),
                     resCount.json(),
+                    resUsers.json(),
                 ]);
     
                 // Установка данных
                 setDataCat(categoryData.data);
                 setDataProd(prodData.data);
                 setCount(countData.data);
+                setDataUsers(usersData.data);
             } catch (error) {
                 console.error("Ошибка при загрузке данных:", error);
             } finally {
@@ -50,7 +54,7 @@ export function AppWrapper({ children }: { children: ReactNode }) {
     
 
     return (
-        <AppContext.Provider value={{ count, setCount,dataProd, setDataProd, dataC, setDataC, dataCat, setDataCat, languageData, setLanguageData, loading, setLoading }}>
+        <AppContext.Provider value={{ count, dataUsers, setDataUsers, setCount,dataProd, setDataProd, dataC, setDataC, dataCat, setDataCat, languageData, setLanguageData, loading, setLoading }}>
             {children}
         </AppContext.Provider>
     );

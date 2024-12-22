@@ -1,8 +1,6 @@
 import HeaderNav from '@/components/HeaderNav';
 import LanguageSwitcher from '@/components/LanguageSwitch';
-import MyAcountModalCom from '@/components/MyAcountModal';
 import { AppWrapper } from '@/context';
-import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
@@ -26,11 +24,13 @@ const Layout: React.FC<LayoutProps> = async ({ children, translation, lang }) =>
                             <LanguageSwitcher />
                         </div>
                     </div>
-                    <div className=" bg-white w-full items-center flex justify-between  pt-[3%] pl-[7%] pr-[7%] pb-5">
+                    <div className=" bg-white w-full items-center flex justify-between pt-[3%] pl-[7%] pr-[9%] pb-5">
                         <h1 className="text-black text-[26px] font-semibold">{translation.header.headerTitleSec}</h1>
                         <HeaderNav translation={translation} />
 
-                        <div className="flex gap-[10px] items-center">
+                        <div className="flex gap-[5%]">
+
+
                             <div className="relative">
                                 <input
                                     className="w-fit px-[15px] text-[17px] py-[7px] pr-10 rounded-[5px] outline-none bg-gray-200 text-black placeholder-gray-500 shadow-md focus:ring-2 focus:ring-gray-300 transition-all duration-200"
@@ -45,15 +45,8 @@ const Layout: React.FC<LayoutProps> = async ({ children, translation, lang }) =>
                                 </button>
                             </div>
 
-                            <div className="flex gap-[15px]">
-                                <Image src="/images/favourite.svg" alt="hello" width={35} height={30} />
-                                <Image src="/images/cart.svg" alt="hello" width={35} height={30} />
-                                <MyAcountModalCom translation={translation} />
-                            </div>
                         </div>
-
                     </div>
-
                 </header>
                 <main className=' px-[7%]'>
                     {children}

@@ -33,8 +33,8 @@ const HeaderNav = ({ translation }: { translation: any }) => {
         {translation.header.nav.about}
       </Link>
       <Link
-        className={`text-[18px] pb-0 border-black ${pathWithoutLanguage === 'sign-up' ? 'border-b' : ''}`}
-        href="/sign-up"
+        className={`text-[18px] pb-0 border-black ${pathWithoutLanguage === 'sign_in' ? 'border-b' : ''}`}
+        href="/sign_in"
       >
         {translation.header.nav.sing_up}
       </Link>
