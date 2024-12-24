@@ -12,9 +12,23 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'custom-gray': 'rgba(255, 255, 255, 0.3)', // Цвет для градиента
       },
       boxShadow: {
         'only-bottom': '0 1px 6px -1px rgba(0, 0, 0, 0.1)',
+      },
+      backdropBlur: {
+        xs: '2px',
+        sm: '4px',
+        md: '20px',
+        lg: '12px',
+        xl: '16px',
+      },
+      backgroundImage: {
+        'gradient-blur': 'linear-gradient(145deg, rgba(0,0,0,0.5), rgba(255,255,255,0.2))',
+      },
+      borderRadius: {
+        'xl': '12px',
       },
     },
   },

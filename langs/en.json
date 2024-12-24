@@ -53,33 +53,59 @@
       "main": "MONEY BACK GUARANTEE",
       "p": "We reurn money within 30 days"
     },
-    "product" : {
-      "account" : "Account",
-      "gaming" : "Gaming",
-      "have" : "Havic HV G-92 Gamepad",
-      "colors" : "Colours :",
-      "size" : "Size :",
-      "buy" : "Buy Now",
-      "free" : "Free Delivery",
-      "return" : "Return Delivery",
-      "enter" : "Enter your postal code for Delivery Availability",
-      "details" : "Free 30 Days Delivery Returns. Details",
-      "item" : "Related Item"
+    "product": {
+      "account": "Account",
+      "gaming": "Gaming",
+      "have": "Havic HV G-92 Gamepad",
+      "colors": "Colours :",
+      "size": "Size :",
+      "buy": "Buy Now",
+      "free": "Free Delivery",
+      "return": "Return Delivery",
+      "enter": "Enter your postal code for Delivery Availability",
+      "details": "Free 30 Days Delivery Returns. Details",
+      "item": "Related Item"
     },
-    "login" : {
-      "title" : "Log in to Exclusive",
-      "span" : "Enter your details below",
-      "login" : "Log in",
-      "password" : "Forget Password?"
+    "login": {
+      "title": "Log in to Exclusive",
+      "span": "Enter your details below",
+      "login": "Log in",
+      "password": "Forget Password?"
     },
-    "sign_up" : {
-      "title" : "Create an account",
+    "sign_up": {
+      "title": "Create an account",
       "span": "Enter your details below",
       "create": "Create Account",
-      "google" : "Sign up with Google",
-      "account" : "Already have account?",
-      "login" : "Log in",
-      "image" : "Add an image (optional)"
+      "google": "Sign up with Google",
+      "account": "Already have account?",
+      "login": "Log in",
+      "image": "Add an image (optional)"
+    },
+    "account": {
+      "home": "Home",
+      "my": "My Account",
+      "welcome": "Welcome",
+      "md": "Md Rimel",
+      "manage": "Manage My Account",
+      "myprofile": "My Profile",
+      "adressbook": "Address Book",
+      "payment": "My Payment Options",
+      "orders": "My Orders",
+      "returns": "My Returns",
+      "canseltations": "My Cancellations",
+      "wishlist": "My WishList",
+      "edit": "Edit Your Profile",
+      "first": "First Name*",
+      "last": "Last Name",
+      "adress": "Address",
+      "password": "Password Changes",
+      "cancel": "Cancel",
+      "save": "Save Changes",
+      "modal": {
+        "manage_acount": "Manage My Account",
+        "logout": "Logout",
+        "my_order": "My Order"
+      }
     }
   },
   "footer": {
