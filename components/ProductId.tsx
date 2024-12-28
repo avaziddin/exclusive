@@ -4,6 +4,7 @@ import { useAppContext } from '@/context';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import RealetedProduct from './RealetedProducts';
+import AddToWishlist from './AddToWishlist';
 
 interface ProductIdProps {
     id: string;
@@ -140,7 +141,6 @@ const ProductId: React.FC<ProductIdProps> = ({ id, lang, translation }) => {
                                                                     style={{ backgroundColor: el.color }}
                                                                 ></div>
                                                             </div>
-
                                                         ))}
                                                     </div>
                                                 </div>
@@ -180,9 +180,7 @@ const ProductId: React.FC<ProductIdProps> = ({ id, lang, translation }) => {
                                                     </div>
                                                     <button className="text-white w-[47.5%] bg-red-500 rounded-md px-[5%]">{translation.main.product.buy}</button>
                                                 </div>
-                                                <div className="border border-gray-400 rounded-md w-[10%] flex justify-center items-center">
-                                                    <Image src="/images/like.svg" alt="hello" width={30} height={30} />
-                                                </div>
+                                                    <AddToWishlist border={true} id={item._id}/>
                                             </div>
 
                                             <div>

@@ -11,8 +11,8 @@ interface MyAcountModalProps {
 
 const MyAcountModalCom: React.FC<MyAcountModalProps> = ({ translation }) => {
     const { dataUsers } = useAppContext();
-    const [isOpen, setIsOpen] = useState(false);
     const [userId, setUserId] = useState<string | null>(null);
+    const [isOpen, setIsOpen] = useState(false);
     const modalRef = useRef<HTMLDivElement>(null);
 
     const toggleModal = () => {
@@ -27,9 +27,11 @@ const MyAcountModalCom: React.FC<MyAcountModalProps> = ({ translation }) => {
             ?.split("=")[1];
 
         setUserId(userIdCookie || null);
+        
     }, []);
 
     useEffect(() => {
+
         const handleClickOutside = (event: MouseEvent) => {
             if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
                 setIsOpen(false);
@@ -56,14 +58,14 @@ const MyAcountModalCom: React.FC<MyAcountModalProps> = ({ translation }) => {
                             <div key={el._id} className="relative" ref={modalRef}>
                                 <div
                                     onClick={toggleModal}
-                                    className="w-[35px] h-[35px] rounded-[50%] overflow-hidden"
+                                    className="w-[35px] bg-red-500 h-[35px] object-cover rounded-[50%] overflow-hidden"
                                 >
                                     <Image
-                                        className="object-cover"
+                                        className="object-cover w-full h-[5vh]"
                                         src={el.image ? el.image[0] : "/images/person.svg"}
                                         alt="User avatar"
-                                        width={50}
-                                        height={50}
+                                        width={100}
+                                        height={100}
                                     />
                                 </div>
 

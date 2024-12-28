@@ -56,6 +56,8 @@ const Sing_up: React.FC<Props> = ({ translation }) => {
             fm.forEach((val: any, key: any) => (product[key] = val));
     
             product.image = data.data; // Получаем URL изображения из ответа API
+
+            product.wishlist = []
     
             const res = await fetch("http://localhost:3000/api/users", {
                 method: "POST",

@@ -242,7 +242,7 @@ const Modal_product_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
 
 
 
-
+    
     useEffect(() => {
         const fetchItem = async () => {
             try {

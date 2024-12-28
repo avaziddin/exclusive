@@ -1,6 +1,7 @@
 import HeaderNav from '@/components/HeaderNav';
 import LanguageSwitcher from '@/components/LanguageSwitch';
 import MyAcountModalCom from '@/components/MyAcountModal';
+import WishLIstHeaderButton from '@/components/WishLIstHeaderButton';
 import { AppWrapper } from '@/context';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
@@ -46,7 +47,9 @@ const Layout: React.FC<LayoutProps> = async ({ children, translation, lang }) =>
                             </div>
 
                             <div className="flex gap-[15px]">
-                                <Image src="/images/favourite.svg" alt="hello" width={35} height={30} />
+
+                            <WishLIstHeaderButton/>
+                                
                                 <Image src="/images/cart.svg" alt="hello" width={35} height={30} />
                                 <MyAcountModalCom translation={translation} />
                             </div>

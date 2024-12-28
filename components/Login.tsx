@@ -12,34 +12,12 @@ interface Props {
 
 const Login_form: React.FC<Props> = ({ translation }) => {
     const [showPassword, setShowPassword] = useState(false);
-    const { dataUsers } = useAppContext()
+    const { dataUsers } = useAppContext("")
 
     const togglePasswordVisibility = () => {
         setShowPassword((prev) => !prev);
     };
 
-    async function getGoogleProfile(email: string) {
-        const apiKey = 'YOUR_GOOGLE_API_KEY';
-        const url = `https://people.googleapis.com/v1/people:searchContacts?query=${email}&readMask=names,photos&key=${apiKey}`;
-    
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-    
-            if (data.results && data.results.length > 0) {
-                // Получаем первую найденную запись
-                const profile = data.results[0];
-                const photoUrl = profile.photos?.[0]?.url;
-                return photoUrl || null;
-            } else {
-                console.log('No profile found for this email.');
-                return null;
-            }
-        } catch (error) {
-            console.error('Error fetching Google profile:', error);
-            return null;
-        }
-    }
 
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -52,10 +30,6 @@ const Login_form: React.FC<Props> = ({ translation }) => {
                 password: fm.get("password") as string,
                 avatar: fm.get("password") as string,
             };
-
-            const avatarUrl = await getGoogleProfile(user.email);
-            user.avatar = avatarUrl || 'default-avatar.png';
-
 
             // Найти пользователя в массиве
             const foundUser = dataUsers.find(

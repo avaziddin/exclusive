@@ -9,16 +9,15 @@ interface TodaysSalesProductsProps {
   translation: any;
 }
 
-
 const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { dataProd } = useAppContext()
+  const { dataProd } = useAppContext();
 
   // Функция для прокрутки на 2 блока
   const scroll = (direction: "left" | "right") => {
-    if (containerRef.current) {
-      const blockWidth = containerRef.current.scrollWidth / dataProd.length; // Ширина одного блока
-      const scrollAmount = blockWidth * 2; // Прокрутка на 2 блока
+    if (containerRef.current && dataProd?.length) {
+      const blockWidth = containerRef.current.scrollWidth / dataProd.length;
+      const scrollAmount = blockWidth * 2;
 
       containerRef.current.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
@@ -27,9 +26,18 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
     }
   };
 
+  // Если данных нет, показываем заглушку
+  if (!dataProd || dataProd.length === 0) {
+    return (
+      <div className="relative mb-[50px] pb-[40px] z-0 text-center">
+        <p className="text-gray-500">{translation.main.no_products || "No products available."}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="relative mb-[50px] pb-[40px] z-0">
-      {/* Кнопки прокрутки */}
+      {/* Заголовок и кнопки прокрутки */}
       <div className="mb-[30px]">
         <div className="flex mb-[20px] gap-[10px] items-center">
           <div className="w-[20px] h-[40px] rounded-lg bg-red-500"></div>
@@ -57,107 +65,68 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
       {/* Список товаров */}
       <div
         ref={containerRef}
-        className="grid grid-rows-2 mb-[50px] grid-flow-col  gap-[2%] overflow-x-auto scrollbar-hidden"
-        style={{ gridAutoColumns: "calc((100% - (2% * 4)) / 5)" }} // 6 элементов + 5 gap
+        className="grid grid-rows-2 mb-[50px] grid-flow-col gap-[2%] overflow-x-auto scrollbar-hidden"
+        style={{ gridAutoColumns: "calc((100% - (2% * 4)) / 5)" }}
       >
         {dataProd.map((item: any) => (
           <div
             key={item._id}
             className="hover:bg-gray-100 group rounded-lg w-fit pb-[10px] transition-[.1s]"
           >
-            <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[10px] transition-[.1s]">
-              <div className="mb-[10px] relative rounded-xl">
-                <div className="absolute cursor-pointer top-[5%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
-                  <Image
-                    src="/images/heart.svg"
-                    alt="heart"
-                    width={20}
-                    height={20}
-                  />
+            <div className="mb-[10px] relative rounded-xl">
+              <div className="absolute cursor-pointer top-[5%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
+                <Image src="/images/heart.svg" alt="heart" width={20} height={20} />
+              </div>
+
+              <Link href={`/${item._id}`}>
+                <div className="absolute cursor-pointer top-[19%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
+                  <Image src="/images/eye.svg" alt="eye" width={20} height={20} />
                 </div>
+              </Link>
 
-
-                <Link href={`/${item._id}`}>
-                  <div className="absolute cursor-pointer top-[19%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
+              <Link href={`/${item._id}`}>
+                <Image
+                  className="w-conent h-[30vh] rounded-lg object-cover"
+                  src={item.image?.[0] || "/images/placeholder.png"}
+                  alt="product"
+                  width={500}
+                  height={300}
+                />
+              </Link>
+              <div className="w-full cursor-pointer flex justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 opacity-0 group-hover:opacity-100 transition">
+                <span>{translation.main.add_to_cart}</span>
+              </div>
+            </div>
+            <Link href={`/${item._id}`}>
+              <h1 className="text-black font-medium mb-[10px] px-[10px]">{item.title}</h1>
+              <div className="flex font-medium gap-[10px] px-[10px] mb-[10px]">
+                <span className="text-red-500">
+                  {item.discound > 0
+                    ? (item.price - (item.price * item.discound) / 100).toFixed(2)
+                    : item.price}
+                </span>
+                <div className="flex items-center px-[10px] gap-[7px]">
+                  {[...Array(5)].map((_, index) => (
                     <Image
-                      src="/images/eye.svg"
-                      alt="eye"
+                      key={index}
+                      src="/images/YellowStar.svg"
+                      alt="rating"
                       width={20}
                       height={20}
                     />
-                  </div>
-                </Link>
-
-
-                <Link href={`/${item._id}`}>
-                  <Image
-                    className="w-conent h-[30vh] rounded-lg object-cover"
-                    src={item.image[0]}
-                    alt="product"
-                    width={500}
-                    height={300}
-                  />
-                </Link>
-                <div className="w-full cursor-pointer flex justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 opacity-0 group-hover:opacity-100 transition">
-                  <span>{translation.main.add_to_cart}</span>
+                  ))}
+                  <span className="text-gray-400">(99)</span>
                 </div>
               </div>
-              <Link href={`/${item._id}`}>
-
-                <div className="">
-                  <h1 className="text-black font-medium mb-[10px] px-[10px]">
-                    {item.title}
-                  </h1>
-                  <div className="flex font-medium gap-[10px] px-[10px] mb-[10px]">
-                    <span className="text-red-500">{item.discound > 0 ? (item.price - (item.price * item.discound) / 100).toFixed(2) : item.price}</span>
-                    <div className="flex items-center px-[10px] gap-[7px]">
-                      <div className="flex items-center gap-[7px]">
-                        <Image
-                          src="/images/YellowStar.svg"
-                          alt="rating"
-                          width={20}
-                          height={20}
-                        />
-                        <Image
-                          src="/images/YellowStar.svg"
-                          alt="rating"
-                          width={20}
-                          height={20}
-                        />
-                        <Image
-                          src="/images/YellowStar.svg"
-                          alt="rating"
-                          width={20}
-                          height={20}
-                        />
-                        <Image
-                          src="/images/YellowStar.svg"
-                          alt="rating"
-                          width={20}
-                          height={20}
-                        />
-                        <Image
-                          src="/images/YellowStar.svg"
-                          alt="rating"
-                          width={20}
-                          height={20}
-                        />
-                      </div>
-                      <span className="flex justify-center items-center text-gray-400">
-                        (99)
-                      </span>
-                    </div>
-
-                  </div>
-                </div>
-              </Link>
-            </div>
+            </Link>
           </div>
         ))}
       </div>
       <div className="flex border-b border-gray-300 pb-[70px] justify-center">
         <Link href="/">
-          <span className='p-[20px] rounded-lg text-[17px] font-medium px-[50px] bg-red-500'>{translation.main.view}</span>
+          <span className="p-[20px] rounded-lg text-[17px] font-medium px-[50px] bg-red-500">
+            {translation.main.view}
+          </span>
         </Link>
       </div>
     </div>

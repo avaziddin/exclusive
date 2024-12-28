@@ -4,6 +4,7 @@ import { useAppContext } from "@/context";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef } from "react";
+import AddToWishlist from "./AddToWishlist";
 
 interface TodaysSalesProductsProps {
   translation: any;
@@ -27,6 +28,8 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
   };
 
   const flash_sales = dataProd.filter((product: { type: any; }) => product.type === "Flash Sales");
+
+  
 
 
 
@@ -80,17 +83,13 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
 
               <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
                 <div className="mb-[10px] relative rounded-xl">
-                  <div className="absolute cursor-pointer top-[5%] p-[7px] flex items-center justify-center rounded-full right-[3%] bg-white">
-                    <Image
-                      src="/images/heart.svg"
-                      alt="Add to wishlist"
-                      width={20}
-                      height={20}
-                    />
+
+                  <div className="absolute left-0 flex justify-end pr-[3%] top-4 z-50 w-full">
+                    <AddToWishlist id={item._id} border={false}/>
                   </div>
 
                   <Link href={`/${item._id}`}>
-                    <div className="absolute cursor-pointer top-[19%] p-[7px] flex items-center justify-center rounded-full right-[3%] bg-white">
+                    <div className="absolute cursor-pointer top-[22%] p-[7px] flex items-center justify-center rounded-full right-[3%] bg-white">
                       <Image
                         src="/images/eye.svg"
                         alt="View details"

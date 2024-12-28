@@ -1,11 +1,12 @@
   
   export type User = {
     _id: string;
-    avatar: string;
+    adress: string
+    secondName: string
     title: string;
     image: string[];
     email: string
-    number: string
-    favourite:[];
-    cart:[];
+    password: string
+    wishlist:string[];
+    cart:string[];
   };

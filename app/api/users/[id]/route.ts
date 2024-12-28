@@ -5,15 +5,15 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: Request, context: { params: { id: string } }) {
     try {
         const { id } = context.params; // Доступ к параметрам запроса
-        
+
         // Убедимся, что id корректен
         if (!ObjectId.isValid(id)) {
             return NextResponse.json({ success: false, message: 'Invalid ID format' }, { status: 400 });
         }
-        
+
         const client = await clientPromise;
         const db = client.db('mydatabase');
-        
+
         // Поиск элемента по id
         const userItem = await db.collection('users').findOne({ _id: new ObjectId(id) });
 
