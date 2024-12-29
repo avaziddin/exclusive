@@ -26,7 +26,7 @@ export default async function Contact({ params: { lang }, }: { params: { lang: s
                         <input type="text" className="rounded w-[255px] h-[50px] pl-5 outline-none bg-gray-100  text-black" placeholder="Your Email *"/>
                         <input type="text" className="rounded w-[255px] h-[50px] pl-5 outline-none bg-gray-100  text-black" placeholder="Your Phone *"/>
                     </div>
-                    <input type="text" className="w-full rounded pl-5 h-[210px] bg-gray-100  outline-none text-black" placeholder="Your Massage" />
+                    <input type="text" className="w-full rounded  pl-5 pt-[2vh] pb-[20vh] bg-gray-100  outline-none text-black" placeholder="Your Massage" />
                     <div className="flex justify-end">
                         <button className="text-white bg-red-500 w-[30%] p-[15px] rounded-lg outline-none">{translation.main.contact.send}</button>
                     </div>

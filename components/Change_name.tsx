@@ -10,7 +10,7 @@ interface Change_nameProps {
 
 const Change_name: React.FC<Change_nameProps> = ({translation}) => {
 
-    const { dataUsers } = useAppContext("");
+    const { dataUsers } = useAppContext();
     const [userId, setUserId] = useState<string | null>(null);
 
     useEffect(() => {

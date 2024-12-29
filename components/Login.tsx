@@ -12,7 +12,7 @@ interface Props {
 
 const Login_form: React.FC<Props> = ({ translation }) => {
     const [showPassword, setShowPassword] = useState(false);
-    const { dataUsers } = useAppContext("")
+    const { dataUsers } = useAppContext()
 
     const togglePasswordVisibility = () => {
         setShowPassword((prev) => !prev);

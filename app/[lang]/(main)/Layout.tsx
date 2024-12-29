@@ -20,6 +20,7 @@ const Layout: React.FC<LayoutProps> = async ({ children, translation, lang }) =>
         <>
             <AppWrapper>
                 <header className='text-white relative border-b border-gray-300'>
+
                     <div className=" py-[10px] px-[7%] w-full bg-black flex  justify-center">
                         <div className="flex">
 

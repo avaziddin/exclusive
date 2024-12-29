@@ -70,6 +70,14 @@ const Dashboard: React.FC<DashboardProps> = ({ children }: { children: ReactNode
                                     Products
                                 </button>
                             </Link>
+                            <Link href="/admin/dashboard/users">
+                                <button
+                                    className={`w-full flex items-center  justify-start py-[3%] px-[5%] gap-[5%] rounded-md  transition-[.3s] ${pathName === "/ru/admin/dashboard/users" ? "bg-gray-200 text-black" : ""}`}
+                                >
+                                    <Image src="/images/users.svg" alt="sales" width={28} height={30} />
+                                    Users
+                                </button>
+                            </Link>
                         </div>
                     </div>
 

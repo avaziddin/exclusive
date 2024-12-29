@@ -4,6 +4,7 @@ import { useAppContext } from "@/context";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef } from "react";
+import AddToWishlist from "./AddToWishlist";
 
 interface TodaysSalesProductsProps {
   translation: any;
@@ -35,6 +36,12 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
     );
   }
 
+  const explore_our_products = dataProd
+  .filter((product: { type: any }) => product.type === "None")
+  .slice(0, Math.floor(dataProd.length * 0.3));  // Оставляем только первые 30% продуктов
+
+
+
   return (
     <div className="relative mb-[50px] pb-[40px] z-0">
       {/* Заголовок и кнопки прокрутки */}
@@ -65,21 +72,21 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
       {/* Список товаров */}
       <div
         ref={containerRef}
-        className="grid grid-rows-2 mb-[50px] grid-flow-col gap-[2%] overflow-x-auto scrollbar-hidden"
+        className={`${explore_our_products.length > 5 ? "grid grid-rows-2 mb-[50px] grid-flow-col" : "flex min-w-full "} gap-[2%] overflow-x-auto scrollbar-hidden`}
         style={{ gridAutoColumns: "calc((100% - (2% * 4)) / 5)" }}
       >
-        {dataProd.map((item: any) => (
+        {explore_our_products.map((item: any) => (
           <div
             key={item._id}
-            className="hover:bg-gray-100 group rounded-lg w-fit pb-[10px] transition-[.1s]"
+            className={`${explore_our_products.length > 5 ? "w-fit" : "w-[18.4%] mb-[50px]"} hover:bg-gray-100 group rounded-lg pb-[10px] transition-[.1s]`}
           >
             <div className="mb-[10px] relative rounded-xl">
-              <div className="absolute cursor-pointer top-[5%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
-                <Image src="/images/heart.svg" alt="heart" width={20} height={20} />
+              <div className="absolute left-0 flex justify-end pr-[3%] top-4 z-50 w-full">
+                <AddToWishlist id={item._id} border={false} />
               </div>
 
               <Link href={`/${item._id}`}>
-                <div className="absolute cursor-pointer top-[19%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
+                <div className="absolute cursor-pointer top-[21%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
                   <Image src="/images/eye.svg" alt="eye" width={20} height={20} />
                 </div>
               </Link>
@@ -99,13 +106,23 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
             </div>
             <Link href={`/${item._id}`}>
               <h1 className="text-black font-medium mb-[10px] px-[10px]">{item.title}</h1>
-              <div className="flex font-medium gap-[10px] px-[10px] mb-[10px]">
-                <span className="text-red-500">
-                  {item.discound > 0
-                    ? (item.price - (item.price * item.discound) / 100).toFixed(2)
-                    : item.price}
-                </span>
-                <div className="flex items-center px-[10px] gap-[7px]">
+              <div className=" flex flex-col justify-start items-start font-medium gap-[10px] px-[10px] mb-[10px]">
+
+                <div className="flex gap-[10%]">
+
+                  <span className="flex whitespace-nowrap text-red-500">
+                    {item.discound > 0
+                      ? `$ ${(item.price - (item.price * item.discound) / 100).toFixed(2)}`
+                      : item.price}
+                  </span>
+
+                  <span className="text-gray-400 line-through">
+                    {item.discound > 0
+                      ? item.price
+                      : ""}
+                  </span>
+                </div>
+                <div className="flex items-center gap-[7px]">
                   {[...Array(5)].map((_, index) => (
                     <Image
                       key={index}
@@ -123,7 +140,7 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
         ))}
       </div>
       <div className="flex border-b border-gray-300 pb-[70px] justify-center">
-        <Link href="/">
+        <Link href="/allProd">
           <span className="p-[20px] rounded-lg text-[17px] font-medium px-[50px] bg-red-500">
             {translation.main.view}
           </span>

@@ -2,8 +2,8 @@
   export type User = {
     _id: string;
     adress: string
-    secondName: string
-    title: string;
+    surname: string
+    name: string;
     image: string[];
     email: string
     password: string

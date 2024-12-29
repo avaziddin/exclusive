@@ -56,7 +56,7 @@ const TodaysSales: React.FC<TodaysSalesProps> = ({ translation, lang }) => {
                     </div>
                     <TodaysSalesProducts translation={translation} lang={lang} />
                     <div className="flex border-b border-gray-300 pb-[70px] justify-center">
-                        <Link href="/">
+                        <Link href="/allProd">
                             <span className='p-[20px] rounded-lg text-[17px] font-medium px-[50px] bg-red-500'>{translation.main.view}</span>
                         </Link>
                     </div>

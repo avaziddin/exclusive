@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { log } from "console";
+import { useAppContext } from "@/context";
 
 interface Props {
   id: string;  // Один id товара
@@ -13,6 +14,7 @@ const AddToWishlist: React.FC<Props> = ({ id, border }) => {
   const [userId, setUserId] = useState<string | null>(null);
   const [like, setLike] = useState<boolean>(false);  // Состояние для текущего id
   const [wishlist, setWishlist] = useState<{ [key: string]: any }>({}); // Состояние для хранения wishlist
+  const { setWishlistCount } = useAppContext()
 
   // Получаем userId из cookie
   useEffect(() => {
@@ -41,6 +43,7 @@ const AddToWishlist: React.FC<Props> = ({ id, border }) => {
           if (res.ok) {
             const data = await res.json();
             setWishlist(data.data.wishlist);  // Загружаем wishlist с сервера
+            setWishlistCount(data.data.wishlist.length)
             setLike(data.data.wishlist.includes(id));  // Проверяем, есть ли товар в wishlist с сервера
           } else {
             console.error("Failed to fetch wishlist");
@@ -50,7 +53,7 @@ const AddToWishlist: React.FC<Props> = ({ id, border }) => {
           alert("An error occurred while fetching wishlist");
         }
       };
-      
+
       fetchWishlist();
     }
   }, [userId, id]);
@@ -95,6 +98,9 @@ const AddToWishlist: React.FC<Props> = ({ id, border }) => {
         console.log(
           itemExists ? "Item removed from wishlist" : "Item added to wishlist"
         );
+
+        setWishlistCount(Object.keys(updatedWishlist).length);
+
       } else {
         const errorMessage = await res.text();
         alert(`Failed to update wishlist: ${errorMessage}`);
@@ -106,18 +112,18 @@ const AddToWishlist: React.FC<Props> = ({ id, border }) => {
   };
 
   console.log(wishlist);
-  
+
 
   return (
     <div
       onClick={toggleWishlist}
-      className={`${border ? "border bg-white border-gray-400 rounded-md w-[10%] flex justify-center" : "border-none bg-white w-[35px] rounded-[50%] p-[4px]"}`}
+      className={` ${border ? "border bg-white border-gray-400 rounded-md w-[10%] flex justify-center" : "border-none w-[35px] h-[35px] flex items-center justify-center bg-white rounded-[50%]"} `}
     >
       <Image
-        className="active:scale-[.9] m-auto pl-[1px] transition-[.2]"
+        className=" active:scale-[.9] pl-[1px] transition-[.2]"
         src={like ? "/images/red_like.svg" : "/images/like.svg"}
         alt="Toggle wishlist"
-        width={30}
+        width={like ? 40 : 28}
         height={30}
       />
     </div>

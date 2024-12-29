@@ -10,6 +10,7 @@ export function AppWrapper({ children }: { children: ReactNode }) {
     const [dataUsers, setDataUsers] = useState<any[]>([]);
     const [dataWishlist, setDataWishlist] = useState<any[]>([]);
     const [count, setCount] = useState<any[]>([]);
+    const [wishlistCount, setWishlistCount] = useState<any[]>([]);
     const [languageData, setLanguageData] = useState<any>({
         ru: "Меню",
         en: "Menu"
@@ -55,7 +56,7 @@ export function AppWrapper({ children }: { children: ReactNode }) {
     
 
     return (
-        <AppContext.Provider value={{ dataWishlist, setDataWishlist,count, dataUsers, setDataUsers, setCount,dataProd, setDataProd, dataC, setDataC, dataCat, setDataCat, languageData, setLanguageData, loading, setLoading }}>
+        <AppContext.Provider value={{wishlistCount, setWishlistCount, dataWishlist, setDataWishlist,count, dataUsers, setDataUsers, setCount,dataProd, setDataProd, dataC, setDataC, dataCat, setDataCat, languageData, setLanguageData, loading, setLoading }}>
             {children}
         </AppContext.Provider>
     );

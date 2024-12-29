@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import RealetedProduct from "./RealetedProducts";
 import DeleteWishlist from "./DeleteWishlist";
+import Link from "next/link";
 
 interface WishlistReloadProps {
     translation: any;
@@ -12,7 +13,7 @@ interface WishlistReloadProps {
 }
 
 const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) => {
-    const { dataUsers, dataProd, loading } = useAppContext();
+    const { dataUsers, dataProd, loading, setWishlistCount } = useAppContext();
     const [userId, setUserId] = useState<string | null>(null);
 
     useEffect(() => {
@@ -24,6 +25,27 @@ const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) =>
 
         setUserId(userIdCookie || null);
     }, []);
+
+    useEffect(() => {
+        if (userId) {
+            const fetchWishlist = async () => {
+                try {
+                    const res = await fetch(`http://localhost:3000/api/users/${userId}`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        setWishlistCount(data.data.wishlist.length); // Обновление количества товаров в wishlist
+                    } else {
+                        console.error("Failed to fetch wishlist");
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    alert("An error occurred while fetching wishlist");
+                }
+            };
+
+            fetchWishlist();
+        }
+    }, [userId, setWishlistCount]); // Не забываем добавлять setWishlistCount как зависимость
 
     const user = dataUsers.find((el: any) => el._id === userId);
 
@@ -37,6 +59,13 @@ const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) =>
             return String(wishlistItem) === String(product._id); // Приведение к строке для надёжного сравнения
         });
     });
+
+    const noWishList = safeDataProd.filter((product: any) => {
+        return !safeDataWishlist.some((wishlistItem: any) => {
+            return String(wishlistItem) === String(product._id); // Приведение к строке для надёжного сравнения
+        });
+    });
+
 
     return (
         <>
@@ -77,7 +106,7 @@ const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) =>
                     </p>
                 ) : (
                     filteredProducts.map((item: any) => (
-                        <div key={item._id} className="whitespace-nowrap w-[23.5%] flex-shrink-0 h-fit mb-[50px]">
+                        <div key={item._id} className="whitespace-nowrap w-[18.4%] flex-shrink-0 h-fit mb-[50px]">
                             <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
                                 <div className="mb-[10px] relative rounded-xl">
                                     <DeleteWishlist id={item._id} />
@@ -119,18 +148,71 @@ const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) =>
                 )}
             </div>
 
-            <div className="flex justify-between">
-                <div className="flex gap-5 items-center">
-                    <div className="bg-red-500 w-[20px] h-[40px] rounded-lg"></div>
-                    <span className="text-black font-semibold text-2xl">{translation.main.wishlist.just}</span>
+            {noWishList.length > 0 &&
+
+                <div className="flex justify-between">
+                    <div className="flex gap-5 items-center">
+                        <div className="bg-red-500 w-[20px] h-[40px] rounded-lg"></div>
+                        <span className="text-black font-semibold text-2xl">{translation.main.wishlist.just}</span>
+                    </div>
+                    <button className="text-black w-[15%] p-[10px] border hover:bg-red-500 transition-[.2s] hover:border-white hover:text-white active:scale-[.9] border-black rounded-xl">
+                        {translation.main.wishlist.see}
+                    </button>
                 </div>
-                <button className="text-black w-[15%] p-[10px] border hover:bg-red-500 transition-[.2s] hover:border-white hover:text-white active:scale-[.9] border-black rounded-xl">
-                    {translation.main.wishlist.see}
-                </button>
-            </div>
+            }
+
 
             <div className="flex gap-[2%] overflow-x-auto scrollbar-hidden mt-[50px]">
-                <RealetedProduct category={""} translation={translation} lang={lang} />
+                {
+                    noWishList.map((item: any) => (
+                        <div key={item._id} className="whitespace-nowrap w-[18.4%] flex-shrink-0 h-fit mb-[50px]">
+                            <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
+                                <div className="mb-[10px] relative rounded-xl">
+
+                                    {item.discound > 0 && (
+                                        <div className="px-[10px] py-[3px] bg-red-500 rounded-lg absolute top-[2%] left-[2%]">
+                                            <span>-{item.discound}%</span>
+                                        </div>
+                                    )}
+                                    <Link href={`/${item._id}`}>
+                                        <div className="absolute cursor-pointer top-[5%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
+                                            <Image src="/images/eye.svg" alt="eye" width={20} height={20} />
+                                        </div>
+                                    </Link>
+
+                                    <Link href={`/${item._id}`}>
+                                        <Image
+                                            className="w-conent h-[30vh] rounded-lg object-cover"
+                                            src={item.image?.[0] || "/images/placeholder.png"}
+                                            alt="product"
+                                            width={500}
+                                            height={300}
+                                        />
+                                    </Link>
+                                    <div className="w-full cursor-pointer flex gap-[3%] justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 transition">
+                                        <Image src="/images/cartWishlist.svg" alt="cart" width={20} height={15} />
+                                        <span className="text-[17px]">{translation.main.add_to_cart}</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h1 className="text-black font-semibold text-[18px] mb-[10px] px-[10px]">
+                                        {item.titles[lang]}
+                                    </h1>
+                                    <div className="flex font-medium gap-[10px] px-[10px] mb-[10px]">
+                                        <span className="text-[18px] text-red-500">
+                                            $ {item.discound > 0
+                                                ? (item.price - (item.price * item.discound) / 100).toFixed(2)
+                                                : item.price}
+                                        </span>
+                                        {item.discound > 0 && (
+                                            <span className="flex items-center text-gray-500 line-through">{item.price}</span>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
         </>
     );
