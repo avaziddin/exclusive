@@ -1,3 +1,4 @@
+import CartHeaderButton from '@/components/CartHeaderButton';
 import HeaderNav from '@/components/HeaderNav';
 import LanguageSwitcher from '@/components/LanguageSwitch';
 import MyAcountModalCom from '@/components/MyAcountModal';
@@ -51,7 +52,7 @@ const Layout: React.FC<LayoutProps> = async ({ children, translation, lang }) =>
 
                             <WishLIstHeaderButton/>
                                 
-                                <Image src="/images/cart.svg" alt="hello" width={35} height={30} />
+                                <CartHeaderButton/>
                                 <MyAcountModalCom translation={translation} />
                             </div>
                         </div>

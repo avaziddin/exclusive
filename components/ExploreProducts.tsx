@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useRef } from "react";
 import AddToWishlist from "./AddToWishlist";
+import AddToCart from "./AddToCart";
 
 interface TodaysSalesProductsProps {
   translation: any;
@@ -37,8 +38,14 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
   }
 
   const explore_our_products = dataProd
-  .filter((product: { type: any }) => product.type === "None")
-  .slice(0, Math.floor(dataProd.length * 0.3));  // Оставляем только первые 30% продуктов
+    .filter((product: { type: any }) => product.type === "None")
+    .slice(0, Math.floor(dataProd.length * 0.3));  // Оставляем только первые 30% продуктов4
+
+  const handleCategoryClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    // You can set your category in local storage inside the event handler
+    localStorage.setItem("type", "All");
+    localStorage.setItem("category", "");
+  };
 
 
 
@@ -85,6 +92,7 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
                 <AddToWishlist id={item._id} border={false} />
               </div>
 
+
               <Link href={`/${item._id}`}>
                 <div className="absolute cursor-pointer top-[21%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
                   <Image src="/images/eye.svg" alt="eye" width={20} height={20} />
@@ -100,9 +108,7 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
                   height={300}
                 />
               </Link>
-              <div className="w-full cursor-pointer flex justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 opacity-0 group-hover:opacity-100 transition">
-                <span>{translation.main.add_to_cart}</span>
-              </div>
+              <AddToCart border={false} id={item._id}/>
             </div>
             <Link href={`/${item._id}`}>
               <h1 className="text-black font-medium mb-[10px] px-[10px]">{item.title}</h1>
@@ -140,7 +146,7 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
         ))}
       </div>
       <div className="flex border-b border-gray-300 pb-[70px] justify-center">
-        <Link href="/allProd">
+        <Link href="/allProd" onClick={handleCategoryClick} >
           <span className="p-[20px] rounded-lg text-[17px] font-medium px-[50px] bg-red-500">
             {translation.main.view}
           </span>

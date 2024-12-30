@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { lazy } from "react";
 import AddToWishlist from "./AddToWishlist";
+import AddToCart from "./AddToCart";
 
 interface BestSellingProductsProps {
     translation: any;
@@ -19,6 +20,11 @@ const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation, 
         .filter((product: { type: any }) => product.type === "None")
         .slice(0, Math.floor(dataProd.length * 0.7));  // Оставляем последние 70% продуктов
 
+    const handleCategoryClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+        // You can set your category in local storage inside the event handler
+        localStorage.setItem("type", "Best Selling");
+        localStorage.setItem("category", "");
+    };
 
 
     return (
@@ -30,7 +36,7 @@ const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation, 
                 </div>
                 <div className="flex justify-between items-center gap-[5%] mb-[20px]">
                     <span className="text-[36px] font-semibold text-black">{translation.main.best_selling}</span>
-                    <Link href="/allProd">
+                    <Link href="/allProd" onClick={handleCategoryClick}>
                         <span className="p-[20px] rounded-lg text-[17px] font-medium px-[50px] bg-red-500">
                             {translation.main.view_all}
                         </span>
@@ -63,9 +69,8 @@ const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation, 
                                         height={300}
                                     />
                                 </Link>
-                                <div className="w-full cursor-pointer flex justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 opacity-0 group-hover:opacity-100 transition">
-                                    <span>{translation.main.add_to_cart}</span>
-                                </div>
+                                <AddToCart border={false} id={item._id} />
+
                             </div>
                             <div className="">
                                 <h1 className="text-black font-medium mb-[10px] px-[10px]">

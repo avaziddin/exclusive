@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import RealetedProduct from "./RealetedProducts";
 import DeleteWishlist from "./DeleteWishlist";
 import Link from "next/link";
+import AddToCart from "./AddToCart";
 
 interface WishlistReloadProps {
     translation: any;
@@ -122,10 +123,9 @@ const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) =>
                                         width={500}
                                         height={300}
                                     />
-                                    <div className="w-full cursor-pointer flex gap-[3%] justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 transition">
-                                        <Image src="/images/cartWishlist.svg" alt="cart" width={20} height={15} />
-                                        <span className="text-[17px]">{translation.main.add_to_cart}</span>
-                                    </div>
+                                    
+                                    <AddToCart border={true} id={item._id} />
+
                                 </div>
                                 <div>
                                     <h1 className="text-black font-semibold text-[18px] mb-[10px] px-[10px]">
@@ -189,10 +189,9 @@ const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) =>
                                             height={300}
                                         />
                                     </Link>
-                                    <div className="w-full cursor-pointer flex gap-[3%] justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 transition">
-                                        <Image src="/images/cartWishlist.svg" alt="cart" width={20} height={15} />
-                                        <span className="text-[17px]">{translation.main.add_to_cart}</span>
-                                    </div>
+
+                                    <AddToCart border={true} id={item._id} />
+
                                 </div>
                                 <div>
                                     <h1 className="text-black font-semibold text-[18px] mb-[10px] px-[10px]">

@@ -73,6 +73,23 @@
       "see" : "See All"
 
     },
+    "cart" : {
+      "home" : "Home",
+      "cart" : "Cart",
+      "yag": "Product",
+      "du" : "Price",
+      "se" : "Quantity",
+      "chor" : "Subtotal",
+      "returnToShop" : "Return To Shop",
+      "updateCart" : "Update Cart",
+      "thirdbutton" : "Apply Coupon",
+      "carttotal" : "Cart Total",
+      "subtotal" : "Subtotal:",
+      "shipping" : "Shipping:",
+      "Total" : "Total",
+      "free" : "Free",
+      "proses" : "Procees to checkout"
+    },
     "about" : {
       "home" : "Home",
       "about" : "About",

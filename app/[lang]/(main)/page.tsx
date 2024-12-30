@@ -18,7 +18,7 @@ export default async function Home({ params: { lang }, }: { params: { lang: stri
         <Layout translation={translation} lang={lang}>
             <MainBanner lang={lang}/>
             <TodaysSales translation={translation} lang={lang}/>
-            <CategoryReload translation={translation} />
+            <CategoryReload lang={lang} translation={translation} />
             <BestSellingProducts lang={lang} translation={translation}/>
             <MainBannerStatick translation={translation}/>
             <ExploreProduct translation={translation}/>

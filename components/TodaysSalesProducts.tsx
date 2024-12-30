@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useRef } from "react";
 import AddToWishlist from "./AddToWishlist";
+import AllProd from "./AllProd";
+import AddToCart from "./AddToCart";
 
 interface TodaysSalesProductsProps {
   translation: any;
@@ -13,8 +15,8 @@ interface TodaysSalesProductsProps {
 
 const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, lang }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { dataProd, loading } = useAppContext();
-
+  const { dataProd, loading} = useAppContext();
+    
   const scroll = (direction: "left" | "right") => {
     if (containerRef.current) {
       const blockWidth = containerRef.current.children[0]?.getBoundingClientRect().width || 0;
@@ -27,9 +29,15 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
     }
   };
 
+  const handleCategoryClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    // You can set your category in local storage inside the event handler
+    localStorage.setItem("type", "Flash Sales");
+    localStorage.setItem("category", "");
+  };
+
   const flash_sales = dataProd.filter((product: { type: any; }) => product.type === "Flash Sales");
 
-  
+
 
 
 
@@ -85,7 +93,7 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
                 <div className="mb-[10px] relative rounded-xl">
 
                   <div className="absolute left-0 flex justify-end pr-[3%] top-4 z-50 w-full">
-                    <AddToWishlist id={item._id} border={false}/>
+                    <AddToWishlist id={item._id} border={false} />
                   </div>
 
                   <Link href={`/${item._id}`}>
@@ -113,9 +121,9 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
                       height={300}
                     />
                   </Link>
-                  <div className="w-full cursor-pointer flex justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 opacity-0 group-hover:opacity-100 transition">
-                    <span>{translation.main.add_to_cart}</span>
-                  </div>
+
+                  <AddToCart id={item._id}/>
+                  
                 </div>
 
                 <Link href={`/${item._id}`}>
@@ -151,7 +159,13 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
 
             </div>
           )))}
+
       </div>
+        <div className="flex border-b border-gray-300 pb-[70px] justify-center">
+        <Link href="/allProd" onClick={handleCategoryClick}>
+            <span className='p-[20px] rounded-lg text-[17px] font-medium px-[50px] bg-red-500'>{translation.main.view}</span>
+          </Link>
+        </div>
     </div>
   );
 };
