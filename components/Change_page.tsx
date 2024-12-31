@@ -96,15 +96,16 @@ const ChangePage: React.FC<ChangePageProps> = ({ translation }) => {
 
 
     return (
-        <form onSubmit={onSubmit} className="w-[90%]">
+        <form onSubmit={onSubmit} className="w-[90%] mx-auto">
             {/* Main Content */}
-            <div className="flex justify-between w-full mt-[80px]">
+            <div className="flex flex-col md:flex-row justify-between w-full mt-[80px]">
                 {/* Content Area */}
-                <div className="py-10 mb-[70px] text-black shadow-xl w-full px-[85px]">
-                    <h1 className="text-[27px] text-red-500 font-semibold mb-5">
+                <div className="py-10 mb-[70px] text-black shadow-xl w-full md:px-[85px] px-4">
+                    <h1 className="xs:text-[25px] sm:text-[37px] text-red-500 font-semibold mb-5">
                         {translation.main.account.edit}
                     </h1>
-                    <div className="flex w-full gap-6">
+
+                    <div className="flex flex-col md:flex-row w-full gap-6">
                         {/* Left Column */}
                         <div className="w-full text-[17px] flex flex-col gap-[20px]">
                             <div className="flex w-full flex-col gap-2">
@@ -175,16 +176,16 @@ const ChangePage: React.FC<ChangePageProps> = ({ translation }) => {
                             placeholder="Confirm New Password"
                             name="new_password_sec"
                         />
-                        <div className="flex gap-5 justify-end mt-[20px]">
+                        <div className="flex gap-5 justify-end mt-[20px] flex-wrap">
                             <button
-                                className="text-[18px] active:scale-[.9] transition-[.2]"
+                                className="text-[18px] active:scale-[.9] transition-[.2] mb-2"
                                 onClick={handleCancel}
                             >
                                 {translation.main.account.cancel}
                             </button>
                             <button
                                 type="submit"
-                                className="w-[30%] active:opacity-[.9] active:scale-[.9] transition-[.2s] p-[15px] text-[18px] rounded-md text-white bg-red-500"
+                                className=" w-[50%] sm:w-[20%] active:opacity-[.9] active:scale-[.9] transition-[.2s] p-[15px] text-[18px] rounded-md text-white bg-red-500"
                             >
                                 {translation.main.account.save}
                             </button>
@@ -193,6 +194,7 @@ const ChangePage: React.FC<ChangePageProps> = ({ translation }) => {
                 </div>
             </div>
         </form>
+
     );
 };
 

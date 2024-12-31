@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
+import { useAppContext } from "@/context";
 
 interface Props {
     translation: any;
@@ -11,7 +12,10 @@ interface Props {
 const Sing_up: React.FC<Props> = ({ translation }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [file, setFile] = useState<File | null>(null);
-    const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const { dataUsers } = useAppContext();
+    const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+    const sortedEmails = dataUsers.map((user: { email: any; }) => user.email).sort();
 
     const togglePasswordVisibility = () => {
         setShowPassword((prev) => !prev);
@@ -23,57 +27,88 @@ const Sing_up: React.FC<Props> = ({ translation }) => {
             if (selectedFile) {
                 setFile(selectedFile);
                 const imageUrl = URL.createObjectURL(selectedFile);
-                setImageUrl(imageUrl);
             }
         }
     };
 
+    const validateForm = (formData: FormData) => {
+        const newErrors: { [key: string]: string } = {};
+
+        if (!formData.get("name")) {
+            newErrors["name"] = "Name is required.";
+        } else if (!/^[^\d]+$/.test(formData.get("name") as string)) {
+            newErrors["name"] = "Invalid name format.";
+        }
+        if (!formData.get("email")) {
+            newErrors["email"] = "Email is required.";
+        } else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(formData.get("email") as string)) {
+            newErrors["email"] = "Invalid email format.";
+        }
+        if (!formData.get("password")) {
+            newErrors["password"] = "Password is required.";
+        } else if ((formData.get("password") as string).length < 6) {
+            newErrors["password"] = "Password must be at least 6 characters.";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
     async function onSubmit(e: React.FormEvent) {
         e.preventDefault();
-    
-        // Приводим e.target к HTMLFormElement
+
         const formElement = e.target as HTMLFormElement;
-    
         const formData = new FormData(formElement);
-        if (file) {
-            formData.append("image", file);
+
+        if (!validateForm(formData)) {
+            return;
         }
-    
+
+        const email = formData.get("email")?.toString();
+
+        // Проверка на существующий email
+        const emailExists = sortedEmails.includes(email);
+
+        if (emailExists) {
+            setErrors((prev) => ({
+                ...prev,
+                email: "This email is already registered.",
+            }));
+            return;
+        }
+
+        // Дальнейшая обработка регистрации
         try {
-            // Загружаем изображение
-            const response = await fetch("/api/upload", {
+            if (file) {
+                formData.append("image", file);
+            }
+
+            const uploadResponse = await fetch("/api/upload", {
                 method: "POST",
                 body: formData,
             });
 
-            
-            const data = await response.json();
-            console.log("Image upload response:", data); // Логируем ответ на загрузку изображения
-    
-            const fm = new FormData(formElement);
-            const product: any = {};
-    
-            fm.forEach((val: any, key: any) => (product[key] = val));
-    
-            product.image = data.data; // Получаем URL изображения из ответа API
+            const uploadData = await uploadResponse.json();
 
-            product.wishlist = []
-            product.cart = []
-    
-            const res = await fetch("http://localhost:3000/api/users", {
+            const product: any = {};
+            formData.forEach((val, key) => (product[key] = val));
+            product.image = uploadData.data;
+            product.wishlist = [];
+            product.cart = [];
+            product.orders = [];
+
+            const userResponse = await fetch("http://localhost:3000/api/users", {
                 method: "POST",
                 body: JSON.stringify(product),
                 headers: {
                     "Content-Type": "application/json",
                 },
             });
-    
-            if (res.status === 200 || res.status === 201) {
-                const userData = await res.json();
-                console.log("Product creation response:", userData);
-    
+
+            if (userResponse.status === 200 || userResponse.status === 201) {
+                const userData = await userResponse.json();
                 const userId = userData?.data?.insertedId;
-    
+
                 if (userId) {
                     Cookies.set("userId", userId, { expires: 7 });
                     window.location.href = "/";
@@ -82,23 +117,22 @@ const Sing_up: React.FC<Props> = ({ translation }) => {
                     alert("Error: User ID not found.");
                 }
             } else {
-                const errorData = await res.json();
+                const errorData = await userResponse.json();
                 alert(`Registration failed: ${errorData.message || "Unknown error"}`);
             }
         } catch (error) {
             console.log("Something went wrong:", error);
         }
     }
-    
 
     return (
-        <form className="flex text-[18px] flex-col gap-4" onSubmit={onSubmit}>
+        <form className="flex text-[18px] flex-col gap-4 p-4 sm:p-6 lg:p-8" onSubmit={onSubmit}>
             <div className="w-full">
                 <label className="block mb-2 text-sm font-medium text-black" htmlFor="image">
                     {translation.main.sign_up.image}
                 </label>
                 <input
-                    className="w-full border-b-[2px] border-gray-100 text-gray-700 rounded-lg cursor-pointer file:w-[40%] file:p-[2%] file:mr-4 file:h-full file:rounded-lg file:border-0 file:font-medium file:bg-gray-100 file:text-black hover:file:bg-blue-100"
+                    className="w-full border-b-[2px] border-gray-100  text-gray-700 rounded-lg cursor-pointer file:w-full sm:file:w-[70%] lg:file:w-[40%] file:p-[2%] file:mr-4 file:h-full file:rounded-lg file:border-0 file:font-medium file:bg-gray-100 file:text-black hover:file:bg-blue-100"
                     type="file"
                     accept="image/*"
                     onChange={handleFileChange}
@@ -108,30 +142,38 @@ const Sing_up: React.FC<Props> = ({ translation }) => {
             </div>
 
             <div>
+                {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                 <input
                     name="name"
                     type="text"
                     placeholder="Name"
-                    className="pl-[2%] text-black py-[1vh] outline-none"
+                    className={`w-full pl-[2%] border-[1px] rounded-lg border-gray-400 text-black py-[1vh] outline-none ${errors.name ? "border-red-500" : "border-gray-400"
+                        }`}
                 />
                 <hr />
             </div>
+
             <div>
+                {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                 <input
                     name="email"
                     type="email"
-                    placeholder="Email or Phone Number"
-                    className="w-full pl-[2%] text-black py-[1vh] outline-none"
+                    placeholder="Email"
+                    className={`w-full pl-[2%] border-[1px] rounded-lg border-gray-400 text-black py-[1vh] outline-none ${errors.email ? "border-red-500" : "border-gray-400"
+                        }`}
                 />
                 <hr />
             </div>
+
             <div>
                 <div className="relative">
+                    {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
                     <input
                         name="password"
                         type={showPassword ? "text" : "password"}
                         placeholder="Password"
-                        className="pl-[2%] text-black py-[1vh] outline-none w-full"
+                        className={`w-full pl-[2%] border-[1px] rounded-lg       border-gray-400 text-black py-[1vh] outline-none ${errors.password ? "border-red-500" : "border-gray-400"
+                            }`}
                     />
                     <button
                         type="button"
@@ -149,9 +191,10 @@ const Sing_up: React.FC<Props> = ({ translation }) => {
                 </div>
                 <hr />
             </div>
+
             <button
                 type="submit"
-                className="w-[75%] text-[18px] m-auto py-[3%] text-white transition-[.2] font-normal bg-red-500 rounded-xl active:scale-[.9] active:opacity-[.9]"
+                className="w-full border-none sm:w-[85%] lg:w-[75%] text-[18px] m-auto py-[3%] text-white transition-[.2] font-normal bg-red-500 rounded-xl active:scale-[.9] active:opacity-[.9]"
             >
                 {translation.main.sign_up.create}
             </button>

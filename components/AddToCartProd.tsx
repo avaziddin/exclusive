@@ -9,7 +9,7 @@ interface Props {
     translation: any;
 }
 
-const AddToCart: React.FC<Props> = ({ id, border, translation }) => {
+const AddToCartProd: React.FC<Props> = ({ id, border, translation }) => {
     const [userId, setUserId] = useState<string | null>(null);
     const [like, setLike] = useState<boolean>(false);  // Состояние для текущего id
     const [cart, setCart] = useState<{ [key: string]: any }>({}); // Состояние для хранения wishlist
@@ -111,13 +111,9 @@ const AddToCart: React.FC<Props> = ({ id, border, translation }) => {
     };
 
     return (
-        <div
-            onClick={toggleCart}
-            className={`w-full cursor-pointer flex justify-center items-center py-[10px] rounded-b-lg ${like ? "bg-red-500" : "bg-black"
-                } text-white absolute bottom-0 ${border ? "opacity-100" : "opacity-0 group-hover:opacity-100"}  transition`}>
-            <span>{like ? translation.main.del_from_cart : translation.main.add_to_cart }</span>
-        </div>
+        <button onClick={toggleCart} className={`${like ? "bg-red-500 text-white" : "bg-black text-white"
+            } text-white w-[47.5%] rounded-md px-[5%]`}>{like ?  translation.main.del_from_cart : translation.main.add_to_cart }</button>
     );
 };
 
-export default AddToCart;
+export default AddToCartProd;

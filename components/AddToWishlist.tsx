@@ -46,11 +46,10 @@ const AddToWishlist: React.FC<Props> = ({ id, border }) => {
             setWishlistCount(data.data.wishlist.length)
             setLike(data.data.wishlist.includes(id));  // Проверяем, есть ли товар в wishlist с сервера
           } else {
-            console.error("Failed to fetch wishlist");
+            console.log("Failed to fetch wishlist");
           }
         } catch (error) {
-          console.error("Error:", error);
-          alert("An error occurred while fetching wishlist");
+          console.log("Error:", error);
         }
       };
 
@@ -61,7 +60,7 @@ const AddToWishlist: React.FC<Props> = ({ id, border }) => {
   // Обрабатываем добавление или удаление товара из wishlist
   const toggleWishlist = async () => {
     if (!userId) {
-      alert("User not found");
+      window.location.href = "/sign_in";
       return;
     }
 
@@ -103,25 +102,22 @@ const AddToWishlist: React.FC<Props> = ({ id, border }) => {
 
       } else {
         const errorMessage = await res.text();
-        alert(`Failed to update wishlist: ${errorMessage}`);
+        console.log(`Failed to update wishlist: ${errorMessage}`);
       }
     } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred while updating the wishlist");
+      console.log("Error:", error);
+      console.log("An error occurred while updating the wishlist");
     }
   };
-
-  console.log(wishlist);
-
 
   return (
     <div
       onClick={toggleWishlist}
-      className={` ${border ? "border bg-white border-gray-400 rounded-md w-[10%] flex justify-center" : "border-none w-[35px] h-[35px] flex items-center justify-center bg-white rounded-[50%]"} `}
+      className={` ${border ? " border bg-white border-gray-400 rounded-md xs:w-[20%] sm:w-[10%] flex justify-center" : "xs:w-[25px] xs:p-[2px] xs:h-[25px] border-none lg:w-[35px] lg:h-[35px] flex items-center justify-center bg-white rounded-[50%]"} `}
     >
       <Image
         className=" active:scale-[.9] pl-[1px] transition-[.2]"
-        src={like ? "/images/red_like.svg" : "/images/like.svg"}
+        src={`/images${like ? "/red_like.svg" : "/like.svg"}`}
         alt="Toggle wishlist"
         width={like ? 40 : 28}
         height={30}

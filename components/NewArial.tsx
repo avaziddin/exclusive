@@ -9,25 +9,25 @@ interface NewArialProps {
 const NewArial: React.FC<NewArialProps> = ({ translation }) => {
     return (
         <>
-            <div className="mb-[150px]">
+            <div className="xs:hidden sm:block mb-[150px]">
                 <div className="flex gap-[10px] mb-[20px] items-center ">
                     <div className="w-[20px] h-[40px] rounded-lg bg-red-500"></div>
-                    <h1 className="text-[17px] font-semibold text-red-500">{translation.main.featured}</h1>
+                    <h1 className=" text-[17px] font-semibold text-red-500">{translation.main.featured}</h1>
                 </div>
-                <span className="text-[36px] mb-[30px] font-semibold text-black">{translation.main.flash_sales}</span>
+                <span className=" text-[36px] mb-[30px] font-semibold text-black">{translation.main.flash_sales}</span>
 
                 <div className="w-full gap-[2%] mt-[50px] flex h-hit">
-                    <div className="relative w-[44%] pt-[3%] rounded-lg text-white"
+                    <div className="relative  overflow-hidden w-[44%] pt-[3%] rounded-lg text-white"
                         style={{ background: "rgba(13, 13, 13, 1)" }}
                     >
                         <div className="">
-                        <Image className='m-auto absolute left-[10%] bottom-0 opacity-[.9]' src="/images/psFive.svg" alt="psFive" width={600} height={300} />
+                        <Image className=' m-auto absolute left-[10%] bottom-0 opacity-[.9]' src="/images/psFive.svg" alt="psFive" width={600} height={300} />
                         </div>
                         <div className="absolute bottom-[5%] left-[5%]">
                             <h1 className='text-[28px] font-semibold mb-[10px]'>{translation.main.playStation}</h1>
-                            <p className='mb-[10px]'>{translation.main.BlackandWhite}</p>
+                            <p className='mb-[10px] '>{translation.main.BlackandWhite}</p>
                             <Link href="/">
-                                <p className='border-b w-fit' >{translation.main.shop_now}</p>
+                                <p className=' border-b w-fit' >{translation.main.shop_now}</p>
                             </Link>
                         </div>
                     </div>

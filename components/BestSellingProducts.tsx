@@ -28,16 +28,16 @@ const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation, 
 
 
     return (
-        <div className="relative mb-[100px] z-0">
-            <div className="mb-[50px]">
+        <div className="relative xs:mb-[5vh] mb-[100px] z-0">
+            <div className="xs:mb-[5vh] mb-[50px]">
                 <div className="flex mb-[20px] gap-[10px] items-center">
-                    <div className="w-[20px] h-[40px] rounded-lg bg-red-500"></div>
-                    <h1 className="text-[17px] font-semibold text-red-500">{translation.main.this_month}</h1>
+                    <div className="xs:w-[10px] xs:h-[20px] sm:w-[20px] sm:h-[40px] rounded-lg bg-red-500"></div>
+                    <h1 className="xs:text-[14px] sm:text-[17px] font-semibold text-red-500">{translation.main.this_month}</h1>
                 </div>
-                <div className="flex justify-between items-center gap-[5%] mb-[20px]">
-                    <span className="text-[36px] font-semibold text-black">{translation.main.best_selling}</span>
+                <div className="flex justify-between items-center xs:gap-[1vh] gap-[5%] mb-[20px]">
+                    <span className="xs:text-[16px] sm:text-[28px] text-[36px] font-semibold text-black">{translation.main.best_selling}</span>
                     <Link href="/allProd" onClick={handleCategoryClick}>
-                        <span className="p-[20px] rounded-lg text-[17px] font-medium px-[50px] bg-red-500">
+                        <span className="xs:p-[10px] xs:text-[14px] xs:whitespace-nowrap sm:p-[15px] lg:p-[20px] rounded-lg sm:text-[17px] font-medium lg:px-[50px] bg-red-500">
                             {translation.main.view_all}
                         </span>
                     </Link>
@@ -47,7 +47,7 @@ const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation, 
                 {best_selling.map((item: any) => (
                     <div
                         key={item._id}
-                        className="whitespace-nowrap w-[18.4%] flex-shrink-0 h-fit mb-[50px]"
+                        className="whitespace-nowrap xs:w-full sm:w-[49%] lg:w-[32%] xl:w-[23.5%] 2xl:w-[18.4%] flex-shrink-0 h-fit mb-[50px]"
                     >
                         <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
                             <div className="mb-[10px] relative rounded-xl">
@@ -55,8 +55,13 @@ const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation, 
                                     <AddToWishlist id={item._id} border={false} />
                                 </div>
                                 <Link href={`/${item._id}`}>
-                                    <div className="absolute cursor-pointer top-[21%] p-[7px] pt-[8px] flex items-center justify-center rounded-full right-[3%] bg-white">
-                                        <Image src="/images/eye.svg" alt="eye" width={20} height={20} />
+                                    <div className="absolute xs:p-[3px] cursor-pointer xs:right-[2.9%] xs:top-[21%] lg:top-[22%] lg:p-[7px] lg:flex lg:items-center lg:justify-center rounded-full lg:right-[3%] bg-white">
+                                        <Image
+                                            src="/images/eye.svg"
+                                            alt="View details"
+                                            width={20}
+                                            height={20}
+                                        />
                                     </div>
                                 </Link>
 
@@ -69,7 +74,7 @@ const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation, 
                                         height={300}
                                     />
                                 </Link>
-                                <AddToCart border={false} id={item._id} />
+                                <AddToCart translation={translation} border={false} id={item._id} />
 
                             </div>
                             <div className="">
@@ -88,38 +93,18 @@ const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation, 
                                     </span>
                                 </div>
                                 <div className="flex items-center px-[10px] gap-[7px]">
-                                    <div className="flex items-center gap-[7px]">
-                                        <Image
-                                            src="/images/YellowStar.svg"
-                                            alt="rating"
-                                            width={20}
-                                            height={20}
-                                        />
-                                        <Image
-                                            src="/images/YellowStar.svg"
-                                            alt="rating"
-                                            width={20}
-                                            height={20}
-                                        />
-                                        <Image
-                                            src="/images/YellowStar.svg"
-                                            alt="rating"
-                                            width={20}
-                                            height={20}
-                                        />
-                                        <Image
-                                            src="/images/YellowStar.svg"
-                                            alt="rating"
-                                            width={20}
-                                            height={20}
-                                        />
-                                        <Image
-                                            src="/images/YellowStar.svg"
-                                            alt="rating"
-                                            width={20}
-                                            height={20}
-                                        />
-                                    </div>
+                                    {Array(5)
+                                        .fill(0)
+                                        .map((_, index) => (
+                                            <Image
+                                                className="xs:w-[15px]"
+                                                key={index}
+                                                src="/images/YellowStar.svg"
+                                                alt="rating"
+                                                width={20}
+                                                height={20}
+                                            />
+                                        ))}
                                     <span className="flex justify-center items-center text-gray-400">
                                         (99)
                                     </span>

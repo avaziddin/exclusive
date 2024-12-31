@@ -32,10 +32,10 @@ const LanguageSwitcher = () => {
         <select
             value={currentLocale}
             onChange={(e) => changeLanguage(e.target.value as Locale)}
-            className="absolute right-[7%] w-[auto] bg-black bg-none border-none outline-none text-white "
+            className=" xs:rounded-md sm:text-[16px] xs:p-[2px] xs:right-[1%] xs:text-[13px] absolute right-[7%] w-[auto] bg-black bg-none border-none outline-none text-white "
         >
             <option
-                className="bg-black text-white border-none outline-none"
+                className="bg-black sm:text-[16px] xs:text-[13px] text-white border-none outline-none"
                 key={locales[0]}
                 value={locales[0]}
             >
@@ -43,7 +43,7 @@ const LanguageSwitcher = () => {
             </option>
 
             <option
-                className="bg-black text-white border-none outline-none"
+                className="bg-black sm:text-[16px] xs:text-[13px] text-white border-none outline-none"
                 key={locales[1]}
                 value={locales[1]}
             >

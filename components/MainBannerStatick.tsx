@@ -36,10 +36,10 @@ const MainBannerStatick: React.FC<MainBannerStatickProps> = ({ translation }) =>
         <>
             {!timeOver &&
 
-                <div className="w-full flex justify-between pt-[2%] pb-[2%] px-[4%] bg-black text-white mb-[150px]">
+                <div className="w-full xs:hidden md:flex xs:mb-[7vh] lg:flex justify-between pt-[2%] pb-[2%] px-[4%] bg-black text-white mb-[150px]">
                     <div className="pt-[1%]">
-                        <span className="text-[18px] font-bold text-green-500 ">Categories</span>
-                        <h1 className="text-[48px] mb-[10%] leading-tight pt-[30px]">
+                        <span className="xs:text-[16px] lg:text-[18px] font-bold text-green-500 ">Categories</span>
+                        <h1 className="xs:text-[15px] lg:text-[48px] mb-[30%] leading-tight pt-[30px]">
                             Enhance Your <br /> Music Experience
                         </h1>
 
@@ -48,19 +48,19 @@ const MainBannerStatick: React.FC<MainBannerStatickProps> = ({ translation }) =>
                         ) : (
                             <p>Invalid timer date</p>
                         )}
-                        <button className="mt-[10%] px-[40px] py-[15px] bg-green-500 text-white font-bold rounded hover:bg-green-600 transition">
+                        {/* {{<button className="mt-[10%] px-[40px] py-[15px] bg-green-500 text-white font-bold rounded hover:bg-green-600 transition">
                             Buy now
-                        </button>
+                        </button>} */}
                     </div>
 
-                    <div className="relative w-[40%]  mr-[5%]">
+                    <div className="relative  w-[40%]  mr-[5%]">
                         <div className="absolute inset-0 bg-gradient-to-r from-white rounded-[50%] to-transparent opacity-70 blur-xl z-0"></div>
 
                         <Image
-                            className="relative z-10 w-full object-cover"
+                            className="relative xs:pt-[5vh] z-10 w-full object-cover"
                             src="/images/jblimg.svg"
                             alt="jbl"
-                            width={1000}
+                            width={600}
                             height={1000}
                         />
                     </div>

@@ -39,13 +39,13 @@ const TodaysSales: React.FC<TodaysSalesProps> = ({ translation, lang }) => {
         <>
 
             {!timeOver &&
-                <div className="w-full mb-[50px]">
+                <div className="w-full xs:mb-[5vh] mb-[50px]">
                     <div className="flex gap-[10px] items-center ">
-                        <div className="w-[20px] h-[40px] rounded-lg bg-red-500"></div>
-                        <h1 className="text-[17px] font-semibold text-red-500">{translation.main.todays}</h1>
+                        <div className="xs:w-[10px] xs:h-[20px] sm:w-[20px] sm:h-[40px] rounded-lg bg-red-500"></div>
+                        <h1 className="xs:text-[14px] sm:text-[17px] font-semibold text-red-500">{translation.main.todays}</h1>
                     </div>
                     <div className="flex gap-[5%] mb-[40px] items-end">
-                        <span className="text-[36px] font-semibold text-black">{translation.main.flash_sales}</span>
+                        <span className="xs:text-[18px] sm:text-[30px] text-[36px] font-semibold text-black">{translation.main.flash_sales}</span>
 
                         {timer && !isNaN(new Date(timer).getTime()) ? (
                             <CountdownTimer translation={translation} targetDate={timer} />

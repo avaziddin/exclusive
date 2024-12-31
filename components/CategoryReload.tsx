@@ -39,14 +39,14 @@ const CategoryReload: React.FC<CategoryesProps> = ({ translation, lang }) => {
 
     return (
         <div className="relative z-0">
-            <div className="mb-[50px]">
-                <div className="flex mb-[20px] gap-[10px] items-center ">
-                    <div className="w-[20px] h-[40px] rounded-lg bg-red-500"></div>
-                    <h1 className="text-[17px] font-semibold text-red-500">{translation.main.categoryes}</h1>
+            <div className="xs:mb-[2vh] mb-[50px]">
+                <div className="flex xs:mb-[2vh] mb-[20px] gap-[10px] items-center ">
+                    <div className="xs:w-[10px] xs:h-[20px] sm:w-[20px] sm:h-[40px] rounded-lg bg-red-500"></div>
+                    <h1 className="xs:text-[14px] sm:text-[17px] font-semibold text-red-500">{translation.main.categoryes}</h1>
                 </div>
-                <h1 className="text-[36px] font-semibold text-black">{translation.main.browse}</h1>
+                <h1 className="xs:text-[18px] sm:text-[30px] text-[36px] font-semibold text-black">{translation.main.browse}</h1>
                 {/* Кнопка "Влево" */}
-                <div className="">
+                <div className="xs:hidden sm:flex">
                     <button
                         onClick={() => scroll("left")}
                         className="absolute top-[20%] right-10 z-10 mr-[20px] p-[10px] bg-gray-100 text-white w-[45px] h-[45px] rounded-full flex items-center justify-center transform -translate-y-1/2 hover:bg-gray-200"
@@ -66,12 +66,12 @@ const CategoryReload: React.FC<CategoryesProps> = ({ translation, lang }) => {
             {/* Список категорий */}
             <div
                 ref={containerRef}
-                className="flex min-w-full overflow-x-auto mb-[50px] border-b border-gray-300 pb-[20px] scrollbar-hidden pt-[30px] gap-[2%]"
+                className="flex min-w-full xs:pt-0 xs:pb-[5px] overflow-x-auto xs:mb-[5vh] mb-[50px] border-b border-gray-300 pb-[20px] scrollbar-hidden pt-[30px] gap-[2%]"
             >
                 {dataCat.map((item: any) => (
                     <Link 
                     key={item._id}
-                    className='w-[15%]'
+                    className='xs:w-[49%] sm:w-[32%] lg:w-[23.5%] xl:w-[18.4%] 2xl:w-[15%] flex-shrink-0 w-[15%]'
                     href={"/allProd"}>
 
                         <div
@@ -79,7 +79,7 @@ const CategoryReload: React.FC<CategoryesProps> = ({ translation, lang }) => {
                             className={`whitespace-nowrap group flex gap-[5%] active:bg-red-500 flex-shrink-0 transition-[.2s] justify-center flex-col items-center w-full h-[20vh]  border rounded-lg border-gray-300 mb-[50px] ${selectedCategory === item.titles.en ? 'bg-red-500 text-white' : 'bg-white'
                                 }`} // Добавляем стиль для выбранной категории
                         >
-                            <Image className='w-[35%] object-cover h-[10vh]' src={item.image[0]} alt="category" width={300} height={50} />
+                            <Image className='xs:w-[48%] w-[35%] object-cover h-[10vh]' src={item.image[0]} alt="category" width={300} height={50} />
 
                             <span className={`text-[20px] ${selectedCategory === item.titles.en ? 'text-white' : 'text-black'} group-active:text-white transition-[.2s]`}>
                                 {item.titles[lang]}

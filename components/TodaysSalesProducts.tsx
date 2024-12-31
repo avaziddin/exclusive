@@ -15,8 +15,8 @@ interface TodaysSalesProductsProps {
 
 const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, lang }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { dataProd, loading} = useAppContext();
-    
+  const { dataProd, loading } = useAppContext();
+
   const scroll = (direction: "left" | "right") => {
     if (containerRef.current) {
       const blockWidth = containerRef.current.children[0]?.getBoundingClientRect().width || 0;
@@ -44,7 +44,7 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
   return (
     <div className="relative z-0">
       {/* Кнопки прокрутки */}
-      <div className="absolute top-[-17%] right-0 z-10 flex gap-[15px]">
+      <div className="xs:hidden sm:flex absolute top-[-17%] right-0 z-10 flex gap-[15px]">
         <button
           onClick={() => scroll("left")}
           className="p-[10px] bg-gray-100 text-white w-[45px] h-[45px] rounded-full flex items-center justify-center hover:bg-gray-200"
@@ -69,7 +69,7 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
 
 
         {loading ? (
-          <div className="flex justify-center items-center w-full h-[49.5vh]">
+          <div className="flex sm:h-[30vh] xs:h-[10vh] justify-center items-center w-full h-[49.5vh]">
 
             <div role="status">
               <svg aria-hidden="true" className="w-[60px] h-[60px] text-gray-100 animate-spin dark:text-gray-300 fill-gray-200" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,19 +85,19 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
           flash_sales.map((item: any) => (
             <div
               key={item._id}
-              className="whitespace-nowrap w-[18.4%] flex-shrink-0 h-fit mb-[50px]"
+              className="whitespace-nowrap xs:w-full sm:w-[49%] lg:w-[32%] overflow-hidden xl:w-[23.5%] 2xl:w-[18.4%] flex-shrink-0 h-fit mb-[50px]"
             >
 
 
               <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
                 <div className="mb-[10px] relative rounded-xl">
 
-                  <div className="absolute left-0 flex justify-end pr-[3%] top-4 z-50 w-full">
+                  <div className="absolute xs:top-[3%] left-0 flex justify-end pr-[3%] top-4 z-50 w-full">
                     <AddToWishlist id={item._id} border={false} />
                   </div>
 
                   <Link href={`/${item._id}`}>
-                    <div className="absolute cursor-pointer top-[22%] p-[7px] flex items-center justify-center rounded-full right-[3%] bg-white">
+                    <div className="absolute xs:p-[3px] cursor-pointer xs:right-[2.9%] xs:top-[21%] lg:top-[22%] lg:p-[7px] flex items-center justify-center rounded-full lg:right-[3%] bg-white">
                       <Image
                         src="/images/eye.svg"
                         alt="View details"
@@ -107,14 +107,14 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
                     </div>
                   </Link>
                   {item.discound > 0 && (
-                    <div className="px-[10px] py-[3px] bg-red-500 rounded-lg absolute top-[2%] left-[2%]">
+                    <div className="xs:px-[5px] xs:text-[14px] lg:px-[10px] lg:py-[3px] text-[16px] bg-red-500 rounded-lg absolute top-[2%] left-[2%]">
                       <span>-{item.discound}%</span>
                     </div>
                   )}
 
                   <Link href={`/${item._id}`}>
                     <Image
-                      className="w-content h-[30vh] rounded-lg object-cover"
+                      className="w-content xs:h-[20vh]  sm:h-[30vh] rounded-lg object-cover"
                       src={item.image?.[0] || "/images/default.png"}
                       alt={item.titles[lang] || "Product"}
                       width={500}
@@ -122,8 +122,8 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
                     />
                   </Link>
 
-                  <AddToCart id={item._id}/>
-                  
+                  <AddToCart translation={translation} id={item._id} border={false} />
+
                 </div>
 
                 <Link href={`/${item._id}`}>
@@ -142,6 +142,7 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
                         .fill(0)
                         .map((_, index) => (
                           <Image
+                            className="xs:w-[15px]"
                             key={index}
                             src="/images/YellowStar.svg"
                             alt="rating"
@@ -161,11 +162,11 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
           )))}
 
       </div>
-        <div className="flex border-b border-gray-300 pb-[70px] justify-center">
+      <div className="flex xs:pb-[5vh] border-b border-gray-300 pb-[70px] justify-center">
         <Link href="/allProd" onClick={handleCategoryClick}>
-            <span className='p-[20px] rounded-lg text-[17px] font-medium px-[50px] bg-red-500'>{translation.main.view}</span>
-          </Link>
-        </div>
+          <span className='lg:p-[20px] xs:p-[10px] sm:p-[15px] sm:text-[16px] xs:text-[14px] rounded-lg lg:text-[17px] font-medium lg:px-[50px] bg-red-500'>{translation.main.view}</span>
+        </Link>
+      </div>
     </div>
   );
 };

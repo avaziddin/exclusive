@@ -27,7 +27,7 @@ const MyAcountModalCom: React.FC<MyAcountModalProps> = ({ translation }) => {
       ?.split("=")[1];
 
     setUserId(userIdCookie || null);
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -73,10 +73,10 @@ const MyAcountModalCom: React.FC<MyAcountModalProps> = ({ translation }) => {
               <div key={el._id} className="relative" ref={modalRef}>
                 <div
                   onClick={toggleModal}
-                  className="w-[35px] h-[35px] object-cover rounded-[50%] overflow-hidden"
+                  className="xs:w-[25px] xs:h-[25px] xs:mt-[5px] lg:w-[35px] lg:h-[35px] object-cover rounded-[50%] overflow-hidden"
                 >
                   <Image
-                    className="object-cover w-full h-[5vh]"
+                    className="object-cover w-full h-fit"
                     src={el.image ? el.image[0] : "/images/person.svg"}
                     alt="User avatar"
                     width={100}
@@ -111,7 +111,7 @@ const MyAcountModalCom: React.FC<MyAcountModalProps> = ({ translation }) => {
                       </li>
                       <li>
                         <Link
-                          href="/account/orders"
+                          href="/myorder"
                           className="group flex items-center text-[17px] gap-3 hover:text-gray-300 transition"
                         >
                           <Image

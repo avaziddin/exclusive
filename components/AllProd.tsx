@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import AddToWishlist from './AddToWishlist';
 import Link from 'next/link';
 import Image from 'next/image';
+import AddToCart from './AddToCart';
 
 interface AllProdProps {
     translation: any;
@@ -61,7 +62,7 @@ const AllProd: React.FC<AllProdProps> = ({ translation }) => {
                 {data.map((item: any) => (
                     <div
                         key={item._id}
-                        className="w-[18.4%] mb-[50px] hover:bg-gray-100 group rounded-lg pb-[10px] transition-[.1s]"
+                        className="whitespace-nowrap xs:w-full sm:w-[49%] lg:w-[32%] overflow-hidden xl:w-[23.5%] 2xl:w-[18.4%] flex-shrink-0 h-fit mb-[50px]"
                     >
                         <div className="mb-[10px] relative rounded-xl">
                             <div className="absolute left-0 flex justify-end pr-[3%] top-4 z-50 w-full">
@@ -89,9 +90,7 @@ const AllProd: React.FC<AllProdProps> = ({ translation }) => {
                                     <span>-{item.discound}%</span>
                                 </div>
                             )}
-                            <div className="w-full cursor-pointer flex justify-center items-center py-[10px] rounded-b-lg bg-black text-white absolute bottom-0 opacity-0 group-hover:opacity-100 transition">
-                                <span>{translation.main.add_to_cart}</span>
-                            </div>
+                            <AddToCart translation={translation} id={item._id} border={false} />
                         </div>
                         <Link href={`/${item._id}`}>
                             <h1 className="text-black font-medium mb-[10px] px-[10px]">{item.title}</h1>

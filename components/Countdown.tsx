@@ -39,38 +39,38 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate, translation
     return (
         <div className="countdown-timer flex gap-[7%] text-black">
             <div className="flex flex-col justify-center items-center">
-                <span className='text-[13px]'>{translation.main.days}</span>
-                <span className='text-[35px] font-semibold'>
+                <span className='xs:text-[10px] sm:text-[13px]'>{translation.main.days}</span>
+                <span className='xs:text-[15px] sm:text-[28px] text-[35px] font-semibold'>
                     {timeLeft.days}
                 </span>
 
             </div>
 
-            <span className='text-[40px] font-semibold flex items-end text-red-500'>:</span>
+            <span className='xs:text-[20px] sm:text-[28px] text-[40px] font-semibold flex items-end text-red-500'>:</span>
 
             <div className="flex flex-col justify-center items-center">
-                <span className='text-[13px]'>{translation.main.hours}</span>
-                <span className='text-[35px] font-semibold'>
+                <span className='xs:text-[10px] sm:text-[13px]'>{translation.main.hours}</span>
+                <span className='xs:text-[15px] sm:text-[28px] text-[35px] font-semibold'>
                     {timeLeft.hours}
                 </span>
             </div>
 
-            <span className='text-[40px] font-semibold flex items-end text-red-500'>:</span>
+            <span className=' xs:text-[20px] sm:text-[28px] text-[40px] font-semibold flex items-end text-red-500'>:</span>
 
 
             <div className="flex flex-col justify-center items-center">
-                <span className='text-[13px]'>{translation.main.minutes}</span>
-                <span className='text-[35px] font-semibold'>
+                <span className='xs:text-[10px] sm:text-[13px]'>{translation.main.minutes}</span>
+                <span className='xs:text-[15px] sm:text-[28px] text-[35px] font-semibold'>
                     {timeLeft.minutes}
                 </span>
             </div>
 
-            <span className='text-[40px] font-semibold flex items-end text-red-500'>:</span>
+            <span className='xs:text-[20px] sm:text-[28px] text-[40px] font-semibold flex items-end text-red-500'>:</span>
 
 
             <div className="flex flex-col justify-center items-center">
-                <span className='text-[13px]'>{translation.main.seconds}</span>
-                <span className='text-[35px] font-semibold'>
+                <span className='xs:text-[10px] sm:text-[13px]'>{translation.main.seconds}</span>
+                <span className='xs:text-[15px] sm:text-[28px] text-[35px] font-semibold'>
                     {timeLeft.seconds}
                 </span>
             </div>

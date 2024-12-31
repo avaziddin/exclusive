@@ -17,6 +17,9 @@ export default {
       boxShadow: {
         'only-bottom': '0 1px 6px -1px rgba(0, 0, 0, 0.1)',
       },
+      screens: {
+        xs: '300px', // добавление кастомного брейкпоинта для 320px
+      },
       backdropBlur: {
         xs: '2px',
         sm: '4px',
@@ -30,6 +33,7 @@ export default {
       borderRadius: {
         'xl': '12px',
       },
+
     },
   },
   plugins: [

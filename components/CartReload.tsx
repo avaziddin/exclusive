@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { useAppContext } from "@/context";
 import Image from "next/image";
@@ -18,7 +18,6 @@ const CartReload: React.FC<WishlistReloadProps> = ({ translation, lang }) => {
   const [subtotal, setSubtotal] = useState<number>(0);
 
   useEffect(() => {
-    // Получение userId из cookies
     const cookieStore = document.cookie;
     const userIdCookie = cookieStore
       .split("; ")
@@ -28,7 +27,6 @@ const CartReload: React.FC<WishlistReloadProps> = ({ translation, lang }) => {
   }, []);
 
   useEffect(() => {
-    // Обновление данных корзины
     const fetchWishlist = async () => {
       if (userId) {
         try {
@@ -58,7 +56,6 @@ const CartReload: React.FC<WishlistReloadProps> = ({ translation, lang }) => {
   );
 
   useEffect(() => {
-    // Инициализация количества товаров
     const initialQuantities: { [key: string]: number } = {};
     filteredProducts.forEach((product: any) => {
       initialQuantities[product._id] = 1;
@@ -67,7 +64,6 @@ const CartReload: React.FC<WishlistReloadProps> = ({ translation, lang }) => {
   }, []);
 
   useEffect(() => {
-    // Пересчет общей суммы
     const total = filteredProducts.reduce((sum, product) => {
       const quantity = quantities[product._id] || 1;
       const priceAfterDiscount =
@@ -92,8 +88,7 @@ const CartReload: React.FC<WishlistReloadProps> = ({ translation, lang }) => {
   };
 
   const resetCart = async () => {
-
-    localStorage.setItem("cart", "")
+    localStorage.setItem("cart", "");
 
     try {
       const res = await fetch(`http://localhost:3000/api/users/${userId}`, {
@@ -113,6 +108,33 @@ const CartReload: React.FC<WishlistReloadProps> = ({ translation, lang }) => {
       alert("An error occurred while resetting the cart");
     }
   };
+
+  // Функция для обработки нажатия на кнопку "Процесс"
+  const handleProcess = () => {
+    const productsData: any[] = [];
+
+    filteredProducts.forEach((product: any) => {
+      const quantity = quantities[product._id] || 1;
+      const priceAfterDiscount =
+        product.price - (product.price * product.discound) / 100;
+      const totalPrice = priceAfterDiscount * quantity;
+
+      productsData.push({
+        _id: product._id,
+        quantity,
+        price: priceAfterDiscount.toFixed(2),
+        total: totalPrice.toFixed(2),
+        type: "pending"
+      });
+    });
+
+    localStorage.setItem('cartData', JSON.stringify(productsData));
+
+    window.location.href ="/checkout"
+
+    console.log('Data saved to localStorage:', productsData);
+  };
+
 
   return (
     <div className="mt-10">
@@ -175,12 +197,11 @@ const CartReload: React.FC<WishlistReloadProps> = ({ translation, lang }) => {
                       <span className="text-black">
                         $
                         {(
-                          product.price -
-                          (product.price * product.discound) / 100
+                          product.price - (product.price * product.discound) / 100
                         ).toFixed(2)}
                       </span>
                     ) : (
-                      `$${product.price}`
+                      `${product.price}`
                     )}
                   </td>
                   <td className="py-4 text-sm">
@@ -203,7 +224,7 @@ const CartReload: React.FC<WishlistReloadProps> = ({ translation, lang }) => {
                     </div>
                   </td>
                   <td className="py-4 text-right">
-                    $
+                    $$
                     {(
                       (product.price -
                         (product.price * product.discound) / 100) *
@@ -257,7 +278,7 @@ const CartReload: React.FC<WishlistReloadProps> = ({ translation, lang }) => {
             <span>${subtotal.toFixed(2)}</span>
           </div>
           <div className="flex justify-center items-center">
-            <button className="w-[260px] h-[56px] bg-red-500 text-white rounded-lg ">
+            <button className="w-[260px] h-[56px] bg-red-500 text-white rounded-lg" onClick={handleProcess}>
               {translation.main.cart.proses}
             </button>
           </div>

@@ -38,38 +38,38 @@ const CountdownTimerSec: React.FC<CountdownTimerProps> = ({ targetDate, translat
 
     return (
         <div className="countdown-timer flex gap-[7%] text-black">
-            <div className="flex flex-col gap-[0px] leading-none justify-center items-center w-[20%] py-[5%] rounded-[50%] bg-white">
-                <span className='text-[20px] font-bold'>
+            <div className="flex flex-col gap-[0px] leading-none justify-center items-center w-[70px] h-[50px] xl:h-[70px] rounded-[50%] bg-white">
+                <span className='xs:text-[14px] sm:text-[20px] font-bold'>
                     {timeLeft.days}
                 </span>
-                <span className='text-[14px]'>{translation.main.days}</span>
+                <span className='lg:text-[14px]  xs:text-[9px]'>{translation.main.days}</span>
 
             </div>
 
 
-            <div className="flex flex-col gap-[0px] leading-none justify-center items-center w-[20%] rounded-[50%] bg-white">
-                <span className='text-[20px] font-bold'>
+            <div className="flex flex-col gap-[0px] leading-none justify-center items-center w-[70px] h-[50px] xl:h-[70px] rounded-[50%] bg-white">
+                <span className='xs:text-[14px] lg:text-[20px] font-bold'>
                     {timeLeft.hours}
                 </span>
-                <span className='text-[14px]'>{translation.main.hours}</span>
+                <span className='lg:text-[14px] xs:text-[9px]'>{translation.main.hours}</span>
             </div>
 
 
 
-            <div className="flex flex-col gap-[0px] leading-none justify-center items-center w-[20%] rounded-[50%] bg-white">
-                <span className='text-[20px] font-bold'>
+            <div className="flex flex-col gap-[0px] leading-none justify-center items-center w-[70px] h-[50px] xl:h-[70px] rounded-[50%] bg-white">
+                <span className='xs:text-[14px] lg:text-[20px] font-bold'>
                     {timeLeft.minutes}
                 </span>
-                <span className='text-[14px]'>{translation.main.minutes}</span>
+                <span className='lg:text-[14px] xs:text-[9px]'>{translation.main.minutes}</span>
             </div>
 
 
 
-            <div className="flex flex-col gap-[0px] leading-none justify-center items-center w-[20%] rounded-[50%] bg-white">
-                <span className='text-[20px] font-bold'>
+            <div className="flex flex-col gap-[0px] leading-none justify-center items-center w-[70px] h-[50px] xl:h-[70px] rounded-[50%] bg-white">
+                <span className='xs:text-[14px] lg:text-[20px] font-bold'>
                     {timeLeft.seconds}
                 </span>
-                <span className='text-[14px]'>{translation.main.seconds}</span>
+                <span className='lg:text-[14px] xs:text-[9px]'>{translation.main.seconds}</span>
             </div>
 
 

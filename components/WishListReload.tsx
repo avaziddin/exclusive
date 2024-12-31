@@ -36,11 +36,11 @@ const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) =>
                         const data = await res.json();
                         setWishlistCount(data.data.wishlist.length); // Обновление количества товаров в wishlist
                     } else {
-                        console.error("Failed to fetch wishlist");
+                        console.log("Failed to fetch wishlist");
                     }
                 } catch (error) {
-                    console.error("Error:", error);
-                    alert("An error occurred while fetching wishlist");
+                    console.log("Error:", error);
+                    console.log("An error occurred while fetching wishlist");
                 }
             };
 
@@ -124,7 +124,7 @@ const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) =>
                                         height={300}
                                     />
                                     
-                                    <AddToCart border={true} id={item._id} />
+                                    <AddToCart translation={translation} border={true} id={item._id} />
 
                                 </div>
                                 <div>
@@ -190,7 +190,7 @@ const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) =>
                                         />
                                     </Link>
 
-                                    <AddToCart border={true} id={item._id} />
+                                    <AddToCart  translation={translation} border={true} id={item._id} />
 
                                 </div>
                                 <div>

@@ -32,7 +32,7 @@ const Slider: React.FC = () => {
   }, [data]);
 
   return (
-    <div className="relative w-full h-[50vh] overflow-hidden">
+    <div className="relative xs:h-fit w-full lg:h-[50vh] overflow-hidden">
       {data.length > 0 ? (
         <>
           {/* Слайды */}
@@ -45,8 +45,8 @@ const Slider: React.FC = () => {
             {data.map((item: any) => (
               <div key={item._id} className="w-full flex-shrink-0 ">
                 <Image
-                  width={800}
-                  height={400}
+                  width={1600}
+                  height={800}
                   src={item.image[0]}
                   alt={item.alt || "Slider image"}
                   className="w-full object-cover"
@@ -56,19 +56,19 @@ const Slider: React.FC = () => {
           </div>
 
           {/* Индикаторы */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+          <div className="absolute xs:bottom-2 lg:bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
             {data.map((_, index: number) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full ${index === currentIndex ? "bg-gray-800" : "bg-gray-400"
+                className={`xs:w-2 xs:h-2 lg:w-3 lg:h-3 rounded-full ${index === currentIndex ? "bg-gray-800" : "bg-gray-400"
                   }`}
               ></button>
             ))}
           </div>
         </>
       ) : (
-        <div className="flex justify-center items-center w-full h-[50vh]">
+        <div className="flex xs:h-fit lg:justify-center lg:items-center w-full lg:h-[50vh]">
 
           <div role="status">
             <svg aria-hidden="true" className="w-[60px] h-[60px] text-gray-100 animate-spin dark:text-gray-300 fill-gray-200" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

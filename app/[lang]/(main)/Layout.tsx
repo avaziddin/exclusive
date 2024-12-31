@@ -2,6 +2,7 @@ import CartHeaderButton from '@/components/CartHeaderButton';
 import HeaderNav from '@/components/HeaderNav';
 import LanguageSwitcher from '@/components/LanguageSwitch';
 import MyAcountModalCom from '@/components/MyAcountModal';
+import Search from '@/components/Search';
 import WishLIstHeaderButton from '@/components/WishLIstHeaderButton';
 import { AppWrapper } from '@/context';
 import { cookies } from 'next/headers';
@@ -20,39 +21,30 @@ const Layout: React.FC<LayoutProps> = async ({ children, translation, lang }) =>
     return (
         <>
             <AppWrapper>
-                <header className='text-white relative border-b border-gray-300'>
+                <header className=' text-white relative border-b border-gray-300'>
 
-                    <div className=" py-[10px] px-[7%] w-full bg-black flex  justify-center">
+                    <div className="xs:bg-white items-center sm:bg-black py-[10px] xl:px-[7%] w-full bg-black flex  justify-center">
                         <div className="flex">
 
-                            <p className='text-center'>{translation.header.headerTitle}</p>
+                            <p className='xs:hidden sm:text-[14px] sm:px-[80px] sm:block text-center'>{translation.header.headerTitle}</p>
                             <LanguageSwitcher />
                         </div>
                     </div>
-                    <div className=" bg-white w-full items-center flex justify-between  pt-[3%] pl-[7%] pr-[7%] pb-5">
-                        <h1 className="text-black text-[26px] font-semibold">{translation.header.headerTitleSec}</h1>
+                    <div className="xs:pb-[2px]  sm:px-[7%] xs:px-[4px] bg-white w-full items-center flex justify-between  pt-[3%] lg:pl-[7%] lg:pr-[7%] lg:pb-5">
+                        <h1 className="xs:hidden lg:block text-black lg:text-[26px] font-semibold">{translation.header.headerTitleSec}</h1>
+
                         <HeaderNav translation={translation} />
 
-                        <div className="flex gap-[10px] items-center">
-                            <div className="relative">
-                                <input
-                                    className="w-fit px-[15px] text-[17px] py-[7px] pr-10 rounded-[5px] outline-none bg-gray-200 text-black placeholder-gray-500 shadow-md focus:ring-2 focus:ring-gray-300 transition-all duration-200"
-                                    placeholder={translation.header.search}
-                                    type="text"
-                                />
-                                <button
-                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-all duration-200"
-                                    aria-label="Search"
-                                >
-                                    <Image src="/images/search.svg" alt="search" width={27} height={27} />
-                                </button>
-                            </div>
+                        <div className="flex xs:justify-between  sm:justify-end xs:w-full  lg:w-[30%]  gap-[10px] items-center">
 
-                            <div className="flex gap-[15px]">
+                            <Search translation={translation} lang={lang} />
 
-                            <WishLIstHeaderButton/>
-                                
-                                <CartHeaderButton/>
+
+                            <div className="flex xs:gap-[5px] xl:gap-[10px]">
+
+                                <WishLIstHeaderButton />
+
+                                <CartHeaderButton />
                                 <MyAcountModalCom translation={translation} />
                             </div>
                         </div>
@@ -60,10 +52,10 @@ const Layout: React.FC<LayoutProps> = async ({ children, translation, lang }) =>
                     </div>
 
                 </header>
-                <main className=' px-[7%]'>
+                <main className='xs:px-[10px] sm:px-[7%] px-[7%]'>
                     {children}
                 </main>
-                <footer className="w-full bg-black flex justify-between text-white text-[17px] px-[7%] py-[2%]">
+                <footer className="w-full bg-black xs:flex-col md:flex-row md:flex md:p-[5%] xs:gap-[10px] lg:flex justify-between text-white xs:text-[10px] sm:text-[12px] lg:text-[15px] xl:text-[17px] px-[7%] py-[2%]">
 
                     <div className="flex flex-col gap-4">
                         <Link href="#">
@@ -75,11 +67,11 @@ const Layout: React.FC<LayoutProps> = async ({ children, translation, lang }) =>
                         <Link href="#">
                             {translation.footer.sale}
                         </Link>
-                        <input type="text" className="w-full border-solid border-2 border-white rounded-lg p-[10px] bg-black" placeholder={translation.footer.enter_email} />
-                    </div>
+                        {/*                         <input type="text" className="w-full border-solid border-2 border-white rounded-lg p-[10px] bg-black" placeholder={translation.footer.enter_email} />
+ */}                    </div>
 
                     <div className="flex flex-col gap-4">
-                        <Link href="#">
+                        <Link href="/adressBook">
                             {translation.footer.support}
                         </Link>
                         <Link href="#">
@@ -94,13 +86,13 @@ const Layout: React.FC<LayoutProps> = async ({ children, translation, lang }) =>
                     </div>
 
                     <div className="flex flex-col gap-4">
-                        <Link href="#">
+                        <Link href="/change">
                             {translation.footer.account}
                         </Link>
                         <Link href="#">
                             {translation.footer.my_account}
                         </Link>
-                        <Link href="/login">
+                        <Link href="/sign_in">
                             {translation.footer.log_in}
                         </Link>
                         <Link href="/cart">
@@ -109,15 +101,12 @@ const Layout: React.FC<LayoutProps> = async ({ children, translation, lang }) =>
                         <Link href="/wishlist">
                             {translation.footer.wishlist}
                         </Link>
-                        <Link href="/shop">
+                        <Link href="/">
                             {translation.footer.shop}
                         </Link>
                     </div>
 
-                    <div className="flex flex-col gap-4">
-                        <Link href="#">
-                            {translation.footer.quick_link}
-                        </Link>
+                    <div className="flex xs:hidden sm:flex flex-col gap-4">
                         <Link href="/privacy-policy">
                             {translation.footer.privacy_policy}
                         </Link>
@@ -133,7 +122,7 @@ const Layout: React.FC<LayoutProps> = async ({ children, translation, lang }) =>
                     </div>
 
 
-                    <div className="flex flex-col gap-4">
+                    <div className="flex xs:hidden sm:flex flex-col gap-4">
                         <span>{translation.footer.dowload_app}</span>
                         <p className="text-gray-400">{translation.footer.save}</p>
 
