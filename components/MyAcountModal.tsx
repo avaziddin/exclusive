@@ -76,7 +76,7 @@ const MyAcountModalCom: React.FC<MyAcountModalProps> = ({ translation }) => {
                   className="xs:w-[25px] xs:h-[25px] xs:mt-[5px] lg:w-[35px] lg:h-[35px] object-cover rounded-[50%] overflow-hidden"
                 >
                   <Image
-                    className="object-cover w-full h-fit"
+                    className="object-cover w-full h-full"
                     src={el.image ? el.image[0] : "/images/person.svg"}
                     alt="User avatar"
                     width={100}

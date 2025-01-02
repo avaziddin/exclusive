@@ -194,8 +194,8 @@ const ProductId: React.FC<ProductIdProps> = ({ id, lang, translation }) => {
                                                                 key={el._id}
                                                                 onClick={() => toggleItem(el)}
                                                                 className={`xs:w-[25px] xs:h-[20px] sm:w-[25px] sm:h-[25px] md:w-[30px] md:h-[30px] sm:border-[3px] outline-[2px] md:border-[3px] rounded-full cursor-pointer flex items-center justify-center transition-[.2] ${selectedItems.some(selected => selected.color === el.color)
-                                                                    ? ' opacity-50'
-                                                                    : 'opacity-100'
+                                                                    ? ' opacity-50 scale-[.9] border-green-500 border-opacity-100'
+                                                                    : 'opacity-100 scale-[1]'
                                                                     }`}
                                                             >
                                                                 <div

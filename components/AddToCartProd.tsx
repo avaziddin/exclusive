@@ -10,21 +10,9 @@ interface Props {
 }
 
 const AddToCartProd: React.FC<Props> = ({ id, border, translation }) => {
-    const [userId, setUserId] = useState<string | null>(null);
     const [like, setLike] = useState<boolean>(false);  // Состояние для текущего id
     const [cart, setCart] = useState<{ [key: string]: any }>({}); // Состояние для хранения wishlist
-    const { setCartCount } = useAppContext()
-
-    // Получаем userId из cookie
-    useEffect(() => {
-        const cookieStore = document.cookie;
-        const userIdCookie = cookieStore
-            .split("; ")
-            .find((row) => row.startsWith("userId="))
-            ?.split("=")[1];
-
-        setUserId(userIdCookie || null);
-    }, []);
+    const { setCartCount, userId } = useAppContext()
 
     // Загружаем wishlist из localStorage при монтировании
     useEffect(() => {

@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
 import { useAppContext } from '@/context';
 import Image from 'next/image';
 import React, { ReactNode, useEffect, useState } from 'react';
 
 interface CheckoutFormProps {
-    translation: any
-    lang: any
+    translation: any;
+    lang: any;
 }
 
 const CheckoutForm: React.FC<CheckoutFormProps> = ({ translation, lang }) => {
@@ -14,6 +14,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ translation, lang }) => {
     const [userId, setUserId] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [cartData, setCartData] = useState<any[]>([]);
+    const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const { dataProd, setCartCount, setWishlistCount } = useAppContext();
 
     useEffect(() => {
@@ -49,23 +50,35 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ translation, lang }) => {
     }, [userId, setCartCount]);
 
     useEffect(() => {
-        // Симуляция загрузки данных (если данные берутся асинхронно)
         const storedCartData = JSON.parse(localStorage.getItem("cartData") || "[]");
         setCartData(storedCartData);
-        setIsLoading(false); // Завершаем загрузку после получения данных
+        setIsLoading(false);
     }, []);
 
-    // Если корзина пуста
-    if (cartData.length === 0) {
-        return <div className="text-center">Your cart is empty</div>;
-    }
+    const validateForm = (data: any) => {
+        const newErrors: { [key: string]: string } = {};
+        if (!data.name) newErrors.name = "Name is required.";
+        if (!data.company) newErrors.company = "Company is required.";
+        if (!data.street) newErrors.street = "Street is required.";
+        if (!data.house) newErrors.house = "House is required.";
+        if (!data.town) newErrors.town = "Town is required.";
+        if (!data.phone) newErrors.phone = "Phone is required.";
+        if (!data.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) newErrors.email = "Valid email is required.";
+        return newErrors;
+    };
 
-    // Вычисление subtotal
-    const subtotal = cartData.reduce((acc: number, item: any) => {
-        return acc + item.price * item.quantity;
-    }, 0);
-
-    const total = subtotal;
+    const calculateTotal = () => {
+        return cartData.reduce((total, item) => {
+            const matchedItem = dataProd.find((product: any) => product._id === item._id);
+            if (matchedItem) {
+                const price = matchedItem.discount > 0
+                    ? matchedItem.price - (matchedItem.price * matchedItem.discount) / 100
+                    : matchedItem.price;
+                return total + price * item.quantity;
+            }
+            return total;
+        }, 0);
+    };
 
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -74,31 +87,46 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ translation, lang }) => {
 
         fm.forEach((val, key) => (product[key] = val.toString()));
 
-        // Добавляем дату к каждому продукту в корзине
-        const updatedCartData = cartData.map((item) => ({
-            ...item,
-            orderDate: new Date().toISOString(),  // Добавляем текущую дату в формате ISO
-        }));
-
-        // Формируем объект с массивами ordersInfo и ordersProduct
-        const orderDetails = {
-            ordersInfo: [{ ...product, ordersProduct: updatedCartData }],  // ordersInfo теперь включает ordersProduct с датой
+        const formData = {
+            name: product.name,
+            company: product.company,
+            street: product.street,
+            house: product.house,
+            town: product.town,
+            phone: product.phone,
+            email: product.email,
         };
 
+        const formErrors = validateForm(formData);
+        if (Object.keys(formErrors).length > 0) {
+            setErrors(formErrors);
+            return;
+        }
+
+        // Остальная логика отправки заказа
+        // Добавление даты к каждому продукту и отправка заказа
+
+        // Example of submitting the order after validation
         try {
-            // Получаем текущие заказы пользователя
+            const updatedCartData = cartData.map((item) => ({
+                ...item,
+                orderDate: new Date().toISOString(),
+            }));
+
+            const orderDetails = {
+                ordersInfo: [{ ...formData, ordersProduct: updatedCartData }],
+            };
+
             const res = await fetch(`/api/users/${userId}`);
             if (!res.ok) {
                 throw new Error("Failed to fetch current orders");
             }
 
             const userData = await res.json();
-            const existingOrders = userData.data.orders || [];  // Получаем текущие заказы, если они есть
+            const existingOrders = userData.data.orders || [];
 
-            // Добавляем новый заказ к существующим
             const updatedOrders = [...existingOrders, ...orderDetails.ordersInfo];
 
-            // Отправляем обновленный список заказов на сервер
             const updateRes = await fetch(`/api/users/${userId}`, {
                 method: "PATCH",
                 body: JSON.stringify({ orders: updatedOrders }),
@@ -108,10 +136,9 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ translation, lang }) => {
             });
 
             if (updateRes.ok) {
-                // После успешного обновления заказов очищаем корзину
                 const clearCartRes = await fetch(`/api/users/${userId}`, {
                     method: "PATCH",
-                    body: JSON.stringify({ cart: [] }),  // Отправляем пустой массив для очистки корзины
+                    body: JSON.stringify({ cart: [] }),
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -136,44 +163,79 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ translation, lang }) => {
         }
     }
 
+    const total = calculateTotal(); // Calculate the total amount
 
-    // Основной рендер
     return (
-        <form onSubmit={onSubmit} className="flex mt-[50px] w-full justify-between ">
-            <div className="flex flex-col w-[40%] mb-[50px] gap-10 ">
+        <form onSubmit={onSubmit} className="flex mt-[50px] w-full justify-between">
+            <div className="flex flex-col w-[40%] mb-[50px] gap-10">
                 <div className="flex rounded-lg flex-col gap-2">
                     <label className="text-xl text-gray-300">{translation.main.checkout.first}</label>
-                    <input type="text" name="name" className="w-full py-[1vh] text-[18px] rounded-lg bg-zinc-100 outline-none text-black pl-2" />
+                    <input
+                        type="text"
+                        name="name"
+                        className={`w-full h-[50px] border-[1px] rounded-lg bg-zinc-100 outline-none text-black pl-2 ${errors.name ? "border-red-500" : "border-gray-300"}`}
+                    />
+                    {errors.name && <span className="text-red-500 text-sm">{errors.name}</span>}
                 </div>
 
                 <div className="flex rounded-lg flex-col gap-2">
                     <label className="text-xl text-gray-300">{translation.main.checkout.company}</label>
-                    <input type="text" name="company" className="w-full py-[1vh] text-[18px] rounded-lg bg-zinc-100 outline-none text-black pl-2" />
+                    <input
+                        type="text"
+                        name="company"
+                        className={`w-full h-[50px] border-[1px] rounded-lg bg-zinc-100 outline-none text-black pl-2 ${errors.company ? "border-red-500" : "border-gray-300"}`}
+                    />
+                    {errors.company && <span className="text-red-500 text-sm">{errors.company}</span>}
                 </div>
 
                 <div className="flex rounded-lg flex-col gap-2">
                     <span className="text-xl text-gray-300">{translation.main.checkout.street}</span>
-                    <input type="text" name="street" className="w-full h-[50px] bg-zinc-100 outline-none text-black pl-2" />
+                    <input
+                        type="text"
+                        name="street"
+                        className={`w-full h-[50px] border-[1px] rounded-lg bg-zinc-100 outline-none text-black pl-2 ${errors.street ? "border-red-500" : "border-gray-300"}`}
+                    />
+                    {errors.street && <span className="text-red-500 text-sm">{errors.street}</span>}
                 </div>
 
                 <div className="flex rounded-lg flex-col gap-2">
                     <label className="text-xl text-gray-300">{translation.main.checkout.apartmen}</label>
-                    <input type="text" name="house" className="w-full py-[1vh] text-[18px] rounded-lg bg-zinc-100 outline-none text-black pl-2" />
+                    <input
+                        type="text"
+                        name="house"
+                        className={`w-full py-[1vh] border-[1px] text-[18px] rounded-lg bg-zinc-100 outline-none text-black pl-2 ${errors.house ? "border-red-500" : "border-gray-300"}`}
+                    />
+                    {errors.house && <span className="text-red-500 text-sm">{errors.house}</span>}
                 </div>
 
                 <div className="flex rounded-lg flex-col gap-2">
                     <label className="text-xl text-gray-300">{translation.main.checkout.town}</label>
-                    <input type="text" name="town" className="w-full py-[1vh] text-[18px] rounded-lg bg-zinc-100 outline-none text-black pl-2" />
+                    <input
+                        type="text"
+                        name="town"
+                        className={`w-full h-[50px] border-[1px] rounded-lg bg-zinc-100 outline-none text-black pl-2 ${errors.town ? "border-red-500" : "border-gray-300"}`}
+                    />
+                    {errors.town && <span className="text-red-500 text-sm">{errors.town}</span>}
                 </div>
 
                 <div className="flex rounded-lg flex-col gap-2">
                     <label className="text-xl text-gray-300">{translation.main.checkout.phone}</label>
-                    <input type="phone" name="phone" className="w-full py-[1vh] text-[18px] rounded-lg bg-zinc-100 outline-none text-black pl-2" />
+                    <input
+                        type="phone"
+                        name="phone"
+                        className={`w-full h-[50px] border-[1px] rounded-lg bg-zinc-100 outline-none text-black pl-2 ${errors.phone ? "border-red-500" : "border-gray-300"}`}
+                    />
+                    {errors.phone && <span className="text-red-500 text-sm">{errors.phone}</span>}
                 </div>
 
                 <div className="flex rounded-lg flex-col gap-2">
                     <label className="text-xl text-gray-300">{translation.main.checkout.email}</label>
-                    <input type="email" name="email" className="w-full h-[50px] rounded-lg bg-zinc-100 outline-none text-black pl-2" />
+                    <input
+                        type="email"
+                        name="email"
+                        className={`w-full h-[50px] border-[1px] rounded-lg bg-zinc-100 outline-none text-black pl-2 ${errors.email ? "border-red-500" : "border-gray-300"}`}
+                    />
+                    {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
                 </div>
             </div>
 
@@ -186,37 +248,39 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ translation, lang }) => {
                     </div>
                 ) : (
                     <>
-                        {/* Отображение товаров из корзины */}
                         {cartData.map((el: any) => {
                             const matchedItem = dataProd.find((item: any) => item._id === el._id);
 
                             if (matchedItem) {
+
+                                
                                 return (
                                     <div key={matchedItem._id}>
                                         <div className="w-full mb-[30px] flex justify-between items-center">
                                             <div className="flex items-center gap-[20px]">
                                                 <div className="flex rounded-lg overflow-hidden w-[30%] h-[10vh] gap-5 items-center">
                                                     <Image
-                                                        className='w-full object-cover'
-                                                        src={matchedItem.image[0] || "/images/televizor.svg"} // Динамическое изображение товара
+                                                        className="w-full object-cover"
+                                                        src={matchedItem.image[0] || "/images/televizor.svg"}
                                                         alt={matchedItem.name || "Product"}
                                                         width={500}
                                                         height={500}
                                                     />
                                                 </div>
-                                                <span className='text-[20px]'>{matchedItem.titles[lang]}</span> {/* Динамическое название товара */}
+                                                <span className="text-[20px]">{matchedItem.titles[lang]}</span>
                                             </div>
-                                            <span className='whitespace-nowrap text-[20px]'>{matchedItem.discount > 0
-                                                ? `$ ${(matchedItem.price - (matchedItem.price * matchedItem.discount) / 100).toFixed(2)}`
-                                                : `$ ${matchedItem.price}`}</span> {/* Динамическая цена после скидки */}
+                                            <span className="whitespace-nowrap text-[20px]">
+                                                {matchedItem.discound > 0
+                                                    ? `$ ${(matchedItem.price - (matchedItem.price * matchedItem.discound) / 100).toFixed(2)}`
+                                                    : `$ ${matchedItem.price}`}
+                                            </span>
                                         </div>
                                     </div>
                                 );
                             }
-                            return null; // Возвращаем null, если не нашли совпадений
+                            return null;
                         })}
 
-                        {/* Отображение суммы */}
                         <div className="flex w-full justify-between">
                             <span>Subtotal:</span>
                             <p>{`$${total.toFixed(2)}`}</p>
@@ -244,6 +308,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ translation, lang }) => {
                 <button type='submit' className="w-[40%] py-[1.5vh] bg-red-500 rounded-md text-white">
                     {translation.main.checkout.place}
                 </button>
+
             </div>
         </form>
     );

@@ -6,18 +6,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const WishLIstHeaderButton: React.FC = () => {
-  const { wishlistCount } = useAppContext();
-  const [userId, setUserId] = useState<string | null>(null);
-
-  useEffect(() => {
-    const cookieStore = document.cookie;
-    const userIdCookie = cookieStore
-      .split("; ")
-      .find((row) => row.startsWith("userId="))
-      ?.split("=")[1];
-
-    setUserId(userIdCookie || null);
-  }, []); // Извлекаем wishlistCount из контекста
+  const { wishlistCount, userId } = useAppContext();
 
   return (
     <Link className="relative" href={`${userId ? "/wishlist" : "/sign_in"}`}>

@@ -10,26 +10,12 @@ interface Props {
 }
 
 const AddToCart: React.FC<Props> = ({ id, border, translation }) => {
-    const [userId, setUserId] = useState<string | null>(null);
     const [like, setLike] = useState<boolean>(false);  // Состояние для текущего id
-    const [cart, setCart] = useState<{ [key: string]: any }>({}); // Состояние для хранения wishlist
-    const { setCartCount } = useAppContext()
-
-    // Получаем userId из cookie
-    useEffect(() => {
-        const cookieStore = document.cookie;
-        const userIdCookie = cookieStore
-            .split("; ")
-            .find((row) => row.startsWith("userId="))
-            ?.split("=")[1];
-
-        setUserId(userIdCookie || null);
-    }, []);
+    const { setCartCount, userId } = useAppContext()
 
     // Загружаем wishlist из localStorage при монтировании
     useEffect(() => {
         const cartFromLocalStorage = JSON.parse(localStorage.getItem("cart") || "{}");
-        setCart(cartFromLocalStorage);
         setLike(cartFromLocalStorage.hasOwnProperty(id));  // Проверяем, есть ли текущий товар в wishlist
     }, [id]);
 
@@ -41,7 +27,6 @@ const AddToCart: React.FC<Props> = ({ id, border, translation }) => {
                     const res = await fetch(`http://localhost:3000/api/users/${userId}`);
                     if (res.ok) {
                         const data = await res.json();
-                        setCart(data.data.cart);  // Загружаем wishlist с сервера
                         setCartCount(data.data.cart.length)
                         setLike(data.data.cart.includes(id));  // Проверяем, есть ли товар в wishlist с сервера
                     } else {

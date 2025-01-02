@@ -79,7 +79,7 @@ const MyOrderReload: React.FC<MyOrderReloadProps> = ({ lang, translation }) => {
                                 return matchedProduct ? (
                                     <tr
                                         key={productIndex}
-                                        className={`${product.type === "pending" && "bg-white"} 
+                                        className={`${product.type === "pending" && "bg-red-100"} 
                                                     ${product.type === "delivering" && "bg-yellow-100"} 
                                                     ${product.type === "ready" && "bg-green-100"} 
                                                     rounded-xl`}

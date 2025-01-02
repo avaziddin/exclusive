@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
@@ -12,10 +12,20 @@ export function AppWrapper({ children }: { children: ReactNode }) {
     const [count, setCount] = useState<any[]>([]);
     const [wishlistCount, setWishlistCount] = useState<any[]>([]);
     const [cartCount, setCartCount] = useState<any[]>([]);
-    const [dataProd, setDataProd] = useState<any[]>([])
-    const [category, setCategory] = useState<any>("Menu")
-    const [loading, setLoading] = useState(true)
+    const [dataProd, setDataProd] = useState<any[]>([]);
+    const [category, setCategory] = useState<any>("Menu");
+    const [loading, setLoading] = useState(true);
+    const [userId, setUserId] = useState<string | null>(null);
 
+    useEffect(() => {
+        // Извлечение userId из cookies
+        const cookieStore = document.cookie;
+        const userIdCookie = cookieStore
+            .split("; ")
+            .find((row) => row.startsWith("userId="))
+            ?.split("=")[1];
+        setUserId(userIdCookie || null);
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,7 +38,7 @@ export function AppWrapper({ children }: { children: ReactNode }) {
                     fetch("http://localhost:3000/api/countdown", { cache: "no-cache" }),
                     fetch("http://localhost:3000/api/users", { cache: "no-cache" }),
                 ]);
-    
+
                 // Преобразование данных
                 const [categoryData, prodData, countData, usersData] = await Promise.all([
                     resCategory.json(),
@@ -36,7 +46,7 @@ export function AppWrapper({ children }: { children: ReactNode }) {
                     resCount.json(),
                     resUsers.json(),
                 ]);
-    
+
                 // Установка данных
                 setDataCat(categoryData.data);
                 setDataProd(prodData.data);
@@ -48,13 +58,36 @@ export function AppWrapper({ children }: { children: ReactNode }) {
                 setLoading(false);
             }
         };
-    
+
         fetchData();
     }, []);
-    
 
     return (
-        <AppContext.Provider value={{wishlistCount,cartCount, setCartCount, setCategory,category, setWishlistCount, dataWishlist, setDataWishlist,count, dataUsers, setDataUsers, setCount,dataProd, setDataProd, dataC, setDataC, dataCat, setDataCat, loading, setLoading }}>
+        <AppContext.Provider
+            value={{
+                wishlistCount,
+                cartCount,
+                setCartCount,
+                setCategory,
+                category,
+                setWishlistCount,
+                dataWishlist,
+                setDataWishlist,
+                count,
+                dataUsers,
+                setDataUsers,
+                setCount,
+                dataProd,
+                setDataProd,
+                dataC,
+                setDataC,
+                dataCat,
+                setDataCat,
+                loading,
+                setLoading,
+                userId, // Добавляем userId в контекст
+            }}
+        >
             {children}
         </AppContext.Provider>
     );

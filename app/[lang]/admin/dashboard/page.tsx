@@ -10,8 +10,8 @@ interface pageProps {
 const page: React.FC<pageProps> = () => {
     return (
         <>
-            <div className="bg-orange-500 w-full flex justify-center items-center">
-                <h1 className="text-[50px]">Welcome to admin panel of FreMeal</h1>
+            <div className="bg-gray-100 w-full flex justify-center items-center">
+                <h1 className="text-[50px] text-black">Welcome to admin panel of Exclusive</h1>
             </div>
             <div className="flex justify-center h-[90vh] items-center">
                 <div className="spin-animation">
@@ -20,7 +20,7 @@ const page: React.FC<pageProps> = () => {
                             transformStyle: 'preserve-3d',
                             backfaceVisibility: 'hidden',
                         }}
-                        src="/images/burger.svg"
+                        src="/images/open.svg"
                         alt="burger"
                         width={400}
                         height={400}

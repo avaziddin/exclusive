@@ -8,8 +8,8 @@ type Props = {
 const Users_Dashboard: React.FC<Props> = ({ item }) => {
 
 
-    const sale = item.price * item.discound / 100
-    const sale_price = item.price - sale
+    console.log(item);
+    
 
     return (
         <>
@@ -20,8 +20,8 @@ const Users_Dashboard: React.FC<Props> = ({ item }) => {
 
                 <div className="w-full flex gap-[2%]">
                     {item.image &&
-                        <div className="w-[20%] rounded-lg h-[20vh] overflow-hidden">
-                            <Image className="object-cover" src={item.image[0]} alt="user" width={300} height={300} />
+                        <div className="w-[10%] rounded-lg h-fit overflow-hidden">
+                            <Image className="object-cover" src={item.image[0] || "/images/person.svg"} alt="user" width={300} height={300} />
                         </div>
                     }
                     <div className="w-[90%] flex flex-col">
