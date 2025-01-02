@@ -189,18 +189,18 @@ const ProductId: React.FC<ProductIdProps> = ({ id, lang, translation }) => {
                                                         {translation.main.product.colors}
                                                     </span>
                                                     <div className="flex xs:flex-wrap sm:gap-3 xs:gap-[10px] lg:gap-2">
-                                                        {item.colors.map((el: any) => (
+                                                        {item.colors.map((element: any) => (
                                                             <div
-                                                                key={el._id}
-                                                                onClick={() => toggleItem(el)}
+                                                                key={element._id}
+                                                                onClick={() => toggleItem(element)}
                                                                 className={`xs:w-[25px] xs:h-[20px] sm:w-[25px] sm:h-[25px] md:w-[30px] md:h-[30px] sm:border-[3px] outline-[2px] md:border-[3px] rounded-full cursor-pointer flex items-center justify-center transition-[.2] ${selectedItems.some(selected => selected.color === el.color)
                                                                     ? ' opacity-50 scale-[.9] border-green-500 border-opacity-100'
                                                                     : 'opacity-100 scale-[1]'
                                                                     }`}
                                                             >
                                                                 <div
-                                                                    className={`w-[30px] h-[25px] transition-[.2] rounded-[50%] ${selectedItems.some(selected => selected.color === el.color) ? "w-[17px] h-[17px]" : "w-[30px] h-[25px]"}`}
-                                                                    style={{ backgroundColor: el.color }}
+                                                                    className={`w-[30px] h-[25px] transition-[.2] rounded-[50%] ${selectedItems.some(selected => selected.color === element.color) ? "w-[17px] h-[17px]" : "w-[30px] h-[25px]"}`}
+                                                                    style={{ backgroundColor: element.color }}
                                                                 ></div>
                                                             </div>
                                                         ))}
@@ -214,13 +214,13 @@ const ProductId: React.FC<ProductIdProps> = ({ id, lang, translation }) => {
                                                         {translation.main.product.size}
                                                     </span>
                                                     <div className="flex xs:flex-wrap xs:gap-[5px] sm:gap-2">
-                                                        {item.size.map((el: any) => (
+                                                        {item.size.map((el_sec: any) => (
                                                             <div
-                                                                key={el._id}
-                                                                onClick={() => toggleSize(el)}
+                                                                key={el_sec._id}
+                                                                onClick={() => toggleSize(el_sec)}
                                                                 className={`xs:w-[30px] xs:h-[30px] sm:w-[35px] sm:h-[35px] md:w-[45px] md:h-[34px] border border-gray-400 transition-[.2] flex justify-center items-center font-medium text-[16px] rounded-md ${selectedSize.some(selected => selected.size === el.size) ? 'bg-red-500 text-white' : ''}`}
                                                             >
-                                                                <p>{el.size.toUpperCase()}</p>
+                                                                <p>{el_sec.size.toUpperCase()}</p>
                                                             </div>
                                                         ))}
                                                     </div>

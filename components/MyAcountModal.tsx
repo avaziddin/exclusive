@@ -61,7 +61,7 @@ const MyAcountModalCom: React.FC<MyAcountModalProps> = ({ translation }) => {
 
 
     // Перенаправление на страницу входа
-    location.href = "/sign_in";
+    window.location.href = "/sign_in";
   };
 
   return (
@@ -85,7 +85,7 @@ const MyAcountModalCom: React.FC<MyAcountModalProps> = ({ translation }) => {
                 </div>
 
                 {isOpen && (
-                  <div className="absolute top-14 right-0 bg-gradient-blur backdrop-blur-md text-white shadow-lg rounded-lg w-64 p-4 z-10">
+                  <div className="absolute z-50 top-14 right-0 bg-gradient-blur backdrop-blur-md text-white shadow-lg rounded-lg w-64 p-4 z-10">
                     <ul className="flex flex-col gap-5">
                       <li>
                         <Link
@@ -132,8 +132,8 @@ const MyAcountModalCom: React.FC<MyAcountModalProps> = ({ translation }) => {
                         </Link>
                       </li>
 
-                      <li className="group flex items-center text-[17px] gap-3 hover:text-gray-300 transition">
-                        <button className="flex gap-3" onClick={handleLogout}>
+                      <li onClick={handleLogout} className="group flex items-center text-[17px] gap-3 hover:text-gray-300 transition">
+                        <button className="flex gap-3" >
                           <Image
                             src="/images/exit_white.svg"
                             alt="Logout"
