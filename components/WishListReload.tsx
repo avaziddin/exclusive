@@ -17,6 +17,12 @@ const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) =>
     const { dataUsers, dataProd, loading, setWishlistCount } = useAppContext();
     const [userId, setUserId] = useState<string | null>(null);
 
+    const handleCategoryClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+        // You can set your category in local storage inside the event handler
+        localStorage.setItem("type", "All");
+        localStorage.setItem("category", "");
+    };
+
     useEffect(() => {
         const cookieStore = document.cookie;
         const userIdCookie = cookieStore
@@ -74,9 +80,6 @@ const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) =>
                 <span className="text-[25px] font-medium">
                     {translation.main.wishlist.title} ({safeDataWishlist.length})
                 </span>
-                <button className="w-[15%] p-[10px] border hover:border-white hover:bg-red-500 transition-[.2s] hover:text-white active:scale-[.9] border-black rounded-xl">
-                    {translation.main.wishlist.move}
-                </button>
             </div>
 
             <div className="flex gap-[2%] overflow-x-auto scrollbar-hidden mb-[50px] mt-[50px]">
@@ -123,7 +126,7 @@ const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) =>
                                         width={500}
                                         height={300}
                                     />
-                                    
+
                                     <AddToCart translation={translation} border={true} id={item._id} />
 
                                 </div>
@@ -155,9 +158,13 @@ const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) =>
                         <div className="bg-red-500 w-[20px] h-[40px] rounded-lg"></div>
                         <span className="text-black font-semibold text-2xl">{translation.main.wishlist.just}</span>
                     </div>
-                    <button className="text-black w-[15%] p-[10px] border hover:bg-red-500 transition-[.2s] hover:border-white hover:text-white active:scale-[.9] border-black rounded-xl">
-                        {translation.main.wishlist.see}
-                    </button>
+
+                    <Link href={"/allProd"} onClick={handleCategoryClick}>
+                        <button className="text-black w-full p-[10px] border hover:bg-red-500 transition-[.2s] hover:border-white hover:text-white active:scale-[.9] border-black rounded-xl">
+                            {translation.main.wishlist.see}
+                        </button>
+                    </Link>
+
                 </div>
             }
 
@@ -190,7 +197,7 @@ const WishlistReload: React.FC<WishlistReloadProps> = ({ translation, lang }) =>
                                         />
                                     </Link>
 
-                                    <AddToCart  translation={translation} border={true} id={item._id} />
+                                    <AddToCart translation={translation} border={true} id={item._id} />
 
                                 </div>
                                 <div>
