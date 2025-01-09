@@ -13,13 +13,15 @@ interface ProductIdProps {
 }
 
 const ProductId: React.FC<ProductIdProps> = ({ id, lang, translation }) => {
-    const { dataProd, dataCat, dataUsers } = useAppContext();
+    const { dataProd, dataCat} = useAppContext();
     const [count, setCount] = useState(1);
     const [selectedSize, setSelectedSize] = useState<any[]>([]);
     const [selectedItems, setSelectedItems] = useState<any[]>([]);
-    const [userId, setUserId] = useState<string | null>(null);
 
     const [isLoading, setIsLoading] = useState(true); // Состояние загрузки
+
+    console.log(dataProd);
+    
 
     useEffect(() => {
         const cookieStore = document.cookie;
@@ -27,7 +29,6 @@ const ProductId: React.FC<ProductIdProps> = ({ id, lang, translation }) => {
             .split("; ")
             .find((row) => row.startsWith("userId="))
             ?.split("=")[1];
-        setUserId(userIdCookie || null);
     }, []);
 
 

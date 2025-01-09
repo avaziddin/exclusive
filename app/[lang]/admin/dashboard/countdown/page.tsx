@@ -1,19 +1,20 @@
-"use client"
+"use client";
 
 import React from 'react';
-import Modal_Countdown from '@/components/modal_countdown';
 import { useAppContext } from '@/context';
-import { Span } from 'next/dist/trace';
 import DashboardProductModal from '@/components/Dashboard_product_modal';
 
 export default function Page() {
   const { count, loading } = useAppContext();
 
+  // Получаем сегодняшнюю дату в формате ISO
+  const today = new Date().toISOString().split('T')[0]; // Только дата без времени
+
   return (
     <>
       <div className="w-full pt-[2%] pl-[2%] bg-background">
 
-        <div className="w-fit flex gap-[50px] bg-gray-100 p-[1%] rounded-lg  justify-center items-center">
+        <div className="w-fit flex gap-[50px] bg-gray-100 p-[1%] rounded-lg justify-center items-center">
           {loading ? (
             <div className="flex justify-center gap-[5px] pt-[20px]">
               <span className='sr-only'>Loading...</span>
@@ -22,7 +23,7 @@ export default function Page() {
               <div className='h-4 w-4 bg-black rounded-full animate-bounce'></div>
             </div>
           ) : (
-            count.map((item: any) => (
+            (count.length > 0 ? count : [{ _id: 'default', countdown: today }]).map((item: any) => (
               <div key={item._id} className='flex items-center gap-[50px]'>
                 <div className="flex gap-[5px]">
                   <span className='text-[30px] text-black'>Date:</span>
@@ -40,4 +41,4 @@ export default function Page() {
       </div>
     </>
   );
-};
+}

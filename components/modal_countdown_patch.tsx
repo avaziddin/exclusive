@@ -47,18 +47,29 @@ const Modal_countdown_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
 
         fm.forEach((val: any, key: any) => (product[key] = val));
 
-        const res = await fetch(`http://localhost:3000/api/${type}/${id}`, {
-            method: "PATCH",
-            body: JSON.stringify(product),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        const method = item?.countdown ? "PATCH" : "POST";
+        const url = item?.countdown
+            ? `http://localhost:3000/api/${type}/${id}`
+            : `http://localhost:3000/api/${type}`;
 
-        console.log(res);
+        try {
+            const res = await fetch(url, {
+                method,
+                body: JSON.stringify(product),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
 
-        if (res.status == 200 || res.status == 201) {
-            alert("success");
+            if (res.ok) {
+                alert("Success");
+                setIsOpend(false); // Закрываем модальное окно при успешном запросе
+            } else {
+                alert("Error during the request");
+            }
+        } catch (error) {
+            console.error("Request error:", error);
+            alert("An error occurred while submitting the data");
         }
     }
 
@@ -122,23 +133,21 @@ const Modal_countdown_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
 
                         <div className="flex flex-col w-full gap-[5%]">
                             <div className="flex w-full gap-[2%]">
-                                {item?.countdown && (
-                                    <div className="flex w-full py-[5%] gap-[5%]">
-                                        <div className="w-full">
-                                            <label className="block text-sm font-medium text-white" htmlFor="title">
-                                                Countdown
-                                            </label>
-                                            <input
-                                                className="w-full px-4 outline-none text-[18px] py-4 border border-gray-300 rounded-md"
-                                                type="date"
-                                                name="countdown"
-                                                id="countdown"
-                                                placeholder="Enter countdown"
-                                                required
-                                            />
-                                        </div>
+                                <div className="flex w-full py-[5%] gap-[5%]">
+                                    <div className="w-full">
+                                        <label className="block text-sm font-medium text-white" htmlFor="countdown">
+                                            Countdown
+                                        </label>
+                                        <input
+                                            className="w-full px-4 outline-none text-[18px] py-4 border border-gray-300 rounded-md"
+                                            type="date"
+                                            name="countdown"
+                                            id="countdown"
+                                            placeholder="Enter countdown"
+                                            required
+                                        />
                                     </div>
-                                )}
+                                </div>
                             </div>
                         </div>
 
@@ -146,7 +155,7 @@ const Modal_countdown_patch: React.FC<ModalProps> = ({ Button, id, type }) => {
                             className="w-full mt-[20px] px-4 py-2 bg-gray-200 text-black font-medium rounded-md active:scale-[.9] transition-[.2s] hover:bg-gray-300 border-none focus:no-underline outline-none"
                             type="submit"
                         >
-                            Add Product
+                            {item?.countdown ? "Update Countdown" : "Add Countdown"}
                         </button>
                     </form>
                 </div>
