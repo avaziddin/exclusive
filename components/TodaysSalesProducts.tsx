@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useRef } from "react";
 import AddToWishlist from "./AddToWishlist";
-import AllProd from "./AllProd";
 import AddToCart from "./AddToCart";
 
 interface TodaysSalesProductsProps {
