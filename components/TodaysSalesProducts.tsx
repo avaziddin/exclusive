@@ -84,7 +84,7 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
           flash_sales.map((item: any) => (
             <div
               key={item._id}
-              className="whitespace-nowrap xs:w-full sm:w-[49%] lg:w-[32%] overflow-hidden xl:w-[23.5%] 2xl:w-[18.4%] flex-shrink-0 h-fit mb-[50px]"
+              className="whitespace-nowrap xs:w-full sm:w-[49%] lg:w-[32%] overflow-hidden xl:w-[23.5%]  flex-shrink-0 h-fit mb-[50px]"
             >
 
 
@@ -113,7 +113,7 @@ const TodaysSalesProducts: React.FC<TodaysSalesProductsProps> = ({ translation, 
 
                   <Link href={`/${item._id}`}>
                     <Image
-                      className="w-content xs:h-[20vh]  sm:h-[30vh] rounded-lg object-cover"
+                      className="w-content xs:h-[20vh]  sm:h-[35vh] rounded-lg object-cover"
                       src={item.image?.[0] || "/images/default.png"}
                       alt={item.titles[lang] || "Product"}
                       width={500}

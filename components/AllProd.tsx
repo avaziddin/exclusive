@@ -62,7 +62,7 @@ const AllProd: React.FC<AllProdProps> = ({ translation }) => {
                 {data.map((item: any) => (
                     <div
                         key={item._id}
-                        className="whitespace-nowrap xs:w-full sm:w-[49%] lg:w-[32%] overflow-hidden xl:w-[23.5%] 2xl:w-[18.4%] flex-shrink-0 h-fit mb-[50px]"
+                        className="whitespace-nowrap xs:w-full sm:w-[49%] lg:w-[32%] overflow-hidden xl:w-[23.5%] flex-shrink-0 h-fit mb-[50px]"
                     >
                         <div className="mb-[10px] relative rounded-xl">
                             <div className="absolute left-0 flex justify-end pr-[3%] top-4 z-50 w-full">
@@ -77,7 +77,7 @@ const AllProd: React.FC<AllProdProps> = ({ translation }) => {
 
                             <Link href={`/${item._id}`}>
                                 <Image
-                                    className="w-content h-[30vh] rounded-lg object-cover"
+                                    className="w-content h-[35vh] rounded-lg object-cover"
                                     src={item.image?.[0] || "/images/placeholder.png"}
                                     alt="product"
                                     width={500}

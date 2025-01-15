@@ -23,7 +23,7 @@ const Layout: React.FC<LayoutProps> = async ({ children, translation, lang }) =>
             <AppWrapper>
                 <header className=' text-white relative border-b border-gray-300'>
 
-                    <div className="xs:bg-white items-center sm:bg-black py-[10px] xl:px-[7%] w-full bg-black flex  justify-center">
+                    <div className="xs:bg-white items-center sm:bg-black py-[10px] px-20 w-full bg-black flex  justify-center">
                         <div className="flex">
 
                             <p className='xs:hidden sm:text-[14px] sm:px-[80px] sm:block text-center'>{translation.header.headerTitle}</p>
@@ -43,7 +43,7 @@ const Layout: React.FC<LayoutProps> = async ({ children, translation, lang }) =>
                     </div>
 
                 </header>
-                <main className='xs:px-[10px] sm:px-[7%] px-[7%]'>
+                <main className='px-20'>
                     {children}
                 </main>
                 <footer className="w-full bg-black xs:flex-col md:flex-row md:flex md:p-[5%] xs:gap-[10px] lg:flex justify-between text-white xs:text-[10px] sm:text-[12px] lg:text-[15px] xl:text-[17px] px-[7%] py-[2%]">

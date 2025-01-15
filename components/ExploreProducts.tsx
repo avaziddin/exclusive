@@ -85,7 +85,7 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
         {explore_our_products.map((item: any) => (
           <div
             key={item._id}
-            className={`${explore_our_products.length > 5 ? "w-fit" : "xs:w-full flex-shrink-0 xs:mb-[4vh] sm:w-[49%] lg:w-[32%] xl:w-[23%] 2xl:w-[18.4%] mb-[50px]"} hover:bg-gray-100 group rounded-lg pb-[10px] transition-[.1s]`}
+            className={`${explore_our_products.length > 5 ? "w-fit" : "xs:w-full flex-shrink-0 xs:mb-[4vh] sm:w-[49%] lg:w-[32%] xl:w-[23%] mb-[50px]"} hover:bg-gray-100 group rounded-lg pb-[10px] transition-[.1s]`}
           >
             <div className="mb-[10px] relative rounded-xl">
               <div className="absolute left-0 flex justify-end pr-[3%] top-4 z-50 w-full">
@@ -106,7 +106,7 @@ const ExploreProduct: React.FC<TodaysSalesProductsProps> = ({ translation }) => 
 
               <Link href={`/${item._id}`}>
                 <Image
-                  className="w-conent h-[30vh] rounded-lg object-cover"
+                  className="w-conent h-[35vh] rounded-lg object-cover"
                   src={item.image?.[0] || "/images/placeholder.png"}
                   alt="product"
                   width={500}

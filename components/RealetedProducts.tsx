@@ -39,7 +39,7 @@ const RealetedProduct: React.FC<TodaysSalesProductsProps> = ({ translation, cate
             item.category === category ? (
               <div
                 key={item._id}
-                className="whitespace-nowrap xs:w-full sm:w-[49%] lg:w-[32%] overflow-hidden xl:w-[23.5%] 2xl:w-[18.4%] flex-shrink-0 h-fit mb-[50px]"
+                className="whitespace-nowrap xs:w-full sm:w-[49%] lg:w-[32%] overflow-hidden xl:w-[23.5%] flex-shrink-0 h-fit mb-[50px]"
               >
 
 
@@ -66,7 +66,7 @@ const RealetedProduct: React.FC<TodaysSalesProductsProps> = ({ translation, cate
 
                     <Link href={`/${item._id}`}>
                       <Image
-                        className="w-content h-[30vh] rounded-lg object-cover"
+                        className="w-content h-[35vh] rounded-lg object-cover"
                         src={item.image?.[0] || "/images/default.png"}
                         alt="Product"
                         width={500}

@@ -25,14 +25,14 @@ const Layout: React.FC<LayoutProps> = async ({ children, translation, lang }) =>
       <AppWrapper>
         <header className=' text-white relative border-b border-gray-300'>
 
-          <div className="xs:bg-white items-center sm:bg-black py-[10px] xl:px-[7%] w-full bg-black flex  justify-center">
+          <div className="xs:bg-white items-center sm:bg-black py-[10px] px-20 w-full bg-black flex  justify-center">
             <div className="flex">
 
               <p className='xs:hidden sm:text-[14px] sm:px-[80px] sm:block text-center'>{translation.header.headerTitle}</p>
               <LanguageSwitcher />
             </div>
           </div>
-          <div className="xs:pb-[2px]  sm:px-[7%] xs:px-[4px] bg-white w-full items-center flex justify-between  pt-[3%] lg:pl-[7%] lg:pr-[7%] lg:pb-5">
+          <div className="xs:pb-[2px]  px-20 bg-white w-full items-center flex justify-between  pt-[3%] lg:pb-5">
             <h1 className="xs:hidden lg:block text-black lg:text-[26px] font-semibold">{translation.header.headerTitleSec}</h1>
 
             <HeaderNav translation={translation} />

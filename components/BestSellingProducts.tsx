@@ -47,7 +47,7 @@ const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation, 
                 {best_selling.map((item: any) => (
                     <div
                         key={item._id}
-                        className="whitespace-nowrap xs:w-full sm:w-[49%] lg:w-[32%] xl:w-[23.5%] 2xl:w-[18.4%] flex-shrink-0 h-fit mb-[50px]"
+                        className="whitespace-nowrap xs:w-full sm:w-[49%] lg:w-[32%] xl:w-[23.5%]  flex-shrink-0 h-fit mb-[50px]"
                     >
                         <div className="hover:bg-gray-100 group rounded-lg w-fit pb-[20px] transition-[.1s]">
                             <div className="mb-[10px] relative rounded-xl">
@@ -67,7 +67,7 @@ const BestSellingProducts: React.FC<BestSellingProductsProps> = ({ translation, 
 
                                 <Link href={`/${item._id}`}>
                                     <Image
-                                        className="w-conent h-[30vh] rounded-lg object-cover"
+                                        className="w-conent h-[35vh] rounded-lg object-cover"
                                         src={item.image?.[0] || "/images/placeholder.png"}
                                         alt="product"
                                         width={500}
