@@ -10,7 +10,7 @@ export default async function Page() {
   const { data } = await res.json()
   return (
     <>
-      <div className="w-full bg-background">
+      <div className="w-full bg-blue-950 bg-background">
         <div className=" pt-[5%] p-[1%]">
           {data.map((item: User) => {
             return <Users_Dashboard item={item} />

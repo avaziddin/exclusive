@@ -9,7 +9,7 @@ interface SliderDashboardProps {
 const SliderDashboard: React.FC<SliderDashboardProps> = ({ item }) => {
     return (
         <>
-            <div className="relative mb-[1%] w-[49%] flex overflow-hidden bg-gray-200 gap-[10px] text-black rounded-md">
+            <div className="relative mb-[1%] w-[49%] flex overflow-hidden bg-blue-800 gap-[10px] text-white rounded-md">
                 <div className="w-full flex relative">
 
                     <Image className='h-[40vh] cover' src={item.image[0]} alt={item.alt} width={500} height={500} />

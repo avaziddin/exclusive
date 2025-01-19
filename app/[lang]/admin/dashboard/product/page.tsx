@@ -16,9 +16,9 @@ export default async function Page({ params: { lang } }: PageProps) {
   const { data } = await res.json()
   return (
     <>
-      <div className="w-full bg-background">
+      <div className="w-full bg-blue-950 bg-background">
           <Modal_dashboard button={
-            <button className='p-[10px] pr-[15px] pl-[15px] font-medium text-[18px] absolute top-[1%] right-[1%] active:scale-[.9] transition-[.2s] active:bg-gray-300 text-black  bg-gray-200 rounded-[15px]'>
+            <button className='p-[10px] pr-[15px] pl-[15px] font-medium text-[18px] absolute top-[1%] right-[1%] active:scale-[.9] transition-[.2s] active:bg-blue-950 text-white  bg-blue-800 rounded-[15px]'>
             Add product
          </button>
           } /> 

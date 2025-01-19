@@ -9,7 +9,7 @@ const Category_Dashboard: React.FC<Props> = ({ item }) => {
 
     return (
 
-        <> <div key={item._id} className="relative mb-[1%] flex overflow-hidden bg-gray-200 gap-[10px] text-black w-full rounded-md">
+        <> <div key={item._id} className="relative mb-[1%] flex overflow-hidden bg-blue-800 gap-[10px] text-white w-full rounded-md">
             <div className="w-full flex gap-[1%] relative">
 
                 <div className="">

@@ -15,7 +15,7 @@ const Products_Dashboard: React.FC<Props> = ({ item }) => {
         <>
             <div
                 key={item._id}
-                className="p-[1%]  gap-[2%] rounded-[15px] bg-gray-100 mb-[2%] text-black"
+                className="p-[1%]  gap-[2%] rounded-[15px] bg-blue-800 mb-[2%] text-white"
             >
 
                 <div className="flex">

@@ -12,9 +12,9 @@ export default function Page() {
 
   return (
     <>
-      <div className="w-full pt-[2%] pl-[2%] bg-background">
+      <div className="w-full bg-blue-950 pt-[2%] pl-[2%] bg-background">
 
-        <div className="w-fit flex gap-[50px] bg-gray-100 p-[1%] rounded-lg justify-center items-center">
+        <div className="w-fit flex gap-[50px] bg-blue-800 p-[1%] rounded-lg justify-center items-center">
           {loading ? (
             <div className="flex justify-center gap-[5px] pt-[20px]">
               <span className='sr-only'>Loading...</span>
@@ -26,8 +26,8 @@ export default function Page() {
             (count.length > 0 ? count : [{ _id: 'default', countdown: today }]).map((item: any) => (
               <div key={item._id} className='flex items-center gap-[50px]'>
                 <div className="flex gap-[5px]">
-                  <span className='text-[30px] text-black'>Date:</span>
-                  <h1 className='text-[30px] whitespace-normal font-semibold text-black'>{item.countdown || "No timer"}</h1>
+                  <span className='text-[30px] text-white'>Date:</span>
+                  <h1 className='text-[30px] whitespace-normal font-semibold text-white'>{item.countdown || "No timer"}</h1>
                 </div>
 
                 <div className="flex-col top-[2%] justify-end relative">

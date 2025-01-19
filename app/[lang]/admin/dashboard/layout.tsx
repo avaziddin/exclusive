@@ -20,21 +20,20 @@ const Dashboard: React.FC<DashboardProps> = ({ children }: { children: ReactNode
 
 
 
-            <div className="flex">
+            <div className="flex bg-blue-950">
 
-                <aside className='w-[18%] flex flex-col justify-between fixed top-0 bottom-0 p-[1%] bg-gray-100 h-[100vh]'>
+                <aside className='w-[18%] flex flex-col justify-between fixed top-0 bottom-0 p-[1%] bg-blue-950 h-[100vh]'>
 
                     <div className="">
 
                         <Link href={"/admin/dashboard"}>
-                            <h1 className='text-[30px] text-black mb-[15%] pl-[3%] font-semibold'>Exclusive</h1>
+                            <h1 className='text-[30px] text-white mb-[15%] pl-[3%] font-semibold'>Exclusive</h1>
                         </Link>
-                        <div className="flex flex-col text-[25px] font-medium text-black gap-[1%]">
+                        <div className="flex flex-col text-[25px] font-medium text-white gap-[1%]">
                             <Link href="/admin/dashboard">
                                 <button
                                     className={`w-full mb-[2%] flex items-center  justify-start py-[3%] px-[5%] gap-[5%] rounded-md  transition-[.3s] ${pathName === "/ru/admin/dashboard" ? "bg-gray-200 text-black" : ""}`}
                                 >
-                                    <Image src="/images/dashboard.svg" alt="dashboard" width={30} height={25} />
                                     Dashboard
                                 </button>
                             </Link>
@@ -42,7 +41,6 @@ const Dashboard: React.FC<DashboardProps> = ({ children }: { children: ReactNode
                                 <button
                                     className={`w-full mb-[2%] flex items-center  justify-start py-[3%] px-[5%] gap-[5%] rounded-md  transition-[.3s] ${pathName === "/ru/admin/dashboard/category" ? "bg-gray-200 text-black" : ""}`}
                                 >
-                                    <Image src="/images/category.svg" alt="category" width={30} height={25} />
                                     Categoryes
                                 </button>
                             </Link>
@@ -50,7 +48,6 @@ const Dashboard: React.FC<DashboardProps> = ({ children }: { children: ReactNode
                                 <button
                                     className={`w-full flex items-center  justify-start py-[3%] px-[5%] gap-[5%] rounded-md  transition-[.3s] ${pathName === "/ru/admin/dashboard/slider" ? "bg-gray-200 text-black" : ""}`}
                                 >
-                                    <Image src="/images/slider.svg" alt="category" width={30} height={25} />
                                     Slider
                                 </button>
                             </Link>
@@ -58,7 +55,6 @@ const Dashboard: React.FC<DashboardProps> = ({ children }: { children: ReactNode
                                 <button
                                     className={`w-full flex items-center  justify-start py-[3%] px-[5%] gap-[5%] rounded-md  transition-[.3s] ${pathName === "/ru/admin/dashboard/countdown" ? "bg-gray-200 text-black" : ""}`}
                                 >
-                                    <Image src="/images/countdown.svg" alt="countdown" width={30} height={25} />
                                     Countdown
                                 </button>
                             </Link>
@@ -66,7 +62,6 @@ const Dashboard: React.FC<DashboardProps> = ({ children }: { children: ReactNode
                                 <button
                                     className={`w-full flex items-center  justify-start py-[3%] px-[5%] gap-[5%] rounded-md  transition-[.3s] ${pathName === "/ru/admin/dashboard/product" ? "bg-gray-200 text-black" : ""}`}
                                 >
-                                    <Image src="/images/product.svg" alt="sales" width={30} height={30} />
                                     Products
                                 </button>
                             </Link>
@@ -74,7 +69,6 @@ const Dashboard: React.FC<DashboardProps> = ({ children }: { children: ReactNode
                                 <button
                                     className={`w-full flex items-center  justify-start py-[3%] px-[5%] gap-[5%] rounded-md  transition-[.3s] ${pathName === "/ru/admin/dashboard/product" ? "bg-gray-200 text-black" : ""}`}
                                 >
-                                    <Image src="/images/product.svg" alt="sales" width={30} height={30} />
                                     Orders
                                 </button>
                             </Link>
@@ -82,7 +76,6 @@ const Dashboard: React.FC<DashboardProps> = ({ children }: { children: ReactNode
                                 <button
                                     className={`w-full flex items-center  justify-start py-[3%] px-[5%] gap-[5%] rounded-md  transition-[.3s] ${pathName === "/ru/admin/dashboard/users" ? "bg-gray-200 text-black" : ""}`}
                                 >
-                                    <Image src="/images/users.svg" alt="sales" width={28} height={30} />
                                     Users
                                 </button>
                             </Link>
@@ -91,14 +84,14 @@ const Dashboard: React.FC<DashboardProps> = ({ children }: { children: ReactNode
 
                     <Link href="/">
                         <button
-                            className='w-full text-[22px] hover:bg-gray-100 flex justify-start p-[1%] text-black rounded-md hover:text-black transition-[.3s]'
+                            className='w-full text-[22px] hover:bg-gray-100 flex justify-start p-[1%] text-white rounded-md hover:text-black transition-[.3s]'
                         >Log out</button>
                     </Link>
 
 
                 </aside>
 
-                <main className='w-[82%] h-[100vh] ml-[18%] bg-background'>
+                <main className='w-full bg-blue-950 h-[100vh] ml-[18%] bg-background'>
                     {children}
                 </main>
             </div>
